@@ -48,8 +48,7 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
   - [Desktop Mouse & Keyboard](#desktop-mouse--keyboard)
   - [Meta Quest Touch Controllers](#meta-quest-touch-controllers)
 - [Getting Started (Run Locally in 5 Seconds)](#-getting-started-run-locally-in-5-seconds)
-- [Deploying to Netlify / GitHub Pages](#-deploying-to-netlify--github-pages)
-- [Pushing via GitHub Desktop](#-pushing-via-github-desktop)
+- [Deploying to Netlify Drop](#-deploying-to-netlify-drop)
 - [License](#-license)
 
 ---
@@ -388,30 +387,14 @@ Right-click `index.html` in VS Code and click **Open with Live Server**.
 
 ---
 
-## 🌐 Deploying to Netlify / GitHub Pages
+## 🌐 Deploying to Netlify Drop
 
-### Netlify Drop (10 Seconds)
 1. Go to [app.netlify.com/drop](https://app.netlify.com/drop).
 2. Drag and drop the entire project folder into your browser window.
 3. Your 3D WebXR simulator is instantly live with a public HTTPS URL ready for your Meta Quest headset!
-
-### GitHub Pages
-1. Push this repository to GitHub.
-2. In GitHub, go to **Settings** $\rightarrow$ **Pages**.
-3. Under **Branch**, select `main` and root `/`, then click **Save**.
-4. Your site will be published at `https://<username>.github.io/<repo-name>/`.
-
----
-
-## 🚀 Pushing via GitHub Desktop
-
-1. Open **GitHub Desktop**.
-2. Select the **`Quest`** repository.
-3. You will see that all features, real 3D models, hardware textures, and screenshots are already committed to `main`.
-4. Click **Push origin** in the top bar to publish everything directly to GitHub!
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — you are free to use, modify, distribute, and integrate this software for personal, academic, or commercial purposes.
+This project is licensed strictly for **personal, educational, and academic non-commercial use only**. Commercial use, resale, sublicensing, or commercial redistribution of this software or its visual assets is strictly prohibited.

@@ -67,6 +67,12 @@ export function validateTopology(data) {
       ip: n.ip || '10.0.0.1',
       department: n.department || 'IT & Infrastructure',
       subnet: n.subnet || n.department || 'Default Subnet',
+      vlan: n.vlan,
+      port: n.port,
+      speed: n.speed,
+      firmware: n.firmware,
+      mac: n.mac,
+      gateway: n.gateway,
       position: pos
     });
   }
@@ -91,7 +97,10 @@ export function validateTopology(data) {
       validatedLinks.push({
         id: l.id || `link-${l.from}-${l.to}`,
         from: String(l.from),
-        to: String(l.to)
+        to: String(l.to),
+        cable: l.cable || 'cat6',
+        speed: l.speed || '10 Gbps Fiber',
+        distance: l.distance || '25m'
       });
     }
   }

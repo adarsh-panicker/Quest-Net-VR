@@ -18,6 +18,13 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
 
 - [Why This Exists](#-why-this-exists)
 - [Target Audience](#-who-its-for)
+- [CCNA 200-301 Visual Academy](#-ccna-200-301-visual-academy)
+  - [OSI 7-Layer vs TCP/IP 4-Layer Encapsulation Stack](#1-osi-7-layer-vs-tcpip-4-layer-encapsulation-stack)
+  - [TCP 3-Way Handshake vs UDP Datagram Simulator](#2-tcp-3-way-handshake-vs-udp-datagram-simulator)
+  - [Physical Cabling Media & T568A/B Pinouts](#3-physical-cabling-media--t568ab-pinouts)
+  - [Virtualization, Hypervisors, VMs & Containers](#4-virtualization-hypervisors-vms--containers)
+  - [Site-to-Site IPsec VPN & Cryptographic Tunnels](#5-site-to-site-ipsec-vpn--cryptographic-tunnels)
+  - [Interactive CCNA Knowledge Check Quiz](#6-interactive-ccna-knowledge-check-quiz)
 - [Feature Showcase](#-feature-showcase)
   - [1. Interactive New Joinee Guided Tour](#1-interactive-new-joinee-guided-tour)
   - [2. Interactive 3D Network Builder](#2-interactive-3d-network-builder)
@@ -31,13 +38,51 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
 - [Controls Cheatsheet](#-controls-cheatsheet)
   - [Meta Quest 2 Touch Controllers](#meta-quest-2-touch-controllers)
   - [Desktop Mouse & Keyboard](#desktop-mouse--keyboard)
-- [Enterprise Architecture Presets](#-enterprise-architecture-presets)
+- [Enterprise Architecture Presets](#-comprehensive-network-topologies-library)
 - [Getting Started (Local Running)](#-getting-started-local-running)
 - [Deploying to Netlify Drop (10 Seconds)](#-deploying-to-netlify-drop-10-seconds)
 - [Testing on Meta Quest 2](#-testing-on-meta-quest-2)
 - [JSON Topology Schema Reference](#-json-topology-schema-reference)
 - [Performance & VR Optimization](#-performance--vr-optimization)
 - [License](#-license)
+
+---
+
+## 📘 CCNA 200-301 Visual Academy
+
+Click the **📘 CCNA Academy** button in the top navigation bar to open an interactive study academy designed for junior engineers, network students, and CCNA candidates:
+
+### 1. OSI 7-Layer vs TCP/IP 4-Layer Encapsulation Stack
+- **Color-Coded Layers**: From Layer 7 (Application) down to Layer 1 (Physical).
+- **PDU Tracking**: Follow data transformation as headers are prepended: **Data** (L7-5) $\rightarrow$ **Segment** (L4) $\rightarrow$ **Packet** (L3) $\rightarrow$ **Frame** (L2) $\rightarrow$ **Bits** (L1).
+- **Hardware Mapping**: See which devices operate at each layer (L2 Switches, L3 Routers, L4 Firewalls/Load Balancers).
+
+### 2. TCP 3-Way Handshake vs UDP Datagram Simulator
+- **Interactive 3-Way Handshake**: Step 1 Client SYN (`Seq=0 Win=65535`) $\rightarrow$ Step 2 Server SYN-ACK (`Seq=0 Ack=1`) $\rightarrow$ Step 3 Client ACK (`Seq=1 Ack=1`) $\rightarrow$ Established session.
+- **Header Comparison**: Side-by-side breakdown of TCP 20-byte reliable headers (Sequence/Ack numbers, Windowing, Flags) vs UDP 8-byte lightweight datagram headers.
+- **Trace in 3D**: Select **TCP** or **UDP** in the top bar to watch handshake round-trips or high-speed datagram streams traverse the network in real-time, logged to the Wireshark drawer.
+
+### 3. Physical Cabling Media & T568A/B Pinouts
+- **Cabling Media Catalog**:
+  - `Cat6 UTP`: Blue jacket copper twisted pair, 100m distance limit, RJ-45 connector.
+  - `Single-Mode Fiber (OS2)`: Yellow jacket, 9/125µm laser core, 10km-40km long-range carrier links.
+  - `Multi-Mode Fiber (OM4)`: Aqua jacket, 50/125µm VCSEL LED core, 400m data center fabric.
+  - `Twinax DAC`: Shielded black direct-attach copper, passive SFP28/QSFP28, 1m-5m intra-rack.
+  - `IPsec Encrypted Tunnel`: Holographic violet shield cylinder with cryptographic parameters.
+- **Interactive T568A vs T568B RJ-45 Pinout Chart**: Color-coded wire pairs (White/Orange, Orange, White/Green, Blue, White/Blue, Green, White/Brown, Brown).
+
+### 4. Virtualization, Hypervisors, VMs & Containers
+- **Type-1 Bare-Metal (ESXi, KVM, Proxmox)** vs **Type-2 Hosted (VirtualBox, VMware Workstation)** architecture.
+- **Virtual Distributed Switch (vSwitch)**: Port-groups, vNICs, physical uplink NIC teaming (802.3ad LACP).
+- **Virtual Machines vs Docker Containers**: Hardware virtualization with full Guest OS vs OS kernel namespace and cgroup isolation.
+
+### 5. Site-to-Site IPsec VPN & Cryptographic Tunnels
+- **IKEv1 / IKEv2 Phase 1 (ISAKMP SA)**: HAGLE parameters (Hash SHA-256, Authentication PSK/Cert, DH Group 14/19, Lifetime, Encryption AES-256).
+- **IKE Phase 2 (IPsec SA)**: ESP (Protocol 50) vs AH (Protocol 51), Tunnel Mode vs Transport Mode.
+- **Visual Tunnel Model**: 3D links render as translucent glowing cryptographic sleeves enclosing packets.
+
+### 6. Interactive CCNA Knowledge Check Quiz
+- Rapid-fire multiple-choice quiz testing core CCNA 200-301 concepts with instant scoring, feedback, and detailed explanations.
 
 ---
 

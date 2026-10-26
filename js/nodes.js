@@ -27,7 +27,21 @@ export const NODE_COLORS = {
   cloud:        0x60a5fa, // Light Blue
   wap:          0x06b6d4, // Cyan Wi-Fi AP
   phone:        0x10b981, // Emerald Green VoIP Phone
-  iot:          0xf59e0b  // Amber Industrial PLC/Sensor
+  iot:          0xf59e0b, // Amber Industrial PLC/Sensor
+  hypervisor:   0xa855f7, // Deep Purple / Bare-Metal Hypervisor
+  vm:           0x38bdf8, // Cyan / Translucent Virtual Machine
+  container:    0x0284c7, // Ocean Blue / Docker Container
+  vpn:          0xec4899, // Pink / Magenta IPsec Gateway
+  cloud_vpc:    0xf59e0b  // Amber / Cloud VPC
+};
+
+export const CABLE_COLORS = {
+  cat6:       0x2563eb, // Royal Blue (Cat6 Copper UTP)
+  smf:        0xeab308, // Bright Yellow (Single-Mode Fiber OS2)
+  mmf:        0x06b6d4, // Aqua / Cyan (Multi-Mode Fiber OM4)
+  dac:        0x1e293b, // Dark Slate / Black (Twinax DAC)
+  vpn_tunnel: 0x8b5cf6, // Violet Hologram (Encrypted IPsec Tunnel)
+  coax:       0x64748b  // Grey (Coaxial 10Base5/10Base2)
 };
 
 export const STATUS_COLORS = {
@@ -87,11 +101,20 @@ export class NodeVisualManager {
       phoneScreen: new THREE.BoxGeometry(0.12, 0.08, 0.02),
       iotBody: new THREE.BoxGeometry(0.22, 0.34, 0.18),
       iotAntenna: new THREE.CylinderGeometry(0.008, 0.008, 0.18, 8),
+      hypervisorChassis: new THREE.BoxGeometry(0.26, 0.54, 0.32),
+      vmOuter: new THREE.BoxGeometry(0.24, 0.24, 0.24),
+      vmCore: new THREE.BoxGeometry(0.12, 0.12, 0.12),
+      containerPod: new THREE.BoxGeometry(0.26, 0.22, 0.22),
+      vpnLock: new THREE.CylinderGeometry(0.20, 0.20, 0.18, 8),
+      vpnArch: new THREE.TorusGeometry(0.09, 0.02, 8, 16, Math.PI),
+      cloudVpc: new THREE.OctahedronGeometry(0.24, 0),
+      vpnTunnelCylinder: new THREE.CylinderGeometry(0.045, 0.045, 1, 12),
       linkCylinder: new THREE.CylinderGeometry(0.014, 0.014, 1, 8),
       linkHitBox: new THREE.CylinderGeometry(0.08, 0.08, 1, 6)
     };
     this.geometries.linkCylinder.translate(0, 0.5, 0);
     this.geometries.linkHitBox.translate(0, 0.5, 0);
+    this.geometries.vpnTunnelCylinder.translate(0, 0.5, 0);
 
     this.materials = {
       linkUp: new THREE.MeshLambertMaterial({
@@ -287,6 +310,59 @@ export class NodeVisualManager {
       antenna.position.set(0.08, 0.22, 0);
       mainMesh.add(body);
       mainMesh.add(antenna);
+    } else if (type === 'hypervisor') {
+      mainMesh = new THREE.Group();
+      const chassis = new THREE.Mesh(this.geometries.hypervisorChassis, material);
+      const visorScreen = new THREE.Mesh(
+        new THREE.PlaneGeometry(0.18, 0.36),
+        new THREE.MeshBasicMaterial({ color: 0x00f3ff, side: THREE.DoubleSide })
+      );
+      visorScreen.position.set(0, 0, 0.165);
+      mainMesh.add(chassis);
+      mainMesh.add(visorScreen);
+    } else if (type === 'vm') {
+      mainMesh = new THREE.Group();
+      const outerMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        transparent: true,
+        opacity: 0.45,
+        roughness: 0.2,
+        metalness: 0.8
+      });
+      const outerBox = new THREE.Mesh(this.geometries.vmOuter, outerMat);
+      const coreMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff });
+      const innerCore = new THREE.Mesh(this.geometries.vmCore, coreMat);
+      mainMesh.add(outerBox);
+      mainMesh.add(innerCore);
+    } else if (type === 'container') {
+      mainMesh = new THREE.Group();
+      const pod = new THREE.Mesh(this.geometries.containerPod, material);
+      const stripeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+      const stripe1 = new THREE.Mesh(new THREE.BoxGeometry(0.27, 0.02, 0.23), stripeMat);
+      stripe1.position.y = 0.05;
+      const stripe2 = new THREE.Mesh(new THREE.BoxGeometry(0.27, 0.02, 0.23), stripeMat);
+      stripe2.position.y = -0.05;
+      mainMesh.add(pod);
+      mainMesh.add(stripe1);
+      mainMesh.add(stripe2);
+    } else if (type === 'vpn') {
+      mainMesh = new THREE.Group();
+      const lockBody = new THREE.Mesh(this.geometries.vpnLock, material);
+      const lockArch = new THREE.Mesh(
+        this.geometries.vpnArch,
+        new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.9, roughness: 0.2 })
+      );
+      lockArch.position.set(0, 0.12, 0);
+      mainMesh.add(lockBody);
+      mainMesh.add(lockArch);
+    } else if (type === 'cloud_vpc') {
+      mainMesh = new THREE.Group();
+      const vpcCore = new THREE.Mesh(this.geometries.cloudVpc, material);
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true });
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.015, 8, 24), ringMat);
+      ring.rotation.x = Math.PI / 3;
+      mainMesh.add(vpcCore);
+      mainMesh.add(ring);
     } else {
       const geom = this.geometries[type] || this.geometries.pcBase;
       mainMesh = new THREE.Mesh(geom, material);
@@ -589,6 +665,81 @@ export class NodeVisualManager {
         ctx.fill();
         break;
 
+      case 'hypervisor':
+        // Bare-Metal ESXi Hypervisor with nested VM grid
+        ctx.fillStyle = '#a855f7';
+        this.drawRoundedRect(ctx, cx - 24, cy - 22, 48, 44, 4, true, true);
+        // Nested VM tiles
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(cx - 18, cy - 14, 15, 12);
+        ctx.fillRect(cx + 3, cy - 14, 15, 12);
+        ctx.fillRect(cx - 18, cy + 2, 15, 12);
+        ctx.fillRect(cx + 3, cy + 2, 15, 12);
+        ctx.fillStyle = '#00f3ff';
+        ctx.fillRect(cx - 15, cy - 11, 4, 4);
+        ctx.fillRect(cx + 6, cy - 11, 4, 4);
+        ctx.fillRect(cx - 15, cy + 5, 4, 4);
+        ctx.fillRect(cx + 6, cy + 5, 4, 4);
+        break;
+
+      case 'vm':
+        // Virtual Machine Translucent Cube
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
+        this.drawRoundedRect(ctx, cx - 18, cy - 18, 36, 36, 4, true, true);
+        ctx.strokeStyle = '#00f3ff';
+        ctx.lineWidth = 2.5;
+        this.drawRoundedRect(ctx, cx - 18, cy - 18, 36, 36, 4, false, true);
+        // Inner Core
+        ctx.fillStyle = '#38bdf8';
+        this.drawRoundedRect(ctx, cx - 8, cy - 8, 16, 16, 2, true, false);
+        break;
+
+      case 'container':
+        // Docker Container Shipping Pod
+        ctx.fillStyle = '#0284c7';
+        this.drawRoundedRect(ctx, cx - 22, cy - 16, 44, 32, 3, true, true);
+        ctx.fillStyle = '#38bdf8';
+        // Vertical ribs
+        for (let i = -14; i <= 14; i += 7) {
+          ctx.fillRect(cx + i - 1, cy - 12, 2, 24);
+        }
+        break;
+
+      case 'vpn':
+        // IPsec Padlock & Shield
+        ctx.fillStyle = '#ec4899';
+        this.drawRoundedRect(ctx, cx - 18, cy - 8, 36, 28, 4, true, true);
+        ctx.strokeStyle = '#facc15';
+        ctx.lineWidth = 3.5;
+        ctx.beginPath();
+        ctx.arc(cx, cy - 8, 10, Math.PI, 0, false);
+        ctx.stroke();
+        // Keyhole
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(cx, cy + 3, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillRect(cx - 1.5, cy + 4, 3, 6);
+        break;
+
+      case 'cloud_vpc':
+        // Cloud VPC Diamond / Node
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - 20);
+        ctx.lineTo(cx + 20, cy);
+        ctx.lineTo(cx, cy + 20);
+        ctx.lineTo(cx - 20, cy);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 12px monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('VPC', cx, cy);
+        break;
+
       default:
         // Cloud / Internet
         ctx.fillStyle = '#38bdf8';
@@ -610,24 +761,46 @@ export class NodeVisualManager {
 
     const group = new THREE.Group();
     group.name = `link-${linkData.id}`;
+    const cableType = linkData.cable || 'cat6';
     group.userData = {
       isLink: true,
       linkId: linkData.id,
       from: linkData.from,
       to: linkData.to,
+      cable: cableType,
+      speed: linkData.speed || '10 Gbps Fiber',
       status: linkData.status || 'up',
       isSelected: false
     };
 
+    let baseCableColor = CABLE_COLORS[cableType] || STATUS_COLORS.up;
     const linkMat = (linkData.status === 'down')
       ? this.materials.linkDown.clone()
-      : this.materials.linkUp.clone();
+      : new THREE.MeshLambertMaterial({
+          color: baseCableColor,
+          emissive: (cableType === 'vpn_tunnel') ? 0x2e1065 : 0x002233
+        });
 
     const cylinder = new THREE.Mesh(this.geometries.linkCylinder, linkMat);
     cylinder.userData = { parentGroup: group };
     group.add(cylinder);
     group.userData.cylinder = cylinder;
     group.userData.material = linkMat;
+    group.userData.baseColor = baseCableColor;
+
+    // If VPN Tunnel, add outer translucent glowing cryptographic shield
+    if (cableType === 'vpn_tunnel') {
+      const vpnMat = new THREE.MeshBasicMaterial({
+        color: 0xa855f7,
+        transparent: true,
+        opacity: 0.35,
+        wireframe: false
+      });
+      const vpnMesh = new THREE.Mesh(this.geometries.vpnTunnelCylinder, vpnMat);
+      vpnMesh.userData = { parentGroup: group };
+      group.add(vpnMesh);
+      group.userData.vpnMesh = vpnMesh;
+    }
 
     const hitMesh = new THREE.Mesh(this.geometries.linkHitBox, this.materials.linkHit);
     hitMesh.userData = { parentGroup: group };
@@ -659,6 +832,9 @@ export class NodeVisualManager {
 
     linkGroup.userData.cylinder.scale.set(1, distance, 1);
     linkGroup.userData.hitMesh.scale.set(1, distance, 1);
+    if (linkGroup.userData.vpnMesh) {
+      linkGroup.userData.vpnMesh.scale.set(1, distance, 1);
+    }
   }
 
   updateAllLinks() {
@@ -689,7 +865,8 @@ export class NodeVisualManager {
     for (const linkGroup of this.linkMeshes.values()) {
       linkGroup.userData.isSelected = false;
       const isDown = linkGroup.userData.status === 'down';
-      linkGroup.userData.material.color.setHex(isDown ? STATUS_COLORS.down : STATUS_COLORS.up);
+      const baseCol = linkGroup.userData.baseColor || STATUS_COLORS.up;
+      linkGroup.userData.material.color.setHex(isDown ? STATUS_COLORS.down : baseCol);
       linkGroup.userData.material.emissive.setHex(isDown ? 0x550000 : 0x004455);
     }
 
@@ -757,7 +934,8 @@ export class NodeVisualManager {
       linkGroup.userData.material.emissive.setHex(0x660000);
       linkGroup.userData.material.opacity = 0.7;
     } else {
-      linkGroup.userData.material.color.setHex(STATUS_COLORS.up);
+      const baseCol = linkGroup.userData.baseColor || STATUS_COLORS.up;
+      linkGroup.userData.material.color.setHex(baseCol);
       linkGroup.userData.material.emissive.setHex(0x004455);
       linkGroup.userData.material.opacity = 1.0;
     }

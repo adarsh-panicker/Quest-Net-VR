@@ -31,6 +31,11 @@ export const NODE_TYPES = [
   'wap',
   'phone',
   'iot',
+  'hypervisor',
+  'vm',
+  'container',
+  'vpn',
+  'cloud_vpc',
   'loadbalancer',
   'database',
   'cloud'
@@ -143,6 +148,8 @@ export class Graph {
         to: String(toId),
         status: 'up',
         speed: extra.speed || '10 Gbps Fiber',
+        cable: extra.cable || 'cat6',
+        distance: extra.distance || '25m',
         portA: extra.portA || 'Gi0/1',
         portB: extra.portB || 'Gi0/24'
       });
@@ -601,6 +608,146 @@ export const NETWORK_TEMPLATES = {
         { id: "l-br-pc1", from: "br_sw", to: "br_pc1" },
         { id: "l-br-lap", from: "br_sw", to: "br_lap" },
         { id: "l-br-prn", from: "br_sw", to: "br_prn" }
+      ]
+    }
+  },
+
+  // 11. Site-to-Site IPsec VPN & Remote Access
+  vpn_ipsec: {
+    id: 'vpn_ipsec',
+    title: '🔒 Site-to-Site IPsec VPN (Encrypted Tunnel)',
+    desc: 'Enterprise branch interconnection traversing untrusted public Internet. Shows encapsulated IKEv2 / IPsec ESP encrypted tunnels, security associations (SAs), and remote worker AnyConnect tunnels.',
+    data: {
+      name: "IPsec Cryptographic VPN Network",
+      nodes: [
+        { id: "hq_db", name: "HQ Core Database & ERP", type: "database", ip: "10.100.1.10", department: "Data Center", vlan: "VLAN 100", position: [-2.6, 2.2, -1.0] },
+        { id: "hq_core", name: "HQ Core Switch (C9300)", type: "switch", ip: "10.100.1.1", department: "IT & Infrastructure", vlan: "VLAN 100", position: [-2.6, 1.4, -1.0] },
+        { id: "hq_vpn", name: "HQ IPsec VPN Concentrator", type: "vpn", ip: "198.51.100.2", department: "DMZ & Perimeter", firmware: "Cisco ASA 5545-X (IKEv2/AES-256)", position: [-1.4, 1.4, -1.0] },
+        { id: "inet_wan", name: "Public Internet WAN ISP", type: "internet", ip: "203.0.113.1", department: "DMZ & Perimeter", position: [0.0, 2.1, -1.0] },
+        { id: "remote_lap", name: "Remote Exec (AnyConnect)", type: "laptop", ip: "172.16.50.25", department: "Executive Suite", firmware: "Cisco AnyConnect SSL/IPsec", position: [0.0, 0.7, -1.0] },
+        { id: "br_vpn", name: "Branch IPsec Router (ISR 4331)", type: "vpn", ip: "203.0.113.50", department: "DMZ & Perimeter", firmware: "Cisco IOS-XE (ESP Tunnel Mode)", position: [1.4, 1.4, -1.0] },
+        { id: "br_sw_vpn", name: "Branch LAN Switch", type: "switch", ip: "192.168.10.1", department: "IT & Infrastructure", vlan: "VLAN 10", position: [2.5, 1.4, -1.0] },
+        { id: "br_workstation", name: "Branch Finance Desktop", type: "desktop", ip: "192.168.10.101", department: "Finance & Accounting", vlan: "VLAN 10", position: [2.5, 2.2, -1.0] },
+        { id: "br_printer", name: "Branch Office Laser Printer", type: "printer", ip: "192.168.10.200", department: "Operations & OT", vlan: "VLAN 10", position: [2.5, 0.7, -1.0] }
+      ],
+      links: [
+        { id: "l-hq-db", from: "hq_db", to: "hq_core", cable: "dac", speed: "10 Gbps SFP+ Twinax DAC" },
+        { id: "l-hq-core-vpn", from: "hq_core", to: "hq_vpn", cable: "smf", speed: "10 Gbps Single-Mode Fiber OS2" },
+        { id: "l-hq-wan", from: "hq_vpn", to: "inet_wan", cable: "smf", speed: "1 Gbps Carrier Metro Ethernet" },
+        { id: "l-vpn-tunnel", from: "hq_vpn", to: "br_vpn", cable: "vpn_tunnel", speed: "IPsec IKEv2 ESP Tunnel (AES-256-GCM / SHA-384)" },
+        { id: "l-br-wan", from: "inet_wan", to: "br_vpn", cable: "smf", speed: "1 Gbps Carrier Fiber DIA" },
+        { id: "l-rem-tunnel", from: "remote_lap", to: "hq_vpn", cable: "vpn_tunnel", speed: "Remote-Access SSL/TLS VPN Tunnel" },
+        { id: "l-br-vpn-sw", from: "br_vpn", to: "br_sw_vpn", cable: "cat6", speed: "1 Gbps Cat6 Copper UTP" },
+        { id: "l-br-sw-pc", from: "br_sw_vpn", to: "br_workstation", cable: "cat6", speed: "1 Gbps Cat6 Copper UTP" },
+        { id: "l-br-sw-prn", from: "br_sw_vpn", to: "br_printer", cable: "cat6", speed: "1 Gbps Cat6 Copper UTP" }
+      ]
+    }
+  },
+
+  // 12. Virtualization, Hypervisors, VMs & Containers
+  virtualization: {
+    id: 'virtualization',
+    title: '🖥️ Virtualization & Cloud (ESXi, vSwitch & Containers)',
+    desc: 'Bare-metal Type-1 hypervisor architecture. Demonstrates Virtual Distributed Switches (vSwitches), virtual NICs (vNICs), virtual machines (VMs), Docker container pods, and SAN storage uplinks.',
+    data: {
+      name: "Bare-Metal Virtualization & Hypervisor Fabric",
+      nodes: [
+        { id: "esxi_host", name: "ESXi Bare-Metal Host", type: "hypervisor", ip: "10.0.1.10", department: "Data Center", firmware: "VMware ESXi 8.0 (Type-1 Bare-Metal)", position: [-1.8, 1.5, -1.0] },
+        { id: "vswitch0", name: "vSwitch0 (Virtual Switch)", type: "switch", ip: "10.0.1.11", department: "Data Center", firmware: "vSphere Distributed Switch 8.0", position: [-0.6, 1.5, -1.0] },
+        { id: "vm_web", name: "VM-Web-01 (NGINX)", type: "vm", ip: "10.0.1.21", department: "Data Center", firmware: "Ubuntu 22.04 LTS (4 vCPU, 8GB vRAM)", position: [0.7, 2.2, -1.0] },
+        { id: "vm_db", name: "VM-DB-01 (PostgreSQL)", type: "vm", ip: "10.0.1.22", department: "Data Center", firmware: "RHEL 9 (8 vCPU, 32GB vRAM)", position: [0.7, 1.5, -1.0] },
+        { id: "cont_api", name: "Container-Pod (Docker)", type: "container", ip: "10.0.1.30", department: "Engineering & Dev", firmware: "Alpine Linux Container (Node.js API)", position: [0.7, 0.8, -1.0] },
+        { id: "san_storage", name: "NVMe-oF SAN Storage Array", type: "database", ip: "10.0.1.5", department: "Data Center", firmware: "All-Flash SAN Array (100Gbps Fibre Channel)", position: [-2.8, 2.2, -1.0] },
+        { id: "tor_switch", name: "Physical ToR Switch (Nexus)", type: "switch", ip: "10.0.1.1", department: "IT & Infrastructure", firmware: "Cisco Nexus 9300 (NX-OS 10.3)", position: [-2.8, 0.8, -1.0] },
+        { id: "admin_laptop", name: "vSphere Admin Laptop", type: "laptop", ip: "10.0.1.100", department: "IT & Infrastructure", position: [-1.8, 0.2, -1.0] }
+      ],
+      links: [
+        { id: "l-host-vsw", from: "esxi_host", to: "vswitch0", cable: "dac", speed: "Internal Hypervisor VMkernel Bus" },
+        { id: "l-vsw-vm1", from: "vswitch0", to: "vm_web", cable: "cat6", speed: "Virtual vNIC (VMXNET3 10Gbps)" },
+        { id: "l-vsw-vm2", from: "vswitch0", to: "vm_db", cable: "cat6", speed: "Virtual vNIC (VMXNET3 10Gbps)" },
+        { id: "l-vsw-cont", from: "vswitch0", to: "cont_api", cable: "cat6", speed: "Container veth Virtual Bridge" },
+        { id: "l-host-san", from: "esxi_host", to: "san_storage", cable: "mmf", speed: "32 Gbps Fibre Channel OM4 MMF" },
+        { id: "l-host-tor", from: "esxi_host", to: "tor_switch", cable: "dac", speed: "2x 25 Gbps SFP28 802.3ad LACP Uplink" },
+        { id: "l-tor-admin", from: "tor_switch", to: "admin_laptop", cable: "cat6", speed: "1 Gbps Cat6 Copper UTP" }
+      ]
+    }
+  },
+
+  // 13. Hybrid Cloud Architecture (On-Premises to AWS VPC)
+  cloud_hybrid: {
+    id: 'cloud_hybrid',
+    title: '☁️ Hybrid Cloud (AWS VPC & DirectConnect)',
+    desc: 'Enterprise hybrid cloud interconnection. Bridges on-premises corporate infrastructure with AWS Virtual Private Cloud (VPC), Transit Gateway, EC2 compute instances, and S3 object storage.',
+    data: {
+      name: "Enterprise Hybrid Cloud & AWS VPC",
+      nodes: [
+        { id: "onprem_core", name: "On-Prem Core Router (ASR 1000)", type: "router", ip: "10.10.0.1", department: "IT & Infrastructure", position: [-2.5, 1.5, -1.0] },
+        { id: "onprem_srv", name: "On-Prem Legacy Server", type: "server", ip: "10.10.1.20", department: "Data Center", position: [-2.5, 2.3, -1.0] },
+        { id: "dx_circuit", name: "AWS DirectConnect Gateway", type: "cloud_vpc", ip: "10.254.1.1", department: "DMZ & Perimeter", firmware: "AWS DirectConnect 10Gbps Dedicated Interconnect", position: [-1.2, 1.5, -1.0] },
+        { id: "aws_tgw", name: "AWS Transit Gateway Hub", type: "router", ip: "172.20.0.1", department: "Data Center", firmware: "AWS Transit Gateway (BGP ASN 64512)", position: [0.1, 1.5, -1.0] },
+        { id: "aws_ec2_web", name: "AWS EC2 Web Cluster (VPC)", type: "cloud_vpc", ip: "172.20.1.50", department: "Engineering & Dev", firmware: "Amazon Linux 2023 (t4g.xlarge)", position: [1.5, 2.2, -1.0] },
+        { id: "aws_rds_db", name: "AWS Aurora Serverless DB", type: "database", ip: "172.20.2.100", department: "Data Center", firmware: "Amazon Aurora Multi-AZ Cluster", position: [1.5, 1.5, -1.0] },
+        { id: "aws_s3_buck", name: "AWS S3 Cloud Bucket", type: "cloud", ip: "172.20.3.10", department: "Data Center", position: [1.5, 0.8, -1.0] }
+      ],
+      links: [
+        { id: "l-onprem-core-srv", from: "onprem_core", to: "onprem_srv", cable: "cat6", speed: "10 Gbps Copper Cat6a" },
+        { id: "l-onprem-dx", from: "onprem_core", to: "dx_circuit", cable: "smf", speed: "10 Gbps Single-Mode Fiber DirectConnect" },
+        { id: "l-dx-tgw", from: "dx_circuit", to: "aws_tgw", cable: "smf", speed: "AWS Cloud Backbone Fabric" },
+        { id: "l-tgw-ec2", from: "aws_tgw", to: "aws_ec2_web", cable: "smf", speed: "VPC Peering 100 Gbps ENA" },
+        { id: "l-tgw-db", from: "aws_tgw", to: "aws_rds_db", cable: "smf", speed: "VPC Peering 100 Gbps ENA" },
+        { id: "l-tgw-s3", from: "aws_tgw", to: "aws_s3_buck", cable: "smf", speed: "AWS VPC S3 Gateway Endpoint" }
+      ]
+    }
+  },
+
+  // 14. CCNA 802.1Q VLAN Trunking & Router-on-a-Stick
+  vlan_segmentation: {
+    id: 'vlan_segmentation',
+    title: '🏷️ 802.1Q VLANs & Router-on-a-Stick (Segmentation)',
+    desc: 'Core CCNA topic: Layer 2 broadcast domain isolation with 802.1Q VLAN tagging and Layer 3 inter-VLAN routing via single physical trunk with subinterfaces (Router-on-a-Stick).',
+    data: {
+      name: "CCNA 802.1Q Inter-VLAN Routing Fabric",
+      nodes: [
+        { id: "roas_router", name: "Cisco Router-on-a-Stick", type: "router", ip: "192.168.0.1", department: "IT & Infrastructure", firmware: "Cisco IOS-XE (G0/0.10, G0/0.20, G0/0.30)", position: [-1.8, 1.5, -1.0] },
+        { id: "core_trunk_sw", name: "Trunk Switch (Catalyst 9300)", type: "switch", ip: "192.168.0.2", department: "IT & Infrastructure", firmware: "802.1Q Trunk Port (Native VLAN 99)", position: [-0.6, 1.5, -1.0] },
+        { id: "pc_vlan10", name: "Sales Workstation", type: "desktop", ip: "192.168.10.15", department: "Sales & Marketing", vlan: "VLAN 10 Sales", position: [1.2, 2.3, -1.0] },
+        { id: "pc_vlan20", name: "Engineering Dev Box", type: "desktop", ip: "192.168.20.25", department: "Engineering & Dev", vlan: "VLAN 20 Eng", position: [1.2, 1.6, -1.0] },
+        { id: "phone_vlan30", name: "VoIP Desk Phone", type: "phone", ip: "192.168.30.50", department: "Operations & OT", vlan: "VLAN 30 Voice", position: [1.2, 0.9, -1.0] },
+        { id: "srv_vlan99", name: "Management Server", type: "server", ip: "192.168.99.10", department: "Data Center", vlan: "VLAN 99 Mgmt", position: [1.2, 0.2, -1.0] }
+      ],
+      links: [
+        { id: "l-roas-trunk", from: "roas_router", to: "core_trunk_sw", cable: "cat6", speed: "802.1Q Dot1Q Trunk (Tagged 10,20,30, Native 99)" },
+        { id: "l-sw-vlan10", from: "core_trunk_sw", to: "pc_vlan10", cable: "cat6", speed: "Access Port (Untagged VLAN 10)" },
+        { id: "l-sw-vlan20", from: "core_trunk_sw", to: "pc_vlan20", cable: "cat6", speed: "Access Port (Untagged VLAN 20)" },
+        { id: "l-sw-vlan30", from: "core_trunk_sw", to: "phone_vlan30", cable: "cat6", speed: "Voice VLAN Port (Tagged 30, Data 10)" },
+        { id: "l-sw-vlan99", from: "core_trunk_sw", to: "srv_vlan99", cable: "cat6", speed: "Access Port (Untagged VLAN 99)" }
+      ]
+    }
+  },
+
+  // 15. CCNA OSPFv2 Multi-Area Dynamic Routing
+  ospf_routing: {
+    id: 'ospf_routing',
+    title: '🔀 OSPF Dynamic Multi-Area Routing (Link-State)',
+    desc: 'Core CCNA dynamic routing topic. Open Shortest Path First (OSPFv2) Dijkstra algorithm with Area 0 Backbone, Area 1 (HQ), and Area 2 (Branch), Cost metrics, and designated routers (DR/BDR).',
+    data: {
+      name: "OSPFv2 Multi-Area Dynamic Routing Lab",
+      nodes: [
+        { id: "ospf_abr", name: "Area Border Router (ABR)", type: "router", ip: "10.0.0.1", department: "IT & Infrastructure", firmware: "OSPFv2 Process 1 (RID: 1.1.1.1, Area 0/1/2)", position: [0.0, 1.8, -1.0] },
+        { id: "ospf_r1", name: "HQ Internal Router (Area 1)", type: "router", ip: "10.1.0.1", department: "Engineering & Dev", firmware: "OSPFv2 Process 1 (RID: 2.2.2.2, Area 1)", position: [-1.8, 1.3, -1.0] },
+        { id: "ospf_r2", name: "Branch Internal Router (Area 2)", type: "router", ip: "10.2.0.1", department: "Finance & Accounting", firmware: "OSPFv2 Process 1 (RID: 3.3.3.3, Area 2)", position: [1.8, 1.3, -1.0] },
+        { id: "sw_ospf1", name: "HQ Area 1 Switch", type: "switch", ip: "10.1.1.1", department: "Engineering & Dev", position: [-2.6, 0.6, -1.0] },
+        { id: "sw_ospf2", name: "Branch Area 2 Switch", type: "switch", ip: "10.2.1.1", department: "Finance & Accounting", position: [2.6, 0.6, -1.0] },
+        { id: "pc_ospf1", name: "HQ Dev Engineer PC", type: "desktop", ip: "10.1.1.100", department: "Engineering & Dev", position: [-1.4, 0.3, -1.0] },
+        { id: "pc_ospf2", name: "Branch Finance PC", type: "desktop", ip: "10.2.1.100", department: "Finance & Accounting", position: [1.4, 0.3, -1.0] }
+      ],
+      links: [
+        { id: "l-ospf-abr-r1", from: "ospf_abr", to: "ospf_r1", cable: "smf", speed: "10 Gbps Fiber (OSPF Cost: 1, Area 1)" },
+        { id: "l-ospf-abr-r2", from: "ospf_abr", to: "ospf_r2", cable: "smf", speed: "10 Gbps Fiber (OSPF Cost: 1, Area 2)" },
+        { id: "l-ospf-r1-sw", from: "ospf_r1", to: "sw_ospf1", cable: "cat6", speed: "1 Gbps Copper (OSPF Cost: 10, Area 1)" },
+        { id: "l-ospf-r2-sw", from: "ospf_r2", to: "sw_ospf2", cable: "cat6", speed: "1 Gbps Copper (OSPF Cost: 10, Area 2)" },
+        { id: "l-sw1-pc", from: "sw_ospf1", to: "pc_ospf1", cable: "cat6", speed: "1 Gbps Cat6 UTP (Edge Access)" },
+        { id: "l-sw2-pc", from: "sw_ospf2", to: "pc_ospf2", cable: "cat6", speed: "1 Gbps Cat6 UTP (Edge Access)" }
       ]
     }
   },

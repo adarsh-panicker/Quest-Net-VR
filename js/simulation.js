@@ -15,7 +15,9 @@ import { sound } from './audio.js';
 
 export const PROTOCOLS = {
   icmp: { name: 'ICMP Ping', color: 0x38bdf8, speed: 2.8, roundTrip: true },
-  http: { name: 'HTTP Web',  color: 0x10b981, speed: 2.2, roundTrip: true },
+  tcp:  { name: 'TCP 3-Way Handshake', color: 0x10b981, speed: 2.5, roundTrip: true, isTcp: true },
+  udp:  { name: 'UDP Datagram Stream', color: 0xf97316, speed: 3.8, roundTrip: false, isUdp: true },
+  http: { name: 'HTTP Web',  color: 0x06b6d4, speed: 2.2, roundTrip: true },
   dns:  { name: 'DNS Query', color: 0xfacc15, speed: 3.0, roundTrip: true },
   sql:  { name: 'SQL Query', color: 0xa855f7, speed: 2.0, roundTrip: true }
 };
@@ -672,12 +674,27 @@ export class SimulationManager {
         if (this.securityManager) {
           const srcNode = this.graph.nodes.get(this.traceSource);
           const dstNode = this.graph.nodes.get(this.traceDest);
+          let protoTag = (proto.name || 'TCP').toUpperCase();
+          let infoText = `Hop ${this.currentHopIndex}/${totalHops} via [${reachedId}] -> in transit`;
+
+          if (proto.isTcp) {
+            protoTag = 'TCP';
+            infoText = this.isReturning
+              ? `[SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 (Step 2: Server SYN-ACK Handshake Reply via ${reachedId})`
+              : (this.currentHopIndex === 1
+                  ? `[SYN] Seq=0 Win=65535 Len=0 MSS=1460 (Step 1: Client SYN Initiator via ${reachedId})`
+                  : `[ACK, PSH] Seq=1 Ack=1 Win=65535 Len=1460 (Step 3: Established Data Transfer via ${reachedId})`);
+          } else if (proto.isUdp) {
+            protoTag = 'UDP';
+            infoText = `SrcPort: 5353 → DstPort: 53 Len: 64B (Connectionless Datagram Stream via ${reachedId}, No Handshake)`;
+          }
+
           this.securityManager.logPacket({
             sourceIp: this.isReturning ? (dstNode?.ip || '10.0.0.1') : (srcNode?.ip || '10.0.0.1'),
             destIp: this.isReturning ? (srcNode?.ip || '10.0.0.1') : (dstNode?.ip || '10.0.0.1'),
-            protocol: (proto.name || 'TCP').toUpperCase(),
-            length: this.isReturning ? '1024 B' : '128 B',
-            info: `Hop ${this.currentHopIndex}/${totalHops} via [${reachedId}] -> in transit`
+            protocol: protoTag,
+            length: this.isReturning ? '1024 B' : (proto.isUdp ? '64 B' : '128 B'),
+            info: infoText
           });
         }
       } else {

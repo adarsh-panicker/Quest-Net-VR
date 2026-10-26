@@ -9,6 +9,7 @@
 
 import * as THREE from 'three';
 import { sound } from './audio.js';
+import { CABLING_SPECS } from './ccna.js';
 
 export class VRMenuManager {
   /**
@@ -300,26 +301,32 @@ export class VRMenuManager {
 
     ctx.textAlign = 'left';
 
+    const cableKey = linkData.cable || 'cat6';
+    const cableSpec = CABLING_SPECS[cableKey] || CABLING_SPECS.cat6;
+
     const rows = [
       { label: 'Link ID:', val: linkData.id || linkData.linkId, valColor: '#ffffff' },
-      { label: 'Endpoint A:', val: linkData.from, valColor: '#38bdf8' },
-      { label: 'Endpoint B:', val: linkData.to, valColor: '#38bdf8' },
-      { label: 'Bandwidth / Media:', val: linkData.speed || '10 Gbps Fiber Optic', valColor: '#facc15' },
-      { label: 'Duplex Mode:', val: 'Full-Duplex (Non-blocking)', valColor: '#a7f3d0' },
-      { label: 'Link State:', val: isUp ? 'OPERATIONAL / PASSING' : 'FAULT / PACKET LOSS', valColor: isUp ? '#34d399' : '#f87171' }
+      { label: 'Cable Type:', val: cableSpec.name, valColor: '#facc15' },
+      { label: 'Media & Optics:', val: cableSpec.media, valColor: '#38bdf8' },
+      { label: 'Connector Type:', val: cableSpec.connector, valColor: '#a5f3fc' },
+      { label: 'Max Distance Limit:', val: cableSpec.maxDistance, valColor: '#a7f3d0' },
+      { label: 'Throughput Speed:', val: linkData.speed || cableSpec.maxSpeed, valColor: '#e2e8f0' },
+      { label: 'Link Operational State:', val: isUp ? 'OPERATIONAL / PASSING' : 'FAULT / PACKET LOSS', valColor: isUp ? '#34d399' : '#f87171' }
     ];
 
-    let startY = 110;
+    let startY = 100;
     for (const r of rows) {
       ctx.fillStyle = '#94a3b8';
-      ctx.font = '24px "Segoe UI", Roboto, sans-serif';
+      ctx.font = '22px "Segoe UI", Roboto, sans-serif';
       ctx.fillText(r.label, 32, startY);
 
       ctx.fillStyle = r.valColor;
-      ctx.font = 'bold 24px "Consolas", monospace';
-      ctx.fillText(String(r.val), 250, startY);
+      ctx.font = 'bold 22px "Consolas", monospace';
+      let valStr = String(r.val);
+      if (valStr.length > 29) valStr = valStr.substring(0, 27) + '...';
+      ctx.fillText(valStr, 260, startY);
 
-      startY += 58;
+      startY += 50;
     }
 
     this.infoTexture.needsUpdate = true;

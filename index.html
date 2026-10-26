@@ -38,6 +38,11 @@
         <label for="template-select" class="group-label">Topology:</label>
         <select id="template-select" class="select-input">
           <option value="corporate">🏢 Cisco 3-Tier Enterprise Network (Dept-Wise)</option>
+          <option value="vpn_ipsec">🔒 Site-to-Site IPsec VPN (Encrypted Tunnel)</option>
+          <option value="virtualization">🖥️ Virtualization & Cloud (ESXi, vSwitch & VMs)</option>
+          <option value="cloud_hybrid">☁️ Hybrid Cloud (AWS VPC & DirectConnect)</option>
+          <option value="vlan_segmentation">🏷️ 802.1Q VLANs & Router-on-a-Stick</option>
+          <option value="ospf_routing">🔀 OSPF Dynamic Multi-Area Routing</option>
           <option value="star">⭐ Star Topology (Central Switch LAN)</option>
           <option value="ring">🔄 Ring Topology (Self-Healing Circular Loop)</option>
           <option value="mesh">🕸️ Full Mesh Topology (High-Resilience WAN)</option>
@@ -83,6 +88,8 @@
         <span class="group-label">Protocol:</span>
         <div class="proto-btn-group">
           <button class="proto-btn active" data-proto="icmp" title="ICMP Echo / Ping">Ping</button>
+          <button class="proto-btn" data-proto="tcp" title="TCP 3-Way Handshake (SYN -> SYN-ACK -> ACK)">TCP</button>
+          <button class="proto-btn" data-proto="udp" title="UDP Fast Datagram Stream (Connectionless)">UDP</button>
           <button class="proto-btn" data-proto="http" title="HTTP/S Web Request">HTTP</button>
           <button class="proto-btn" data-proto="dns" title="DNS Resolution">DNS</button>
           <button class="proto-btn" data-proto="sql" title="Database SQL Query">SQL</button>
@@ -91,7 +98,10 @@
 
       <!-- Quick Action Pills -->
       <div class="header-action-pills">
-        <button id="btn-export-pdf" class="pill-btn pill-primary" title="Generate and download a professional PDF report of this layout and inventory">
+        <button id="btn-ccna-academy" class="pill-btn pill-primary" title="Open CCNA Visual Academy (OSI 7-Layer, Cabling, TCP/UDP, Hypervisors, VPN & Quiz)">
+          📘 CCNA Academy
+        </button>
+        <button id="btn-export-pdf" class="pill-btn" title="Generate and download a professional PDF report of this layout and inventory">
           📄 Download PDF
         </button>
         <button id="btn-subnet-calc" class="pill-btn" title="Open IPv4 CIDR Subnet Calculator">
@@ -198,6 +208,11 @@
           Device Role / Hardware Type:
           <select id="node-type-input">
             <option value="server">🖥️ Server (Blade Chassis)</option>
+            <option value="hypervisor">🖥️ Bare-Metal Hypervisor (Type-1 ESXi)</option>
+            <option value="vm">📦 Virtual Machine (vNIC Guest VM)</option>
+            <option value="container">🐳 Docker Container Pod</option>
+            <option value="vpn">🔒 IPsec VPN Concentrator</option>
+            <option value="cloud_vpc">☁️ Cloud VPC / Virtual Network</option>
             <option value="desktop">💻 Desktop PC (Workstation)</option>
             <option value="laptop">💻 Laptop (Executive / Staff)</option>
             <option value="printer">🖨️ Printer (Network Office Printer)</option>
@@ -264,6 +279,347 @@
       </div>
       <div class="modal-actions">
         <button id="btn-close-subnet" class="btn-secondary">Close Calculator</button>
+      </div>
+    </div>
+
+    <!-- Modal: CCNA 200-301 Visual Academy & Knowledge Hub -->
+    <div id="ccna-modal" class="modal-card ccna-modal-card hidden">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span>📘</span>
+          <strong>CCNA 200-301 Visual Academy & Learning Lab</strong>
+        </div>
+        <button id="btn-close-ccna" class="btn-tool-sm">✕ Close</button>
+      </div>
+
+      <!-- CCNA Academy Navigation Tabs -->
+      <div class="ccna-tabs-bar">
+        <button class="ccna-tab-btn active" data-tab="osi">📊 OSI 7-Layers</button>
+        <button class="ccna-tab-btn" data-tab="tcpudp">⚡ TCP vs UDP</button>
+        <button class="ccna-tab-btn" data-tab="cabling">🔌 Cabling & Pinouts</button>
+        <button class="ccna-tab-btn" data-tab="virtualization">🖥️ Virtualization & Cloud</button>
+        <button class="ccna-tab-btn" data-tab="vpn">🔒 IPsec VPN</button>
+        <button class="ccna-tab-btn" data-tab="quiz">🎯 CCNA Quiz</button>
+      </div>
+
+      <!-- Tab 1: OSI 7-Layer vs TCP/IP 4-Layer Stack & Encapsulation -->
+      <div id="ccna-tab-osi" class="ccna-tab-content">
+        <div class="ccna-section-intro">
+          <h3>The OSI 7-Layer & TCP/IP Model with Data Encapsulation</h3>
+          <p>As application data moves down the stack, each layer encapsulates the payload with its specific protocol header (Data → Segment → Packet → Frame → Bits).</p>
+        </div>
+        <div class="osi-stack-grid">
+          <div class="osi-layer-card" style="border-left-color: #ef4444;">
+            <div class="osi-num">Layer 7</div>
+            <div class="osi-info">
+              <h4>Application Layer (TCP/IP: Application)</h4>
+              <p>Network services directly exposed to applications. Protocols: <code>HTTP/S (80/443), DNS (53), DHCP (67/68), SSH (22), BGP (179)</code>.</p>
+              <div class="osi-pdu-badge">PDU: Application Data</div>
+            </div>
+          </div>
+          <div class="osi-layer-card" style="border-left-color: #f97316;">
+            <div class="osi-num">Layer 6</div>
+            <div class="osi-info">
+              <h4>Presentation Layer (TCP/IP: Application)</h4>
+              <p>Data representation, TLS/SSL cryptographic encryption, compression, and character encoding (ASCII, Unicode, JPEG).</p>
+              <div class="osi-pdu-badge">PDU: Formatted Data</div>
+            </div>
+          </div>
+          <div class="osi-layer-card" style="border-left-color: #f59e0b;">
+            <div class="osi-num">Layer 5</div>
+            <div class="osi-info">
+              <h4>Session Layer (TCP/IP: Application)</h4>
+              <p>Session initiation, checkpointing, and termination between endpoints. Protocols: RPC, NetBIOS, PPTP.</p>
+              <div class="osi-pdu-badge">PDU: Session Sockets</div>
+            </div>
+          </div>
+          <div class="osi-layer-card" style="border-left-color: #10b981;">
+            <div class="osi-num">Layer 4</div>
+            <div class="osi-info">
+              <h4>Transport Layer (TCP/IP: Transport)</h4>
+              <p>End-to-end communication flow control, multiplexing via source/destination Port numbers (0-65535). <strong>TCP</strong> (reliable, 3-way handshake) vs <strong>UDP</strong> (fast, connectionless).</p>
+              <div class="osi-pdu-badge">PDU: Segment (TCP) / Datagram (UDP)</div>
+            </div>
+          </div>
+          <div class="osi-layer-card" style="border-left-color: #06b6d4;">
+            <div class="osi-num">Layer 3</div>
+            <div class="osi-info">
+              <h4>Network Layer (TCP/IP: Internet)</h4>
+              <p>Logical routing, IP addressing (IPv4/IPv6), subnetting, path determination. Protocols: <code>IPv4, IPv6, ICMP, OSPF, EIGRP, ARP</code>. Devices: Routers, Multilayer Switches.</p>
+              <div class="osi-pdu-badge">PDU: Packet (IP Header + Payload)</div>
+            </div>
+          </div>
+          <div class="osi-layer-card" style="border-left-color: #3b82f6;">
+            <div class="osi-num">Layer 2</div>
+            <div class="osi-info">
+              <h4>Data Link Layer (TCP/IP: Network Access)</h4>
+              <p>Physical hop-to-hop framing, 48-bit MAC addresses, 802.1Q VLAN tags, Spanning Tree (STP), and CRC error check (FCS). Devices: Ethernet Switches, WAPs, Bridges.</p>
+              <div class="osi-pdu-badge">PDU: Frame (Ethernet Header + MAC + FCS)</div>
+            </div>
+          </div>
+          <div class="osi-layer-card" style="border-left-color: #8b5cf6;">
+            <div class="osi-num">Layer 1</div>
+            <div class="osi-info">
+              <h4>Physical Layer (TCP/IP: Network Access)</h4>
+              <p>Physical transmission of raw bits over physical media: electrical voltage (Copper Cat6), light pulses (Fiber SMF/MMF), radio frequencies (Wi-Fi 6). Connectors: RJ-45, LC, SFP+.</p>
+              <div class="osi-pdu-badge">PDU: Bits (Binary 1s & 0s)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: TCP 3-Way Handshake vs UDP Deep Dive -->
+      <div id="ccna-tab-tcpudp" class="ccna-tab-content hidden">
+        <div class="ccna-section-intro">
+          <h3>TCP vs UDP: Transport Layer Comparison</h3>
+          <p>Understand connection-oriented reliable transfer vs connectionless high-speed datagrams.</p>
+        </div>
+        <div class="handshake-visual-box">
+          <h4>🤝 The TCP 3-Way Handshake (SYN → SYN-ACK → ACK)</h4>
+          <div class="handshake-steps-row">
+            <div class="handshake-step">
+              <span class="step-num">Step 1</span>
+              <div class="step-title">Client SYN</div>
+              <div class="step-desc">Client sends <code>[SYN] Seq=0 Win=65535 MSS=1460</code> to initiate synchronization.</div>
+            </div>
+            <div class="handshake-arrow">→</div>
+            <div class="handshake-step">
+              <span class="step-num">Step 2</span>
+              <div class="step-title">Server SYN-ACK</div>
+              <div class="step-desc">Server acknowledges and replies with <code>[SYN, ACK] Seq=0 Ack=1 Win=65535</code>.</div>
+            </div>
+            <div class="handshake-arrow">→</div>
+            <div class="handshake-step">
+              <span class="step-num">Step 3</span>
+              <div class="step-title">Client ACK</div>
+              <div class="step-desc">Client responds with <code>[ACK] Seq=1 Ack=1</code>. Connection ESTABLISHED! Data can now flow.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comparison-table-wrapper">
+          <table class="ccna-table">
+            <thead>
+              <tr>
+                <th>Feature / Parameter</th>
+                <th style="color: #10b981;">TCP (Transmission Control Protocol)</th>
+                <th style="color: #f97316;">UDP (User Datagram Protocol)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Connection Type</strong></td>
+                <td>Connection-oriented (Requires 3-way handshake)</td>
+                <td>Connectionless (Fire-and-forget, no handshake)</td>
+              </tr>
+              <tr>
+                <td><strong>Reliability</strong></td>
+                <td>Guaranteed delivery with ACKs & retransmission</td>
+                <td>Best-effort (No retransmission; packet loss possible)</td>
+              </tr>
+              <tr>
+                <td><strong>Header Size</strong></td>
+                <td>20 bytes minimum (up to 60 bytes with options)</td>
+                <td>8 bytes fixed (Source Port, Dst Port, Length, Checksum)</td>
+              </tr>
+              <tr>
+                <td><strong>Ordering & Sequence</strong></td>
+                <td>Packets sequenced and reassembled in exact order</td>
+                <td>No sequence numbers; packets may arrive out of order</td>
+              </tr>
+              <tr>
+                <td><strong>Flow & Congestion Control</strong></td>
+                <td>Sliding Window mechanism & TCP Congestion Avoidance</td>
+                <td>None (Streams at maximum application rate)</td>
+              </tr>
+              <tr>
+                <td><strong>Typical Use Cases</strong></td>
+                <td>Web (HTTP/HTTPS), Email (SMTP/IMAP), File (FTP/SSH), SQL</td>
+                <td>VoIP, Video Streaming, Gaming, DNS queries, DHCP, SNMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: Cabling, Media & Pinout Guide -->
+      <div id="ccna-tab-cabling" class="ccna-tab-content hidden">
+        <div class="ccna-section-intro">
+          <h3>Physical Cabling Media, Transceivers & T568A/B Pinouts</h3>
+          <p>Reference specs for copper twisted pair, optical fiber, direct-attach twinax, and EIA/TIA pinouts.</p>
+        </div>
+        <div class="cable-specs-grid">
+          <div class="cable-card">
+            <div class="cable-badge" style="background: #2563eb;">Cat6 Copper UTP</div>
+            <h4>Unshielded Twisted Pair (Cat6)</h4>
+            <p><strong>Max Speed:</strong> 10 Gbps (55m) / 1 Gbps (100m)</p>
+            <p><strong>Max Distance:</strong> 100 meters (328 ft)</p>
+            <p><strong>Connector:</strong> RJ-45 (8P8C)</p>
+            <p><strong>Use:</strong> End-user PCs, VoIP phones, Wi-Fi 6 APs, office switches</p>
+          </div>
+          <div class="cable-card">
+            <div class="cable-badge" style="background: #eab308; color: black;">Single-Mode Fiber (OS2)</div>
+            <h4>Yellow Jacket Laser Fiber</h4>
+            <p><strong>Max Speed:</strong> 100 Gbps - 400 Gbps</p>
+            <p><strong>Max Distance:</strong> 10 km - 40 km (up to 80 km ZR)</p>
+            <p><strong>Wavelength:</strong> 1310 nm / 1550 nm Laser</p>
+            <p><strong>Use:</strong> Telco WAN backbones, campus interconnects</p>
+          </div>
+          <div class="cable-card">
+            <div class="cable-badge" style="background: #06b6d4; color: black;">Multi-Mode Fiber (OM4)</div>
+            <h4>Aqua Jacket VCSEL LED Fiber</h4>
+            <p><strong>Max Speed:</strong> 25 Gbps / 40 Gbps / 100 Gbps</p>
+            <p><strong>Max Distance:</strong> 400 meters (OM4)</p>
+            <p><strong>Wavelength:</strong> 850 nm VCSEL LED (50/125µm core)</p>
+            <p><strong>Use:</strong> Data center spine-leaf, SAN storage fabric</p>
+          </div>
+          <div class="cable-card">
+            <div class="cable-badge" style="background: #334155;">Twinax DAC</div>
+            <h4>Direct Attach Copper (Passive)</h4>
+            <p><strong>Max Speed:</strong> 10 Gbps / 25 Gbps / 100 Gbps</p>
+            <p><strong>Max Distance:</strong> 1 - 5 meters (Ultra-low latency)</p>
+            <p><strong>Connector:</strong> Integrated SFP28 / QSFP28</p>
+            <p><strong>Use:</strong> Top-of-Rack switch to blade server racks</p>
+          </div>
+        </div>
+
+        <div class="pinout-box">
+          <h4>🎨 EIA/TIA-568A vs EIA/TIA-568B RJ-45 Pinout Chart</h4>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Straight-through cable uses same standard on both ends. Crossover cable uses 568A on one end and 568B on the other.</p>
+          <div class="pinout-row">
+            <div class="pinout-col">
+              <strong>T568B (Most Common Standard):</strong>
+              <ol class="pinout-list">
+                <li><span class="color-dot" style="background: #f97316; border: 1px dashed white;"></span> White/Orange</li>
+                <li><span class="color-dot" style="background: #f97316;"></span> Orange</li>
+                <li><span class="color-dot" style="background: #10b981; border: 1px dashed white;"></span> White/Green</li>
+                <li><span class="color-dot" style="background: #3b82f6;"></span> Blue</li>
+                <li><span class="color-dot" style="background: #3b82f6; border: 1px dashed white;"></span> White/Blue</li>
+                <li><span class="color-dot" style="background: #10b981;"></span> Green</li>
+                <li><span class="color-dot" style="background: #78350f; border: 1px dashed white;"></span> White/Brown</li>
+                <li><span class="color-dot" style="background: #78350f;"></span> Brown</li>
+              </ol>
+            </div>
+            <div class="pinout-col">
+              <strong>T568A Standard:</strong>
+              <ol class="pinout-list">
+                <li><span class="color-dot" style="background: #10b981; border: 1px dashed white;"></span> White/Green</li>
+                <li><span class="color-dot" style="background: #10b981;"></span> Green</li>
+                <li><span class="color-dot" style="background: #f97316; border: 1px dashed white;"></span> White/Orange</li>
+                <li><span class="color-dot" style="background: #3b82f6;"></span> Blue</li>
+                <li><span class="color-dot" style="background: #3b82f6; border: 1px dashed white;"></span> White/Blue</li>
+                <li><span class="color-dot" style="background: #f97316;"></span> Orange</li>
+                <li><span class="color-dot" style="background: #78350f; border: 1px dashed white;"></span> White/Brown</li>
+                <li><span class="color-dot" style="background: #78350f;"></span> Brown</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Virtualization, Hypervisors & Cloud -->
+      <div id="ccna-tab-virtualization" class="ccna-tab-content hidden">
+        <div class="ccna-section-intro">
+          <h3>Virtualization, Hypervisors, VMs & Containers</h3>
+          <p>Understand how modern cloud data centers decouple software from physical server hardware.</p>
+        </div>
+        <div class="hypervisor-comparison-grid">
+          <div class="hyp-card">
+            <span class="hyp-tag" style="background: #a855f7;">Type-1 Hypervisor (Bare-Metal)</span>
+            <h4>Directly on Physical Hardware</h4>
+            <p>Installs directly on the bare-metal server chassis with zero host OS overhead. Direct access to CPU, RAM, and PCIe devices.</p>
+            <p><strong>Examples:</strong> VMware ESXi, KVM, Proxmox VE, Microsoft Hyper-V Server.</p>
+            <p><strong>Use:</strong> Production enterprise data centers, AWS EC2 Nitro, high-density clouds.</p>
+          </div>
+          <div class="hyp-card">
+            <span class="hyp-tag" style="background: #3b82f6;">Type-2 Hypervisor (Hosted)</span>
+            <h4>Runs Inside a Host OS Application</h4>
+            <p>Runs as software inside a traditional desktop operating system (Windows/macOS/Linux). Higher latency and CPU overhead.</p>
+            <p><strong>Examples:</strong> Oracle VirtualBox, VMware Workstation / Fusion, Parallels.</p>
+            <p><strong>Use:</strong> Developer workstations, student labs, software testing.</p>
+          </div>
+        </div>
+
+        <div class="comparison-table-wrapper" style="margin-top: 16px;">
+          <table class="ccna-table">
+            <thead>
+              <tr>
+                <th>Virtualization Concept</th>
+                <th>Virtual Machines (VMs)</th>
+                <th>Containers (Docker / Podman)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Architecture</strong></td>
+                <td>Hardware virtualization (Virtual CPU, Virtual RAM, BIOS)</td>
+                <td>OS kernel namespace and cgroup isolation</td>
+              </tr>
+              <tr>
+                <td><strong>Operating System</strong></td>
+                <td>Runs full Guest OS with own kernel per VM (Gigabytes)</td>
+                <td>Shares the host OS kernel; micro-image footprint (Megabytes)</td>
+              </tr>
+              <tr>
+                <td><strong>Startup Time</strong></td>
+                <td>Minutes (Cold boots full OS kernel and services)</td>
+                <td>Milliseconds (Instantly launches isolated process)</td>
+              </tr>
+              <tr>
+                <td><strong>Networking</strong></td>
+                <td>Virtual Switch (vSwitch), port-groups, virtual MAC & IP</td>
+                <td>Bridge network, veth virtual ethernet pairs, Overlay CNI</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 5: IPsec VPN & Cryptography -->
+      <div id="ccna-tab-vpn" class="ccna-tab-content hidden">
+        <div class="ccna-section-intro">
+          <h3>IPsec Cryptographic VPNs & Encrypted Tunnels</h3>
+          <p>Protecting data in transit across public untrusted WANs using confidentiality, integrity, and authentication.</p>
+        </div>
+        <div class="vpn-steps-grid">
+          <div class="vpn-step-card">
+            <h4>1. IKE Phase 1 (ISAKMP SA)</h4>
+            <p>Negotiates security parameters to establish an authenticated, encrypted management channel between VPN peers.</p>
+            <ul>
+              <li><strong>H</strong>ash: SHA-256 / SHA-384</li>
+              <li><strong>A</strong>uthentication: Pre-Shared Key (PSK) or RSA Digital Certificates</li>
+              <li><strong>G</strong>roup: Diffie-Hellman Key Exchange (DH Group 14, 19, 21)</li>
+              <li><strong>L</strong>ifetime: 86400 seconds (24 hours)</li>
+              <li><strong>E</strong>ncryption: AES-256-GCM / AES-CBC</li>
+            </ul>
+          </div>
+          <div class="vpn-step-card">
+            <h4>2. IKE Phase 2 (IPsec SA)</h4>
+            <p>Negotiates the actual data tunnel parameters to protect payload traffic.</p>
+            <ul>
+              <li><strong>Encapsulation:</strong> ESP (Encapsulating Security Payload, IP Protocol 50)</li>
+              <li><strong>Tunnel Mode:</strong> Encrypts entire original packet; wraps with new public IP header</li>
+              <li><strong>Transport Mode:</strong> Encrypts payload only; preserves original IP header (used in host-to-host or GRE over IPsec)</li>
+              <li><strong>Anti-Replay:</strong> Sequence numbers prevent man-in-the-middle replay attacks</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 6: CCNA Practice Quiz -->
+      <div id="ccna-tab-quiz" class="ccna-tab-content hidden">
+        <div class="ccna-section-intro">
+          <h3>🎯 CCNA 200-301 Interactive Knowledge Check</h3>
+          <p>Test your networking skills with rapid-fire questions covering OSI, TCP/UDP, Cabling, and Virtualization.</p>
+        </div>
+        <div id="ccna-quiz-container" class="quiz-box">
+          <!-- Dynamically populated by CCNAAcademyManager -->
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 16px;">
+        <button id="btn-ccna-calc" class="btn-secondary">🧮 Open Subnet Calculator</button>
+        <button onclick="document.getElementById('ccna-modal').classList.add('hidden')" class="btn-secondary btn-primary-action">Done Studying</button>
       </div>
     </div>
 

@@ -34,6 +34,7 @@ import { SecurityManager } from './security.js';
 import { TopologyLayoutManager } from './layout.js';
 import { calculateSubnet } from './subnet.js';
 import { exportNetworkToPDF } from './exportPdf.js';
+import { CCNAAcademyManager } from './ccna.js';
 import { sound } from './audio.js';
 import {
   validateTopology,
@@ -62,6 +63,7 @@ class App {
     this.initSecurityAndLayout();
     this.initTutorialPanel();
     this.initDesktopUI();
+    this.ccnaManager = new CCNAAcademyManager();
 
     runGraphSelfTest();
 
@@ -217,7 +219,7 @@ class App {
       this.graph.addNode(node);
     }
     for (const link of result.data.links) {
-      this.graph.addLink(link.from, link.to, link.id);
+      this.graph.addLink(link.from, link.to, link.id, link);
     }
 
     this.nodeVisuals.build(this.graph);

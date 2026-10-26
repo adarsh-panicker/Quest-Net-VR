@@ -31,16 +31,16 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
   - [Virtualization, Hypervisors, VMs & Containers](#4-virtualization-hypervisors-vms--containers)
   - [Site-to-Site IPsec VPN & Cryptographic Tunnels](#5-site-to-site-ipsec-vpn--cryptographic-tunnels)
   - [Interactive CCNA Knowledge Check Quiz](#6-interactive-ccna-knowledge-check-quiz)
+- [Physical Hardware Photos & Equipment Gallery](#-physical-hardware-photos--equipment-gallery)
 - [Comprehensive Network Topologies Library (23 Presets)](#-comprehensive-network-topologies-library)
-  - [1. Interactive New Joinee Guided Tour](#1-interactive-new-joinee-guided-tour)
-  - [2. Interactive 3D Network Builder](#2-interactive-3d-network-builder)
-  - [3. Cyber Security Attack & Defense Simulator](#3-cyber-security-attack--defense-simulator)
-  - [4. Wireshark-Lite Live Packet Sniffer](#4-wireshark-lite-live-packet-sniffer)
-  - [5. Multiple 3D Layout Algorithms](#5-multiple-3d-layout-algorithms)
-  - [6. Multi-Protocol Packet Routing & Return Trips](#6-multi-protocol-packet-routing--return-trips)
-  - [7. Interactive IPv4 CIDR Subnet Calculator](#7-interactive-ipv4-cidr-subnet-calculator)
-  - [8. Executive PDF Report & Inventory Download](#8-executive-pdf-report--inventory-download)
-  - [9. Ambient NOC Traffic & Web Audio Synthesizer](#9-ambient-noc-traffic--web-audio-synthesizer)
+  - [1. Interactive 3D Network Builder](#1-interactive-3d-network-builder)
+  - [2. Cyber Security Attack & Defense Simulator](#2-cyber-security-attack--defense-simulator)
+  - [3. Wireshark-Lite Live Packet Sniffer](#3-wireshark-lite-live-packet-sniffer)
+  - [4. Multiple 3D Layout Algorithms](#4-multiple-3d-layout-algorithms)
+  - [5. Multi-Protocol Packet Routing & Return Trips](#5-multi-protocol-packet-routing--return-trips)
+  - [6. Interactive IPv4 CIDR Subnet Calculator](#6-interactive-ipv4-cidr-subnet-calculator)
+  - [7. Executive PDF Report & Inventory Download](#7-executive-pdf-report--inventory-download)
+  - [8. Ambient NOC Traffic & Web Audio Synthesizer](#8-ambient-noc-traffic--web-audio-synthesizer)
 - [Controls Cheatsheet](#-controls-cheatsheet)
   - [Meta Quest 2 Touch Controllers](#meta-quest-2-touch-controllers)
   - [Desktop Mouse & Keyboard](#desktop-mouse--keyboard)
@@ -158,16 +158,7 @@ Flat 2D network architecture diagrams (Visio, Lucidchart, draw.io) are static, l
 
 ## 🚀 Feature Showcase
 
-### 1. Interactive New Joinee Guided Tour
-Click **🎓 Joinee Tour** to launch a 6-step interactive training curriculum:
-- **Module 1: The Perimeter & Ingress Security** &mdash; Ingress filtering, stateful firewall inspection, and DMZ architecture.
-- **Module 2: Layer 3 Core Routing** &mdash; Default gateways, routing tables, and inter-subnet routing.
-- **Module 3: Layer 2 Ethernet Switching & VLANs** &mdash; MAC address tables, collision/broadcast domains, and VLAN isolation.
-- **Module 4: High Availability & Spanning Tree (STP)** &mdash; Single points of failure, redundant links, and zero-downtime automated failover.
-- **Module 5: Endpoints, Servers & Protocol Handshakes** &mdash; Client-server architecture, DNS resolution, and TCP handshakes.
-- **Module 6: Hands-On Challenge** &mdash; Practical test guiding new hires to break a core link and watch traffic reroute via redundant paths.
-
-### 2. Interactive 3D Network Builder
+### 1. Interactive 3D Network Builder
 Design, rearrange, and test custom network topologies on the fly:
 - **+ Add Device (`🏗️`)**: Add any hardware unit into the 3D world with custom Name, IPv4 address, and Department.
 - **12 Hardware Device Roles with 3D Models & 2D Vector Icons**:

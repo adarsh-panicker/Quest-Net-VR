@@ -29,7 +29,6 @@ import { NodeVisualManager } from './nodes.js';
 import { VRMenuManager } from './menu.js';
 import { SimulationManager } from './simulation.js';
 import { InteractionManager } from './interaction.js';
-import { JoineeTourManager } from './tour.js';
 import { SecurityManager } from './security.js';
 import { TopologyLayoutManager } from './layout.js';
 import { calculateSubnet } from './subnet.js';
@@ -62,7 +61,6 @@ class App {
     this.initNetwork();
     this.initVR();
     this.initInteraction();
-    this.initTour();
     this.initSecurityAndLayout();
     this.initTutorialPanel();
     this.classroomManager = new ClassroomManager(this.scene, this);
@@ -144,7 +142,6 @@ class App {
 
     this.menuManager = new VRMenuManager(this.scene, null, {
       trace: () => this.simulation.startTraceMode(),
-      tour: () => this.tourManager?.startTour(),
       templates: () => this.cycleTemplate(),
       traffic: () => this.simulation.toggleAmbientTraffic(),
       break: () => this.simulation.breakSelected(this.interaction.selectedTarget),
@@ -301,16 +298,6 @@ class App {
     if (this.interaction.controllers[0]) {
       this.interaction.controllers[0].add(this.menuManager.menuContainer);
     }
-  }
-
-  initTour() {
-    this.tourManager = new JoineeTourManager(
-      this.scene,
-      this.nodeVisuals,
-      this.menuManager,
-      this.camera
-    );
-    this.interaction.setTourManager(this.tourManager);
   }
 
   // ==========================================
@@ -523,20 +510,6 @@ class App {
       }
     });
 
-    // Tour triggers
-    document.getElementById('btn-tour')?.addEventListener('click', () => {
-      this.tourManager.startTour();
-    });
-    document.getElementById('btn-tour-next')?.addEventListener('click', () => {
-      this.tourManager.nextStep();
-    });
-    document.getElementById('btn-tour-prev')?.addEventListener('click', () => {
-      this.tourManager.prevStep();
-    });
-    document.getElementById('btn-tour-close')?.addEventListener('click', () => {
-      this.tourManager.endTour();
-    });
-
     // Ambient Traffic
     const trafficBtn = document.getElementById('btn-traffic');
     trafficBtn?.addEventListener('click', () => {
@@ -738,10 +711,6 @@ class App {
     }
     this.interaction.update(delta);
     this.menuManager.update(this.camera);
-
-    if (this.tourManager) {
-      this.tourManager.update();
-    }
 
     // Cinematic Camera Orbit
     if (this.cinematicMode && !this.renderer.xr.isPresenting) {

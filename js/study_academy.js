@@ -364,6 +364,22 @@ export class StudyAcademyManager {
         </div>
         ` : ''}
 
+        <!-- Real-World Physical Equipment Photo -->
+        ${topic.hardwarePhoto ? `
+        <div class="study-hardware-box">
+          <div class="study-hardware-header">
+            <span class="hardware-icon">📸</span>
+            <div>
+              <strong style="color: #38bdf8; font-size: 13.5px;">Real-World Hardware Photo: ${topic.hardwarePhoto.title}</strong>
+              <div class="study-hardware-caption">${topic.hardwarePhoto.caption}</div>
+            </div>
+          </div>
+          <div class="study-photo-container">
+            <img src="${topic.hardwarePhoto.src}" alt="${topic.hardwarePhoto.title}" class="study-hardware-img" />
+          </div>
+        </div>
+        ` : ''}
+
         <!-- Deep-Dive Engineering Theory -->
         <div class="study-deepdive-box">
           <div class="study-box-title">🔬 Deep-Dive Technical Engineering</div>

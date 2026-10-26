@@ -86,10 +86,6 @@ export class InteractionManager {
     this.tutorialPanel = panel;
   }
 
-  setTourManager(tour) {
-    this.tourManager = tour;
-  }
-
   setClassroomManager(classroom) {
     this.classroomManager = classroom;
   }
@@ -191,16 +187,6 @@ export class InteractionManager {
       this.triggerHaptic(controller, 0.5, 60);
       sound.playClick();
       return;
-    }
-
-    // Step joinee tour if clicking tour billboard
-    if (this.tourManager && this.tourManager.mesh && this.tourManager.mesh.visible) {
-      const hit = this.getControllerIntersection(controller);
-      if (hit && hit.object === this.tourManager.mesh) {
-        this.tourManager.nextStep();
-        this.triggerHaptic(controller, 0.6, 80);
-        return;
-      }
     }
 
     // VR Classroom Billboard hit-testing
@@ -423,9 +409,6 @@ export class InteractionManager {
         if (this.tutorialPanel && this.tutorialPanel.visible) {
           targets.push(this.tutorialPanel);
         }
-        if (this.tourManager && this.tourManager.mesh && this.tourManager.mesh.visible) {
-          targets.push(this.tourManager.mesh);
-        }
         if (this.classroomManager && this.classroomManager.visible && this.classroomManager.billboardMesh) {
           targets.push(this.classroomManager.billboardMesh);
         }
@@ -436,10 +419,6 @@ export class InteractionManager {
           if (hit.object === this.tutorialPanel) {
             this.tutorialPanel.visible = false;
             sound.playClick();
-            return;
-          }
-          if (this.tourManager && hit.object === this.tourManager.mesh) {
-            this.tourManager.nextStep();
             return;
           }
           if (this.classroomManager && this.classroomManager.visible && hit.object === this.classroomManager.billboardMesh) {

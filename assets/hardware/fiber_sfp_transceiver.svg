@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="metalTransceiver" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="30%" stop-color="#cbd5e1"/>
+      <stop offset="70%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="yellowFiber" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Metal SFP+ Module Body -->
+  <rect x="80" y="60" width="260" height="110" rx="4" fill="url(#metalTransceiver)" stroke="#334155" stroke-width="2"/>
+  <rect x="50" y="80" width="30" height="70" fill="#cbd5e1" stroke="#334155"/>
+
+  <!-- Optical Laser Warning Label -->
+  <rect x="120" y="75" width="160" height="40" rx="2" fill="#facc15" stroke="#ca8a04"/>
+  <text x="200" y="90" fill="#000" font-family="sans-serif" font-weight="bold" font-size="9" text-anchor="middle">CLASS 1 LASER PRODUCT</text>
+  <text x="200" y="105" fill="#000" font-family="monospace" font-size="8" text-anchor="middle">10GBASE-LR 1310nm 10km</text>
+
+  <!-- Blue Bail Latch (Single-Mode Color Code) -->
+  <rect x="330" y="80" width="25" height="70" rx="4" fill="#2563eb" stroke="#1d4ed8"/>
+
+  <!-- LC Duplex Patch Plug -->
+  <rect x="370" y="70" width="110" height="90" rx="5" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Dual Ceramic Ferrules (TX and RX) -->
+  <circle cx="370" cy="95" r="7" fill="#ffffff" stroke="#94a3b8"/>
+  <circle cx="370" cy="95" r="2" fill="#ef4444"/>
+  <text x="400" y="100" fill="#f87171" font-family="monospace" font-size="9" font-weight="bold">TX Laser</text>
+
+  <circle cx="370" cy="135" r="7" fill="#ffffff" stroke="#94a3b8"/>
+  <circle cx="370" cy="135" r="2" fill="#10b981"/>
+  <text x="400" y="140" fill="#34d399" font-family="monospace" font-size="9" font-weight="bold">RX Photodiode</text>
+
+  <!-- Yellow Single-Mode Zipcord Fiber Cables -->
+  <path d="M 480 95 Q 600 95 720 70" stroke="url(#yellowFiber)" stroke-width="8" fill="none"/>
+  <path d="M 480 135 Q 600 135 720 160" stroke="url(#yellowFiber)" stroke-width="8" fill="none"/>
+
+  <text x="600" y="115" fill="#facc15" font-family="monospace" font-size="10" font-weight="bold">OS2 SINGLE-MODE (9/125µm)</text>
+  <text x="200" y="150" fill="#cbd5e1" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">SFP+ 10Gbps OPTICAL TRANSCEIVER</text>
+</svg>

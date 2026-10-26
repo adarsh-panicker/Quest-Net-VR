@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="blueSheath" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="50%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="plugPlastic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.7)"/>
+      <stop offset="100%" stop-color="rgba(148,163,184,0.4)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Blue Cat6 Cable Outer Jacket -->
+  <path d="M 40 100 Q 180 100 250 110 L 250 150 Q 180 140 40 140 Z" fill="url(#blueSheath)" stroke="#1e40af" stroke-width="2"/>
+  <text x="120" y="125" fill="#bfdbfe" font-family="monospace" font-size="9" font-weight="bold">CAT6 UTP 550MHz 23AWG TIA-568-C.2</text>
+
+  <!-- Stripped Twisted Pairs Fan-Out -->
+  <!-- Pair 2: Orange / White-Orange -->
+  <path d="M 250 115 C 290 110, 340 80, 420 80" stroke="#f97316" stroke-width="4" fill="none"/>
+  <path d="M 250 118 C 290 112, 340 90, 420 90" stroke="#fdba74" stroke-width="3" stroke-dasharray="6,4" fill="none"/>
+
+  <!-- Pair 3: Green / White-Green -->
+  <path d="M 250 125 C 290 120, 340 105, 420 105" stroke="#10b981" stroke-width="4" fill="none"/>
+  <path d="M 250 128 C 290 122, 340 115, 420 115" stroke="#86efac" stroke-width="3" stroke-dasharray="6,4" fill="none"/>
+
+  <!-- Pair 1: Blue / White-Blue -->
+  <path d="M 250 132 C 290 135, 340 130, 420 130" stroke="#3b82f6" stroke-width="4" fill="none"/>
+  <path d="M 250 135 C 290 138, 340 140, 420 140" stroke="#93c5fd" stroke-width="3" stroke-dasharray="6,4" fill="none"/>
+
+  <!-- Pair 4: Brown / White-Brown -->
+  <path d="M 250 142 C 290 145, 340 155, 420 155" stroke="#78350f" stroke-width="4" fill="none"/>
+  <path d="M 250 145 C 290 148, 340 165, 420 165" stroke="#d97706" stroke-width="3" stroke-dasharray="6,4" fill="none"/>
+
+  <!-- Clear Polycarbonate RJ-45 Connector Body -->
+  <rect x="420" y="65" width="220" height="120" rx="8" fill="url(#plugPlastic)" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Latch Tab (Snagless Clip) -->
+  <path d="M 460 65 L 530 25 L 560 65 Z" fill="#64748b" stroke="#334155" stroke-width="2"/>
+
+  <!-- 8 Gold-Plated Pin Contacts at Front of Plug -->
+  
+      <rect x="620" y="75" width="16" height="8" rx="1" fill="#facc15" stroke="#ca8a04"/>
+      <line x1="420" y1="79" x2="620" y2="79" stroke="#64748b" stroke-width="1.5"/>
+    
+      <rect x="620" y="87" width="16" height="8" rx="1" fill="#facc15" stroke="#ca8a04"/>
+      <line x1="420" y1="91" x2="620" y2="91" stroke="#64748b" stroke-width="1.5"/>
+    
+      <rect x="620" y="99" width="16" height="8" rx="1" fill="#facc15" stroke="#ca8a04"/>
+      <line x1="420" y1="103" x2="620" y2="103" stroke="#64748b" stroke-width="1.5"/>
+    
+      <rect x="620" y="111" width="16" height="8" rx="1" fill="#facc15" stroke="#ca8a04"/>
+      <line x1="420" y1="115" x2="620" y2="115" stroke="#64748b" stroke-width="1.5"/>
+    
+      <rect x="620" y="123" width="16" height="8" rx="1" fill="#facc15" stroke="#ca8a04"/>
+      <line x1="420" y1="127" x2="620" y2="127" stroke="#64748b" stroke-width="1.5"/>
+    
+      <rect x="620" y="135" width="16" height="8" rx="1" fill="#facc15" stroke="#ca8a04"/>
+      <line x1="420" y1="139" x2="620" y2="139" stroke="#64748b" stroke-width="1.5"/>
+    
+      <rect x="620" y="147" width="16" height="8" rx="1" fill="#facc15" stroke="#ca8a04"/>
+      <line x1="420" y1="151" x2="620" y2="151" stroke="#64748b" stroke-width="1.5"/>
+    
+      <rect x="620" y="159" width="16" height="8" rx="1" fill="#facc15" stroke="#ca8a04"/>
+      <line x1="420" y1="163" x2="620" y2="163" stroke="#64748b" stroke-width="1.5"/>
+    
+
+  <text x="525" y="170" fill="#1e293b" font-family="'Segoe UI', sans-serif" font-weight="bold" font-size="11">RJ-45 (8P8C) CONNECTOR</text>
+  <text x="690" y="125" fill="#ca8a04" font-family="monospace" font-weight="bold" font-size="10">50µ GOLD PINS</text>
+</svg>

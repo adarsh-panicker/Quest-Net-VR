@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 180" width="100%" height="100%">
+  <defs>
+    <linearGradient id="routerMetal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="15%" stop-color="#1e293b"/>
+      <stop offset="85%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rack Mount Ears -->
+  <rect x="10" y="20" width="40" height="140" rx="3" fill="#475569" stroke="#1e293b"/>
+  <circle cx="30" cy="40" r="6" fill="#0f172a" stroke="#64748b"/>
+  <circle cx="30" cy="140" r="6" fill="#0f172a" stroke="#64748b"/>
+  <rect x="850" y="20" width="40" height="140" rx="3" fill="#475569" stroke="#1e293b"/>
+  <circle cx="870" cy="40" r="6" fill="#0f172a" stroke="#64748b"/>
+  <circle cx="870" cy="140" r="6" fill="#0f172a" stroke="#64748b"/>
+
+  <!-- Router 1U Chassis -->
+  <rect x="50" y="25" width="800" height="130" rx="4" fill="url(#routerMetal)" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Brand Label & System Info -->
+  <rect x="70" y="38" width="150" height="104" rx="4" fill="#0f172a" stroke="#334155"/>
+  <text x="85" y="60" fill="#38bdf8" font-family="'Segoe UI', Arial, sans-serif" font-weight="900" font-size="14" letter-spacing="1">CISCO 4331</text>
+  <text x="85" y="76" fill="#94a3b8" font-family="'Segoe UI', Arial, sans-serif" font-weight="600" font-size="10">Integrated Services Router</text>
+  <text x="85" y="90" fill="#64748b" font-family="monospace" font-size="8">IOS-XE WAN GATEWAY</text>
+
+  <circle cx="85" cy="112" r="3.5" fill="#22c55e"/>
+  <text x="96" y="115" fill="#cbd5e1" font-family="monospace" font-size="7">PWR</text>
+  <circle cx="130" cy="112" r="3.5" fill="#22c55e"/>
+  <text x="141" y="115" fill="#cbd5e1" font-family="monospace" font-size="7">STAT</text>
+
+  <!-- Routed WAN Ports (GE 0/0/0, GE 0/0/1, GE 0/0/2 SFP Combo) -->
+  <rect x="235" y="38" width="220" height="104" rx="4" fill="#0f172a" stroke="#334155"/>
+  <text x="250" y="55" fill="#10b981" font-family="monospace" font-size="9" font-weight="bold">ONBOARD GIGABIT ETHERNET</text>
+
+  <!-- GE 0/0/0 -->
+  <rect x="250" y="65" width="36" height="42" rx="3" fill="#020617" stroke="#475569"/>
+  <circle cx="268" cy="115" r="2.5" fill="#22c55e"/>
+  <text x="268" y="125" fill="#cbd5e1" font-family="monospace" font-size="7" text-anchor="middle">GE0/0/0</text>
+
+  <!-- GE 0/0/1 -->
+  <rect x="300" y="65" width="36" height="42" rx="3" fill="#020617" stroke="#475569"/>
+  <circle cx="318" cy="115" r="2.5" fill="#22c55e"/>
+  <text x="318" y="125" fill="#cbd5e1" font-family="monospace" font-size="7" text-anchor="middle">GE0/0/1</text>
+
+  <!-- GE 0/0/2 SFP Cage -->
+  <rect x="350" y="65" width="32" height="42" rx="3" fill="#020617" stroke="#00f3ff"/>
+  <circle cx="366" cy="115" r="2.5" fill="#22c55e"/>
+  <text x="366" y="125" fill="#cbd5e1" font-family="monospace" font-size="7" text-anchor="middle">SFP 0/0/2</text>
+
+  <!-- Console / AUX Ports -->
+  <rect x="400" y="65" width="22" height="20" rx="2" fill="#0284c7" stroke="#38bdf8"/>
+  <text x="411" y="93" fill="#94a3b8" font-family="monospace" font-size="6" text-anchor="middle">CONSOLE</text>
+
+  <!-- NIM Expansion Bays 1 & 2 -->
+  <rect x="470" y="38" width="170" height="104" rx="4" fill="#0f172a" stroke="#475569"/>
+  <text x="555" y="55" fill="#94a3b8" font-family="monospace" font-size="8" text-anchor="middle">NIM SLOT 0 (4-PORT SWITCH)</text>
+  <rect x="485" y="65" width="140" height="60" rx="2" fill="#1e293b" stroke="#334155"/>
+  <circle cx="495" cy="72" r="3" fill="#64748b"/>
+  <circle cx="615" cy="72" r="3" fill="#64748b"/>
+  <text x="555" y="100" fill="#64748b" font-family="monospace" font-size="8" text-anchor="middle">SERIAL / E1 / T1 WAN</text>
+
+  <!-- NIM Expansion Bay 2 -->
+  <rect x="655" y="38" width="170" height="104" rx="4" fill="#0f172a" stroke="#475569"/>
+  <text x="740" y="55" fill="#94a3b8" font-family="monospace" font-size="8" text-anchor="middle">NIM SLOT 1 (VOICE / DSP)</text>
+  <rect x="670" y="65" width="140" height="60" rx="2" fill="#1e293b" stroke="#334155"/>
+  <circle cx="680" cy="72" r="3" fill="#64748b"/>
+  <circle cx="800" cy="72" r="3" fill="#64748b"/>
+  <text x="740" y="100" fill="#64748b" font-family="monospace" font-size="8" text-anchor="middle">FXS / FXO VOICE TRUNK</text>
+</svg>

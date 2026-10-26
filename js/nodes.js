@@ -10,6 +10,7 @@
 import * as THREE from 'three';
 import { sound } from './audio.js';
 import { DEPARTMENT_COLORS } from './graph.js';
+import { getHardwareFaceplateTexture, drawPhotorealisticHardwarePhoto } from './hardware_textures.js';
 
 // Color palette
 export const NODE_COLORS = {
@@ -238,7 +239,7 @@ export class NodeVisualManager {
     if (type === 'pc') type = 'desktop';
 
     const baseColor = NODE_COLORS[type] || NODE_COLORS.desktop;
-    const material = new THREE.MeshStandardMaterial({
+    let material = new THREE.MeshStandardMaterial({
       color: baseColor,
       roughness: 0.35,
       metalness: 0.2,
@@ -246,80 +247,229 @@ export class NodeVisualManager {
     });
 
     let mainMesh;
-    if (type === 'desktop') {
+
+    if (type === 'switch') {
       mainMesh = new THREE.Group();
-      const baseMesh = new THREE.Mesh(this.geometries.pcBase, material);
-      const screenMesh = new THREE.Mesh(this.geometries.pcScreen, material);
-      screenMesh.position.set(0, 0.12, -0.04);
-      mainMesh.add(baseMesh);
-      mainMesh.add(screenMesh);
+      // 1U Rack-mount chassis
+      const swGeom = new THREE.BoxGeometry(0.54, 0.13, 0.28);
+      const sideMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6, metalness: 0.7 });
+      const faceMat = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture('switch'),
+        roughness: 0.35,
+        metalness: 0.2,
+        emissive: 0x111122
+      });
+      // BoxGeometry faces: [+x, -x, +y, -y, +z (front), -z (rear)]
+      const swBox = new THREE.Mesh(swGeom, [sideMat, sideMat, sideMat, sideMat, faceMat, sideMat]);
+      mainMesh.add(swBox);
+
+      // Metallic rack ear brackets on left and right
+      const earGeom = new THREE.BoxGeometry(0.02, 0.13, 0.05);
+      const earMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8, roughness: 0.3 });
+      const leftEar = new THREE.Mesh(earGeom, earMat);
+      leftEar.position.set(-0.28, 0, 0.115);
+      const rightEar = new THREE.Mesh(earGeom, earMat);
+      rightEar.position.set(0.28, 0, 0.115);
+      mainMesh.add(leftEar);
+      mainMesh.add(rightEar);
+      material = faceMat;
+    } else if (type === 'router') {
+      mainMesh = new THREE.Group();
+      // Modular WAN router chassis
+      const rGeom = new THREE.BoxGeometry(0.50, 0.17, 0.30);
+      const rSideMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6, metalness: 0.6 });
+      const rFaceMat = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture('router'),
+        roughness: 0.35,
+        metalness: 0.2,
+        emissive: 0x111122
+      });
+      const rBox = new THREE.Mesh(rGeom, [rSideMat, rSideMat, rSideMat, rSideMat, rFaceMat, rSideMat]);
+      mainMesh.add(rBox);
+
+      const earGeom = new THREE.BoxGeometry(0.02, 0.17, 0.05);
+      const earMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8, roughness: 0.3 });
+      const leftEar = new THREE.Mesh(earGeom, earMat);
+      leftEar.position.set(-0.26, 0, 0.125);
+      const rightEar = new THREE.Mesh(earGeom, earMat);
+      rightEar.position.set(0.26, 0, 0.125);
+      mainMesh.add(leftEar);
+      mainMesh.add(rightEar);
+      material = rFaceMat;
+    } else if (type === 'server' || type === 'hypervisor') {
+      mainMesh = new THREE.Group();
+      // 2U Rack server chassis
+      const sGeom = new THREE.BoxGeometry(0.36, 0.54, 0.32);
+      const sSideMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.6, metalness: 0.7 });
+      const sFaceMat = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture(type),
+        roughness: 0.35,
+        metalness: 0.2,
+        emissive: 0x111122
+      });
+      const sBox = new THREE.Mesh(sGeom, [sSideMat, sSideMat, sSideMat, sSideMat, sFaceMat, sSideMat]);
+      mainMesh.add(sBox);
+      material = sFaceMat;
+    } else if (type === 'firewall' || type === 'vpn') {
+      mainMesh = new THREE.Group();
+      // Security appliance chassis
+      const fwGeom = new THREE.BoxGeometry(0.44, 0.24, 0.30);
+      const fwSideMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, roughness: 0.6, metalness: 0.6 });
+      const fwFaceMat = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture(type),
+        roughness: 0.35,
+        metalness: 0.2,
+        emissive: 0x220505
+      });
+      const fwBox = new THREE.Mesh(fwGeom, [fwSideMat, fwSideMat, fwSideMat, fwSideMat, fwFaceMat, fwSideMat]);
+      mainMesh.add(fwBox);
+      material = fwFaceMat;
+    } else if (type === 'database') {
+      mainMesh = new THREE.Group();
+      // 3U Enterprise SAN storage array
+      const dbGeom = new THREE.BoxGeometry(0.46, 0.38, 0.32);
+      const dbSideMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.6, metalness: 0.7 });
+      const dbFaceMat = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture('database'),
+        roughness: 0.35,
+        metalness: 0.2,
+        emissive: 0x111122
+      });
+      const dbBox = new THREE.Mesh(dbGeom, [dbSideMat, dbSideMat, dbSideMat, dbSideMat, dbFaceMat, dbSideMat]);
+      mainMesh.add(dbBox);
+      material = dbFaceMat;
+    } else if (type === 'desktop' || type === 'pc') {
+      mainMesh = new THREE.Group();
+      // Thin-bezel LCD Monitor with OS Desktop & CLI Terminal
+      const screenGeom = new THREE.BoxGeometry(0.38, 0.26, 0.02);
+      const monitorSideMat = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.5, metalness: 0.8 });
+      const screenFaceMat = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture('desktop'),
+        roughness: 0.2,
+        metalness: 0.1,
+        emissive: 0x111122
+      });
+      const monitor = new THREE.Mesh(screenGeom, [monitorSideMat, monitorSideMat, monitorSideMat, monitorSideMat, screenFaceMat, monitorSideMat]);
+      monitor.position.set(-0.06, 0.14, 0);
+
+      // Aluminum monitor stand
+      const standMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9, roughness: 0.2 });
+      const standNeck = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.14, 12), standMat);
+      standNeck.position.set(-0.06, 0.04, -0.02);
+      const standBase = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.012, 0.16), standMat);
+      standBase.position.set(-0.06, -0.03, 0);
+
+      // Mini Desktop Tower Chassis beside monitor
+      const towerGeom = new THREE.BoxGeometry(0.12, 0.28, 0.24);
+      const towerMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.7, roughness: 0.3 });
+      const tower = new THREE.Mesh(towerGeom, towerMat);
+      tower.position.set(0.20, 0.11, 0);
+
+      mainMesh.add(monitor);
+      mainMesh.add(standNeck);
+      mainMesh.add(standBase);
+      mainMesh.add(tower);
+      material = screenFaceMat;
     } else if (type === 'laptop') {
       mainMesh = new THREE.Group();
-      const baseMesh = new THREE.Mesh(this.geometries.laptopBase, material);
-      const screenMesh = new THREE.Mesh(this.geometries.laptopScreen, material);
-      screenMesh.position.set(0, 0.10, -0.08);
-      screenMesh.rotation.x = -0.35; // Tilted screen
-      mainMesh.add(baseMesh);
-      mainMesh.add(screenMesh);
+      // Anodized aluminum unibody keyboard deck
+      const lapBaseGeom = new THREE.BoxGeometry(0.32, 0.02, 0.22);
+      const lapMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.85, roughness: 0.2 });
+      const lapBase = new THREE.Mesh(lapBaseGeom, lapMat);
+
+      // Tilted high-res display
+      const lapScreenGeom = new THREE.BoxGeometry(0.32, 0.22, 0.015);
+      const lapScreenFace = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture('laptop'),
+        roughness: 0.2,
+        metalness: 0.1,
+        emissive: 0x111122
+      });
+      const lapScreen = new THREE.Mesh(lapScreenGeom, [lapMat, lapMat, lapMat, lapMat, lapScreenFace, lapMat]);
+      lapScreen.position.set(0, 0.11, -0.09);
+      lapScreen.rotation.x = -0.32;
+
+      mainMesh.add(lapBase);
+      mainMesh.add(lapScreen);
+      material = lapScreenFace;
     } else if (type === 'printer') {
       mainMesh = new THREE.Group();
-      const body = new THREE.Mesh(this.geometries.printerBody, material);
-      const tray = new THREE.Mesh(
-        this.geometries.printerTray,
-        new THREE.MeshLambertMaterial({ color: 0x38bdf8 })
+      const pGeom = new THREE.BoxGeometry(0.36, 0.24, 0.30);
+      const pSideMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.4 });
+      const pFaceMat = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture('printer'),
+        roughness: 0.3,
+        metalness: 0.1,
+        emissive: 0x111122
+      });
+      const printerBox = new THREE.Mesh(pGeom, [pSideMat, pSideMat, pSideMat, pSideMat, pFaceMat, pSideMat]);
+
+      const paperTray = new THREE.Mesh(
+        new THREE.BoxGeometry(0.22, 0.015, 0.16),
+        new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.3 })
       );
-      tray.position.set(0, 0.11, -0.04);
-      tray.rotation.x = -0.4;
-      mainMesh.add(body);
-      mainMesh.add(tray);
+      paperTray.position.set(0, 0.13, -0.06);
+      paperTray.rotation.x = -0.4;
+
+      mainMesh.add(printerBox);
+      mainMesh.add(paperTray);
+      material = pFaceMat;
     } else if (type === 'wap') {
       mainMesh = new THREE.Group();
-      const dome = new THREE.Mesh(this.geometries.wapDome, material);
-      const ring = new THREE.Mesh(
-        this.geometries.wapRing,
-        new THREE.MeshBasicMaterial({ color: 0x00f3ff })
-      );
-      ring.rotation.x = Math.PI / 2;
-      ring.position.y = 0.035;
+      // Ceiling AP disc
+      const domeGeom = new THREE.CylinderGeometry(0.24, 0.26, 0.06, 24);
+      const domeMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.3 });
+      const domeFace = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture('wap'),
+        roughness: 0.2,
+        emissive: 0x002222
+      });
+      const dome = new THREE.Mesh(domeGeom, [domeMat, domeFace, domeMat]);
+      dome.rotation.x = Math.PI / 2;
       mainMesh.add(dome);
-      mainMesh.add(ring);
+      material = domeFace;
     } else if (type === 'phone') {
       mainMesh = new THREE.Group();
-      const baseMesh = new THREE.Mesh(this.geometries.phoneBase, material);
+      const phoneGeom = new THREE.BoxGeometry(0.26, 0.18, 0.14);
+      const phoneSideMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 });
+      const phoneFace = new THREE.MeshStandardMaterial({
+        map: getHardwareFaceplateTexture('phone'),
+        roughness: 0.3,
+        emissive: 0x111122
+      });
+      const phoneBody = new THREE.Mesh(phoneGeom, [phoneSideMat, phoneSideMat, phoneSideMat, phoneSideMat, phoneFace, phoneSideMat]);
+      phoneBody.rotation.x = -0.35;
+
       const handset = new THREE.Mesh(
-        this.geometries.phoneHandset,
-        new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 })
+        new THREE.BoxGeometry(0.06, 0.05, 0.26),
+        new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.6 })
       );
-      handset.position.set(-0.08, 0.04, 0);
-      const screenMesh = new THREE.Mesh(
-        this.geometries.phoneScreen,
-        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
-      );
-      screenMesh.position.set(0.04, 0.045, -0.04);
-      screenMesh.rotation.x = -0.3;
-      mainMesh.add(baseMesh);
+      handset.position.set(-0.11, 0.05, 0);
+      handset.rotation.x = -0.35;
+
+      mainMesh.add(phoneBody);
       mainMesh.add(handset);
-      mainMesh.add(screenMesh);
-    } else if (type === 'iot') {
+      material = phoneFace;
+    } else if (type === 'internet' || type === 'cloud' || type === 'cloud_vpc') {
       mainMesh = new THREE.Group();
-      const body = new THREE.Mesh(this.geometries.iotBody, material);
-      const antenna = new THREE.Mesh(
-        this.geometries.iotAntenna,
-        new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, roughness: 0.2 })
-      );
-      antenna.position.set(0.08, 0.22, 0);
-      mainMesh.add(body);
-      mainMesh.add(antenna);
-    } else if (type === 'hypervisor') {
-      mainMesh = new THREE.Group();
-      const chassis = new THREE.Mesh(this.geometries.hypervisorChassis, material);
-      const visorScreen = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.18, 0.36),
-        new THREE.MeshBasicMaterial({ color: 0x00f3ff, side: THREE.DoubleSide })
-      );
-      visorScreen.position.set(0, 0, 0.165);
-      mainMesh.add(chassis);
-      mainMesh.add(visorScreen);
+      const globeGeom = new THREE.SphereGeometry(0.24, 24, 24);
+      const globeMat = new THREE.MeshStandardMaterial({
+        color: 0x0284c7,
+        emissive: 0x00f3ff,
+        emissiveIntensity: 0.3,
+        roughness: 0.3,
+        metalness: 0.4
+      });
+      const globe = new THREE.Mesh(globeGeom, globeMat);
+
+      // Orbital glowing data ring
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true });
+      const orbRing = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.012, 8, 32), ringMat);
+      orbRing.rotation.x = Math.PI / 3;
+
+      mainMesh.add(globe);
+      mainMesh.add(orbRing);
+      material = globeMat;
     } else if (type === 'vm') {
       mainMesh = new THREE.Group();
       const outerMat = new THREE.MeshStandardMaterial({
@@ -334,6 +484,7 @@ export class NodeVisualManager {
       const innerCore = new THREE.Mesh(this.geometries.vmCore, coreMat);
       mainMesh.add(outerBox);
       mainMesh.add(innerCore);
+      material = outerMat;
     } else if (type === 'container') {
       mainMesh = new THREE.Group();
       const pod = new THREE.Mesh(this.geometries.containerPod, material);
@@ -345,24 +496,16 @@ export class NodeVisualManager {
       mainMesh.add(pod);
       mainMesh.add(stripe1);
       mainMesh.add(stripe2);
-    } else if (type === 'vpn') {
+    } else if (type === 'iot') {
       mainMesh = new THREE.Group();
-      const lockBody = new THREE.Mesh(this.geometries.vpnLock, material);
-      const lockArch = new THREE.Mesh(
-        this.geometries.vpnArch,
-        new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.9, roughness: 0.2 })
+      const body = new THREE.Mesh(this.geometries.iotBody, material);
+      const antenna = new THREE.Mesh(
+        this.geometries.iotAntenna,
+        new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, roughness: 0.2 })
       );
-      lockArch.position.set(0, 0.12, 0);
-      mainMesh.add(lockBody);
-      mainMesh.add(lockArch);
-    } else if (type === 'cloud_vpc') {
-      mainMesh = new THREE.Group();
-      const vpcCore = new THREE.Mesh(this.geometries.cloudVpc, material);
-      const ringMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true });
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.015, 8, 24), ringMat);
-      ring.rotation.x = Math.PI / 3;
-      mainMesh.add(vpcCore);
-      mainMesh.add(ring);
+      antenna.position.set(0.08, 0.22, 0);
+      mainMesh.add(body);
+      mainMesh.add(antenna);
     } else {
       const geom = this.geometries[type] || this.geometries.pcBase;
       mainMesh = new THREE.Mesh(geom, material);
@@ -411,20 +554,20 @@ export class NodeVisualManager {
    */
   createLabelSprite(name, ip, type, department = 'IT & Infrastructure') {
     const canvas = document.createElement('canvas');
-    canvas.width = 640;
+    canvas.width = 680;
     canvas.height = 300;
     const ctx = canvas.getContext('2d');
 
     // Rounded card background
-    const x = 16, y = 16, w = 608, h = 268, r = 24;
-    ctx.fillStyle = 'rgba(11, 15, 26, 0.94)';
+    const x = 16, y = 16, w = 648, h = 268, r = 24;
+    ctx.fillStyle = 'rgba(11, 15, 26, 0.96)';
     const deptColor = DEPARTMENT_COLORS[department] || '#00f3ff';
     ctx.strokeStyle = deptColor;
     ctx.lineWidth = 6;
     this.drawRoundedRect(ctx, x, y, w, h, r, true, true);
 
-    // Draw Generic Device Thumbnail Icon in top-left
-    this.drawDeviceThumbnail(ctx, type, 36, 36, 84, 84);
+    // Draw Real Photorealistic Equipment Photo in top-left
+    drawPhotorealisticHardwarePhoto(ctx, type, 32, 32, 136, 92);
 
     // Device Full Name
     ctx.fillStyle = '#ffffff';
@@ -433,39 +576,39 @@ export class NodeVisualManager {
     ctx.textBaseline = 'top';
 
     let displayName = name;
-    if (displayName.length > 24) {
-      displayName = displayName.substring(0, 22) + '...';
+    if (displayName.length > 22) {
+      displayName = displayName.substring(0, 20) + '...';
     }
-    ctx.fillText(displayName, 140, 42);
+    ctx.fillText(displayName, 186, 42);
 
     // IPv4 Address
     ctx.fillStyle = '#38bdf8';
     ctx.font = 'bold 30px "Consolas", monospace';
-    ctx.fillText(ip, 140, 88);
+    ctx.fillText(ip, 186, 88);
 
     // Separator line
     ctx.strokeStyle = 'rgba(148, 163, 184, 0.3)';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(36, 145);
+    ctx.moveTo(32, 145);
     ctx.lineTo(w, 145);
     ctx.stroke();
 
     // Department Badge
     ctx.fillStyle = deptColor;
     ctx.globalAlpha = 0.2;
-    this.drawRoundedRect(ctx, 36, 170, 360, 48, 10, true, false);
+    this.drawRoundedRect(ctx, 32, 170, 380, 48, 10, true, false);
     ctx.globalAlpha = 1.0;
 
     ctx.strokeStyle = deptColor;
     ctx.lineWidth = 2;
-    this.drawRoundedRect(ctx, 36, 170, 360, 48, 10, false, true);
+    this.drawRoundedRect(ctx, 32, 170, 380, 48, 10, false, true);
 
     ctx.fillStyle = deptColor;
     ctx.font = 'bold 22px "Segoe UI", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(`🏢 ${department.toUpperCase()}`, 216, 194);
+    ctx.fillText(`🏢 ${department.toUpperCase()}`, 222, 194);
 
     // Device Role Tag on right
     ctx.fillStyle = '#94a3b8';
@@ -485,7 +628,7 @@ export class NodeVisualManager {
     });
 
     const sprite = new THREE.Sprite(spriteMaterial);
-    sprite.scale.set(0.56, 0.26, 1.0);
+    sprite.scale.set(0.60, 0.26, 1.0);
     sprite.userData.canvas = canvas;
     sprite.userData.texture = texture;
 
@@ -493,268 +636,13 @@ export class NodeVisualManager {
   }
 
   /**
-   * Draw high-res generic device vector thumbnail on 2D canvas
+   * Draw high-res photorealistic hardware equipment photo on 2D canvas
    */
   drawDeviceThumbnail(ctx, type, bx, by, bw, bh) {
-    ctx.save();
-
-    // Icon background tile
-    ctx.fillStyle = 'rgba(30, 41, 59, 0.85)';
-    ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
-    ctx.lineWidth = 3;
-    this.drawRoundedRect(ctx, bx, by, bw, bh, 14, true, true);
-
-    const cx = bx + bw / 2;
-    const cy = by + bh / 2;
-    ctx.fillStyle = '#ffffff';
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-
-    switch (type) {
-      case 'server':
-        // Rack server chassis with blades and LED lights
-        ctx.fillStyle = '#a855f7';
-        this.drawRoundedRect(ctx, cx - 24, cy - 22, 48, 44, 4, true, true);
-        ctx.fillStyle = '#10b981';
-        ctx.beginPath();
-        ctx.arc(cx - 15, cy - 10, 3, 0, Math.PI * 2);
-        ctx.arc(cx - 15, cy + 2, 3, 0, Math.PI * 2);
-        ctx.arc(cx - 15, cy + 14, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.moveTo(cx - 6, cy - 10); ctx.lineTo(cx + 18, cy - 10);
-        ctx.moveTo(cx - 6, cy + 2);  ctx.lineTo(cx + 18, cy + 2);
-        ctx.moveTo(cx - 6, cy + 14); ctx.lineTo(cx + 18, cy + 14);
-        ctx.stroke();
-        break;
-
-      case 'desktop':
-      case 'pc':
-        // Monitor + Stand
-        ctx.fillStyle = '#38bdf8';
-        this.drawRoundedRect(ctx, cx - 22, cy - 20, 44, 28, 4, true, true);
-        ctx.strokeStyle = '#38bdf8';
-        ctx.beginPath();
-        ctx.moveTo(cx, cy + 8); ctx.lineTo(cx, cy + 16);
-        ctx.moveTo(cx - 12, cy + 16); ctx.lineTo(cx + 12, cy + 16);
-        ctx.stroke();
-        break;
-
-      case 'laptop':
-        // Clamshell laptop
-        ctx.strokeStyle = '#0ea5e9';
-        ctx.fillStyle = 'rgba(14, 165, 233, 0.4)';
-        this.drawRoundedRect(ctx, cx - 20, cy - 18, 40, 24, 3, true, true);
-        ctx.strokeStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.moveTo(cx - 26, cy + 12); ctx.lineTo(cx + 26, cy + 12);
-        ctx.stroke();
-        break;
-
-      case 'printer':
-        // Network printer with paper entering top and tray
-        ctx.fillStyle = '#e2e8f0';
-        this.drawRoundedRect(ctx, cx - 20, cy - 10, 40, 24, 4, true, true);
-        // Top sheet
-        ctx.fillStyle = '#38bdf8';
-        this.drawRoundedRect(ctx, cx - 12, cy - 22, 24, 12, 2, true, false);
-        // Output slot
-        ctx.fillStyle = '#0f172a';
-        this.drawRoundedRect(ctx, cx - 14, cy, 28, 5, 2, true, false);
-        break;
-
-      case 'firewall':
-        // Brick wall / Shield
-        ctx.fillStyle = '#f97316';
-        this.drawRoundedRect(ctx, cx - 22, cy - 20, 44, 40, 6, true, true);
-        ctx.strokeStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.moveTo(cx - 22, cy - 7); ctx.lineTo(cx + 22, cy - 7);
-        ctx.moveTo(cx - 22, cy + 7); ctx.lineTo(cx + 22, cy + 7);
-        ctx.moveTo(cx, cy - 20); ctx.lineTo(cx, cy - 7);
-        ctx.moveTo(cx - 11, cy - 7); ctx.lineTo(cx - 11, cy + 7);
-        ctx.moveTo(cx + 11, cy - 7); ctx.lineTo(cx + 11, cy + 7);
-        ctx.stroke();
-        break;
-
-      case 'router':
-        // Circular router with 4 cross arrows
-        ctx.fillStyle = '#2563eb';
-        ctx.beginPath();
-        ctx.arc(cx, cy, 20, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-        ctx.strokeStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.moveTo(cx - 10, cy); ctx.lineTo(cx + 10, cy);
-        ctx.moveTo(cx, cy - 10); ctx.lineTo(cx, cy + 10);
-        ctx.stroke();
-        break;
-
-      case 'switch':
-        // Wide rack switch with parallel arrows
-        ctx.fillStyle = '#10b981';
-        this.drawRoundedRect(ctx, cx - 24, cy - 12, 48, 24, 4, true, true);
-        ctx.strokeStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.moveTo(cx - 16, cy - 4); ctx.lineTo(cx + 16, cy - 4);
-        ctx.moveTo(cx + 16, cy + 4); ctx.lineTo(cx - 16, cy + 4);
-        ctx.stroke();
-        break;
-
-      case 'database':
-        // Cylindrical stacked disks
-        ctx.fillStyle = '#f59e0b';
-        ctx.strokeStyle = '#ffffff';
-        for (let i = 0; i < 3; i++) {
-          ctx.beginPath();
-          ctx.ellipse(cx, cy - 14 + i * 14, 20, 7, 0, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.stroke();
-        }
-        break;
-
-      case 'wap':
-        // Wi-Fi 6 Access Point with broadcast radio waves
-        ctx.fillStyle = '#06b6d4';
-        ctx.beginPath();
-        ctx.arc(cx, cy + 10, 9, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#38bdf8';
-        ctx.lineWidth = 3;
-        for (let r = 18; r <= 32; r += 7) {
-          ctx.beginPath();
-          ctx.arc(cx, cy + 10, r, Math.PI * 1.25, Math.PI * 1.75);
-          ctx.stroke();
-        }
-        break;
-
-      case 'phone':
-        // VoIP IP Phone
-        ctx.fillStyle = '#10b981';
-        this.drawRoundedRect(ctx, cx - 22, cy - 16, 44, 34, 4, true, true);
-        ctx.fillStyle = '#0f172a';
-        this.drawRoundedRect(ctx, cx - 5, cy - 12, 22, 14, 2, true, false);
-        ctx.fillStyle = '#ffffff';
-        this.drawRoundedRect(ctx, cx - 18, cy - 19, 9, 40, 3, true, false);
-        ctx.fillStyle = '#94a3b8';
-        for (let r = 0; r < 3; r++) {
-          for (let c = 0; c < 3; c++) {
-            ctx.fillRect(cx - 2 + c * 7, cy + 5 + r * 4, 3, 2);
-          }
-        }
-        break;
-
-      case 'iot':
-        // Industrial PLC & IoT Microchip
-        ctx.fillStyle = '#f59e0b';
-        this.drawRoundedRect(ctx, cx - 20, cy - 20, 40, 40, 5, true, true);
-        ctx.fillStyle = '#0f172a';
-        this.drawRoundedRect(ctx, cx - 11, cy - 11, 22, 22, 3, true, false);
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(cx - 16, cy - 7, 5, 3);
-        ctx.fillRect(cx - 16, cy + 4, 5, 3);
-        ctx.fillRect(cx + 11, cy - 7, 5, 3);
-        ctx.fillRect(cx + 11, cy + 4, 5, 3);
-        ctx.fillStyle = '#10b981';
-        ctx.beginPath();
-        ctx.arc(cx, cy, 3.5, 0, Math.PI * 2);
-        ctx.fill();
-        break;
-
-      case 'hypervisor':
-        // Bare-Metal ESXi Hypervisor with nested VM grid
-        ctx.fillStyle = '#a855f7';
-        this.drawRoundedRect(ctx, cx - 24, cy - 22, 48, 44, 4, true, true);
-        // Nested VM tiles
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(cx - 18, cy - 14, 15, 12);
-        ctx.fillRect(cx + 3, cy - 14, 15, 12);
-        ctx.fillRect(cx - 18, cy + 2, 15, 12);
-        ctx.fillRect(cx + 3, cy + 2, 15, 12);
-        ctx.fillStyle = '#00f3ff';
-        ctx.fillRect(cx - 15, cy - 11, 4, 4);
-        ctx.fillRect(cx + 6, cy - 11, 4, 4);
-        ctx.fillRect(cx - 15, cy + 5, 4, 4);
-        ctx.fillRect(cx + 6, cy + 5, 4, 4);
-        break;
-
-      case 'vm':
-        // Virtual Machine Translucent Cube
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
-        this.drawRoundedRect(ctx, cx - 18, cy - 18, 36, 36, 4, true, true);
-        ctx.strokeStyle = '#00f3ff';
-        ctx.lineWidth = 2.5;
-        this.drawRoundedRect(ctx, cx - 18, cy - 18, 36, 36, 4, false, true);
-        // Inner Core
-        ctx.fillStyle = '#38bdf8';
-        this.drawRoundedRect(ctx, cx - 8, cy - 8, 16, 16, 2, true, false);
-        break;
-
-      case 'container':
-        // Docker Container Shipping Pod
-        ctx.fillStyle = '#0284c7';
-        this.drawRoundedRect(ctx, cx - 22, cy - 16, 44, 32, 3, true, true);
-        ctx.fillStyle = '#38bdf8';
-        // Vertical ribs
-        for (let i = -14; i <= 14; i += 7) {
-          ctx.fillRect(cx + i - 1, cy - 12, 2, 24);
-        }
-        break;
-
-      case 'vpn':
-        // IPsec Padlock & Shield
-        ctx.fillStyle = '#ec4899';
-        this.drawRoundedRect(ctx, cx - 18, cy - 8, 36, 28, 4, true, true);
-        ctx.strokeStyle = '#facc15';
-        ctx.lineWidth = 3.5;
-        ctx.beginPath();
-        ctx.arc(cx, cy - 8, 10, Math.PI, 0, false);
-        ctx.stroke();
-        // Keyhole
-        ctx.fillStyle = '#0f172a';
-        ctx.beginPath();
-        ctx.arc(cx, cy + 3, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillRect(cx - 1.5, cy + 4, 3, 6);
-        break;
-
-      case 'cloud_vpc':
-        // Cloud VPC Diamond / Node
-        ctx.fillStyle = '#f59e0b';
-        ctx.beginPath();
-        ctx.moveTo(cx, cy - 20);
-        ctx.lineTo(cx + 20, cy);
-        ctx.lineTo(cx, cy + 20);
-        ctx.lineTo(cx - 20, cy);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = '#0f172a';
-        ctx.font = 'bold 12px monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('VPC', cx, cy);
-        break;
-
-      default:
-        // Cloud / Internet
-        ctx.fillStyle = '#38bdf8';
-        ctx.beginPath();
-        ctx.arc(cx - 10, cy + 2, 12, 0, Math.PI * 2);
-        ctx.arc(cx + 8, cy - 2, 14, 0, Math.PI * 2);
-        ctx.arc(cx + 12, cy + 6, 10, 0, Math.PI * 2);
-        ctx.fill();
-        break;
-    }
-
-    ctx.restore();
+    drawPhotorealisticHardwarePhoto(ctx, type, bx, by, bw, bh);
   }
 
-  createLinkMesh(linkData) {
+    createLinkMesh(linkData) {
     const fromNode = this.nodeMeshes.get(linkData.from);
     const toNode = this.nodeMeshes.get(linkData.to);
     if (!fromNode || !toNode) return null;

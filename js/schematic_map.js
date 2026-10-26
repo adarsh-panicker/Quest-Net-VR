@@ -10,6 +10,7 @@
  */
 
 import { NODE_TYPES } from './graph.js';
+import { drawPhotorealisticHardwarePhoto } from './hardware_textures.js';
 
 // Color palette for hardware roles & cable media
 const ROLE_COLORS = {
@@ -379,8 +380,8 @@ function drawDeviceCards(ctx, nodes, layout) {
     drawRoundedRect(ctx, x, y, pos.w, pos.h, 8, true, true);
     ctx.restore();
 
-    // Device Icon on left
-    drawVectorIcon(ctx, node.type, x + 8, y + 8, 38, 38, theme);
+    // Device Real Equipment Photo on left
+    drawPhotorealisticHardwarePhoto(ctx, node.type, x + 6, y + 6, 46, 40);
 
     // Device Full Name
     ctx.fillStyle = '#ffffff';
@@ -388,21 +389,21 @@ function drawDeviceCards(ctx, nodes, layout) {
     ctx.textAlign = 'left';
     let name = node.name || node.id;
     if (name.length > 17) name = name.substring(0, 16) + '…';
-    ctx.fillText(name, x + 52, y + 22);
+    ctx.fillText(name, x + 58, y + 22);
 
     // Hardware Role Badge
     ctx.fillStyle = theme.badge;
-    ctx.fillRect(x + 52, y + 27, 62, 13);
+    ctx.fillRect(x + 58, y + 27, 62, 13);
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 8px -apple-system, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(theme.label, x + 83, y + 36.5);
+    ctx.fillText(theme.label, x + 89, y + 36.5);
 
     // IPv4 Address Badge
     ctx.fillStyle = '#00f3ff';
     ctx.font = '10px Consolas, monospace';
     ctx.textAlign = 'left';
-    ctx.fillText(node.ip || '10.0.0.1', x + 52, y + 54);
+    ctx.fillText(node.ip || '10.0.0.1', x + 58, y + 54);
 
     // Status LED
     const isUp = node.status !== 'down';

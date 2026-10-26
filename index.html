@@ -105,7 +105,13 @@
 
       <!-- Quick Action Pills -->
       <div class="header-action-pills">
-        <button id="btn-study-academy" class="pill-btn pill-primary pill-glow" title="Open Complete End-to-End CCNA & CCNP Study Academy (Topic-Wise Lessons, Cisco CLI, Diagrams & 3D Labs)">
+        <button id="btn-builder-studio" class="pill-btn pill-accent pill-glow" title="Build Your Own Custom Network (7-Step Guided Workflow, Custom Hardware, Diagnostics & PDF Blueprint)">
+          🛠️ Build Network
+        </button>
+        <button id="btn-test-suite" class="pill-btn pill-primary" title="Test Network Connectivity, Live Ping, IP Conflict Audit & Reachability Matrix">
+          🧪 Test Network
+        </button>
+        <button id="btn-study-academy" class="pill-btn pill-primary" title="Open Complete End-to-End CCNA & CCNP Study Academy (Topic-Wise Lessons, Cisco CLI, Diagrams & 3D Labs)">
           📚 Study Academy (CCNA/CCNP)
         </button>
         <button id="btn-explainer" class="pill-btn pill-accent" title="Open Real-Time Interactive Network Explanation (How It Works & Noobie Guide)">
@@ -781,6 +787,321 @@
     </div>
 
     <!-- Drawer: Wireshark-Lite Live Packet Sniffer -->
+    <!-- Modal: Network Builder Studio, Diagnostics & Blueprint Map -->
+    <div id="network-builder-modal" class="modal-card builder-modal hidden">
+      <div class="builder-modal-header">
+        <div class="builder-modal-title">
+          <span class="builder-logo-icon">🛠️</span>
+          <div>
+            <strong>NETWORK BUILDER STUDIO & DIAGNOSTIC LAB</strong>
+            <div class="builder-subtitle">Design your custom architecture, test reachability, audit health & download real 2D blueprint in PDF</div>
+          </div>
+        </div>
+        <button id="btn-close-builder" class="btn-tool-sm">✕ Close</button>
+      </div>
+
+      <!-- Studio Navigation Tabs -->
+      <div class="builder-tab-bar">
+        <button class="builder-tab-btn active" data-tab="guide">📋 7-Step Guided Wizard</button>
+        <button class="builder-tab-btn" data-tab="devices">🏗️ Custom Hardware Library</button>
+        <button class="builder-tab-btn" data-tab="cabling">🔗 Cabling & Ports</button>
+        <button class="builder-tab-btn" data-tab="testing">🧪 Test & Diagnostics Suite</button>
+        <button class="builder-tab-btn" data-tab="blueprint">🗺️ Real Blueprint Map</button>
+        <button class="builder-tab-btn" data-tab="export">📄 Download PDF</button>
+      </div>
+
+      <!-- Studio Body Content Area -->
+      <div class="builder-modal-body">
+        <!-- TAB 1: 7-Step Guided Wizard -->
+        <div id="builder-panel-guide" class="builder-tab-panel active">
+          <!-- Step Bubbles Indicator -->
+          <div class="step-bubbles-wrapper">
+            <span class="step-track-label">GUIDED CONSTRUCTION WORKFLOW:</span>
+            <div id="builder-step-bubbles" class="step-bubbles-row"></div>
+          </div>
+
+          <!-- Active Step Header -->
+          <div class="builder-step-hero">
+            <h3 id="builder-step-title">🌐 Step 1: Perimeter & Edge Security Defense</h3>
+            <p id="builder-step-sub">Establish the external WAN border and deploy next-gen threat defense.</p>
+          </div>
+
+          <!-- Step Theory & Rationale Callout -->
+          <div id="builder-step-theory" class="builder-theory-container"></div>
+
+          <!-- Step Hardware Recommendations / Interactive Actions -->
+          <div id="builder-step-cards" class="builder-rec-grid"></div>
+
+          <!-- Step Navigation Buttons -->
+          <div class="builder-step-nav-bar">
+            <button id="btn-builder-prev-step" class="btn-secondary" disabled>◀ Previous Step</button>
+            <button id="btn-builder-next-step" class="btn-secondary btn-primary-action">Next Step ▶</button>
+          </div>
+        </div>
+
+        <!-- TAB 2: Custom Hardware Library & Form -->
+        <div id="builder-panel-devices" class="builder-tab-panel">
+          <div class="builder-form-layout">
+            <div class="builder-form-left">
+              <h4>Add Hardware to 3D Network</h4>
+              <p class="muted">Select hardware role, department subnet, and specify custom IP address.</p>
+
+              <div class="modal-form" style="margin-top: 14px;">
+                <label>
+                  Hardware Device Role:
+                  <select id="builder-device-type">
+                    <option value="server">🖥️ Server Blade (Data Center)</option>
+                    <option value="hypervisor">🖥️ Bare-Metal ESXi Hypervisor</option>
+                    <option value="vm">📦 Guest Virtual Machine</option>
+                    <option value="database">🗄️ Database Cluster (SQL)</option>
+                    <option value="firewall">🛡️ Next-Gen Enterprise Firewall</option>
+                    <option value="vpn">🔒 IPsec VPN Concentrator</option>
+                    <option value="router">🔄 Core / WAN Router</option>
+                    <option value="switch">🔀 Distribution / L3 Switch</option>
+                    <option value="desktop" selected>💻 Desktop Workstation</option>
+                    <option value="laptop">💻 Mobile Staff Laptop</option>
+                    <option value="printer">🖨️ Network Laser Printer</option>
+                    <option value="wap">📶 Wi-Fi 6 Access Point</option>
+                    <option value="phone">📞 VoIP IP Desk Phone</option>
+                    <option value="iot">🏭 Industrial IoT Sensor</option>
+                    <option value="cloud_vpc">☁️ Cloud VPC Gateway</option>
+                    <option value="internet">🌐 Public Internet Gateway</option>
+                  </select>
+                </label>
+
+                <label>
+                  Department & Subnet Zone:
+                  <select id="builder-device-dept">
+                    <option value="IT & Infrastructure">IT & Infrastructure (VLAN 1)</option>
+                    <option value="Data Center">Data Center & Core Services (VLAN 10/20)</option>
+                    <option value="DMZ & Perimeter">DMZ & Perimeter Security (VLAN 10)</option>
+                    <option value="Engineering & Dev">Engineering & Development (VLAN 40)</option>
+                    <option value="Finance & Accounting">Finance & Accounting (VLAN 30)</option>
+                    <option value="Human Resources (HR)">Human Resources (VLAN 50)</option>
+                    <option value="Sales & Marketing">Sales & Marketing (VLAN 60)</option>
+                    <option value="Operations & OT">Operations & OT Logistics (VLAN 70)</option>
+                    <option value="Executive Suite">Executive Suite (VLAN 99)</option>
+                  </select>
+                </label>
+
+                <label>
+                  Full Device Name:
+                  <input type="text" id="builder-custom-name" placeholder="e.g. Finance Accounting Workstation 03" value="Finance Workstation 03">
+                </label>
+
+                <div style="display:flex; gap: 12px;">
+                  <label style="flex: 2;">
+                    IPv4 Address:
+                    <input type="text" id="builder-custom-ip" placeholder="e.g. 10.0.30.105" value="10.0.30.105">
+                  </label>
+                  <label style="flex: 1;">
+                    VLAN Tag:
+                    <input type="text" id="builder-custom-vlan" placeholder="e.g. VLAN 30" value="VLAN 30">
+                  </label>
+                </div>
+
+                <button id="btn-builder-create-device" class="btn-secondary btn-primary-action" style="margin-top: 10px;">
+                  + Place Device in 3D Network
+                </button>
+              </div>
+            </div>
+
+            <div class="builder-form-right">
+              <h4>Hardware Preview</h4>
+              <div class="builder-preview-box">
+                <canvas id="builder-form-icon-preview" width="90" height="90" style="background: rgba(11, 15, 26, 0.85); border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.3);"></canvas>
+                <div style="font-size: 12px; color: #94a3b8; text-align: center;">
+                  3D Hardware Icon preview with department halo and status LED.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: Cabling & Ports -->
+        <div id="builder-panel-cabling" class="builder-tab-panel">
+          <div class="cabling-studio-grid">
+            <div class="cabling-control-card">
+              <h4>Span Physical Cable Between Devices</h4>
+              <p class="muted">Select endpoints and choose transmission media.</p>
+
+              <div class="modal-form" style="margin-top: 12px;">
+                <label>
+                  Source Device (Port A):
+                  <select id="cable-src-select"></select>
+                </label>
+                <label>
+                  Destination Device (Port B):
+                  <select id="cable-dst-select"></select>
+                </label>
+                <label>
+                  Cabling Media & Bandwidth:
+                  <select id="cable-media-select">
+                    <option value="Cat6 Copper UTP (1G)" selected>🟢 Cat6 Copper UTP (1 Gbps) — Access Endpoints</option>
+                    <option value="Fiber Optic SFP+ (10G)">🔵 Single-Mode Fiber LC (10 Gbps) — Server & Backbone</option>
+                    <option value="802.1Q Trunk (40G)">🟠 802.1Q VLAN Trunk (40 Gbps) — Switch-to-Switch</option>
+                    <option value="Wireless 5GHz Wi-Fi 6">🟣 Wireless 5GHz 802.11ax (1.2 Gbps) — Laptops & Mobile</option>
+                  </select>
+                </label>
+
+                <div style="display:flex; gap:10px; margin-top:10px;">
+                  <button id="btn-builder-connect-cables" class="btn-secondary btn-primary-action" style="flex:1;">🔗 Connect Cable</button>
+                  <button id="btn-builder-auto-wire" class="btn-secondary" style="flex:1;">✨ Auto-Wire All Unconnected</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="cabling-table-card">
+              <h4>Active Cabling Schedule</h4>
+              <div class="table-scroll-container">
+                <table class="builder-table">
+                  <thead>
+                    <tr>
+                      <th>Link ID</th>
+                      <th>Source Device</th>
+                      <th>Destination Device</th>
+                      <th>Media Type</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cabling-links-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: Test & Diagnostics Suite -->
+        <div id="builder-panel-testing" class="builder-tab-panel">
+          <div class="testing-studio-grid">
+            <!-- Left: Interactive Ping -->
+            <div class="testing-ping-card">
+              <h4>Interactive Ping & Route Tracer</h4>
+              <p class="muted">Simulate real packets across the network and watch live 3D packet traces.</p>
+
+              <div class="modal-form" style="margin-top: 12px;">
+                <div style="display:flex; gap: 10px;">
+                  <label style="flex: 1;">
+                    Source:
+                    <select id="ping-src-select"></select>
+                  </label>
+                  <label style="flex: 1;">
+                    Destination:
+                    <select id="ping-dst-select"></select>
+                  </label>
+                </div>
+
+                <label>
+                  Protocol:
+                  <select id="ping-proto-select">
+                    <option value="icmp" selected>ICMP Echo (Ping / Network Layer)</option>
+                    <option value="http">HTTP / HTTPS Web Traffic (Port 80/443)</option>
+                    <option value="dns">DNS Domain Name Query (Port 53)</option>
+                    <option value="voip">VoIP SIP Telephony Audio Stream (Port 5060)</option>
+                  </select>
+                </label>
+
+                <button id="btn-builder-run-ping" class="btn-secondary btn-primary-action" style="margin-top: 6px;">
+                  ⚡ Run Live Ping Test in 3D
+                </button>
+              </div>
+
+              <!-- Terminal Ping Output -->
+              <div class="terminal-box" id="ping-terminal-output">
+                <div class="terminal-line muted">Cisco IOS Packet Tracer CLI Ready. Select endpoints and press "Run Live Ping Test".</div>
+              </div>
+            </div>
+
+            <!-- Right: Health Audit Checklist -->
+            <div class="testing-audit-card">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h4>Automated Network Health Audit</h4>
+                <button id="btn-builder-run-audit" class="btn-tool-sm">🔍 Re-Run Audit</button>
+              </div>
+              <div class="audit-score-banner">
+                <div class="audit-score-circle">
+                  <span id="audit-score-num">--%</span>
+                </div>
+                <div>
+                  <strong id="audit-score-grade">OPTIMAL / PRODUCTION READY</strong>
+                  <div class="muted" style="font-size:11px;">Automated checks: Duplicate IPs, default gateways, isolated devices & routing sanity.</div>
+                </div>
+              </div>
+
+              <div id="audit-checks-list" class="audit-checks-container"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: Real Blueprint Map -->
+        <div id="builder-panel-blueprint" class="builder-tab-panel">
+          <div class="real-map-topbar">
+            <div>
+              <strong>🗺️ Real 2D Architectural Schematic Blueprint Map</strong>
+              <div class="muted" style="font-size: 11px;">Vector schematic diagram with hardware role cards, IP tags, cable media styles, and department zones.</div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button id="btn-refresh-real-map" class="btn-tool-sm">🔄 Refresh Map</button>
+              <button id="btn-download-map-png" class="btn-tool-sm">🖼️ Save Map Image (PNG)</button>
+            </div>
+          </div>
+
+          <div id="real-map-canvas-container" class="real-map-canvas-wrapper">
+            <!-- Dynamically rendered schematic canvas -->
+          </div>
+        </div>
+
+        <!-- TAB 6: Download PDF Report -->
+        <div id="builder-panel-export" class="builder-tab-panel">
+          <div class="pdf-export-config-box">
+            <h4>Generate Professional 4-Page Network Blueprint PDF</h4>
+            <p class="muted">Exports the complete architectural schematic map, 3D WebGL layout snapshot, diagnostic test audit, Bill of Materials (BOM) inventory table, and cabling schedule.</p>
+
+            <div class="modal-form" style="margin-top: 18px; max-width: 650px;">
+              <label>
+                Project / Network Title:
+                <input type="text" id="pdf-project-title" value="ENTERPRISE CAMPUS NETWORK ARCHITECTURE BLUEPRINT">
+              </label>
+
+              <label>
+                Lead Network Architect / Author:
+                <input type="text" id="pdf-project-author" value="Senior Network Engineer">
+              </label>
+
+              <div class="pdf-included-checklist">
+                <div>✅ Page 1: 2D Real Architectural Schematic Blueprint Map</div>
+                <div>✅ Page 2: Automated Health Diagnostic Audit & 3D WebGL Spatial Layout</div>
+                <div>✅ Page 3: Complete Bill of Materials (BOM) & Device Inventory Matrix</div>
+                <div>✅ Page 4: Physical Cabling & Interconnection Port Schedule</div>
+              </div>
+
+              <button id="btn-builder-download-pdf" class="btn-secondary btn-primary-action" style="margin-top: 16px; padding: 12px 24px; font-size: 14px;">
+                🚀 Download Complete 4-Page Blueprint PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Studio Footer Toolbar -->
+      <div class="builder-modal-footer">
+        <div style="display:flex; align-items:center; gap: 10px;">
+          <button id="btn-builder-blank-canvas" class="btn-secondary" title="Clear current topology and start from a blank canvas">
+            🧹 Start Blank Canvas
+          </button>
+          <select id="select-starter-template" class="btn-secondary" style="background:#1e293b; color:#ffffff; cursor:pointer;">
+            <option value="">📁 Load Starter Template...</option>
+            <option value="small_office">Small Business Office (10 Nodes)</option>
+            <option value="enterprise_campus">Enterprise Campus & Data Center (12 Nodes)</option>
+          </select>
+        </div>
+
+        <div style="display:flex; gap: 8px;">
+          <button onclick="document.getElementById('network-builder-modal').classList.add('hidden')" class="btn-secondary">Done / Close</button>
+        </div>
+      </div>
+    </div>
+
     <section id="wireshark-drawer" class="wireshark-card hidden">
       <div class="wireshark-header">
         <div class="wireshark-title-row">
@@ -839,6 +1160,7 @@
         <span><span class="key-tag">B</span> Break</span>
         <span><span class="key-tag">Del</span> Delete</span>
         <span><span class="key-tag">R</span> Reset</span>
+        <span><span class="key-tag">N</span> Build Network</span>
         <span><span class="key-tag">S</span> Study Academy</span>
         <span><span class="key-tag">V</span> VR Screen</span>
         <span><span class="key-tag">F</span> Telemetry</span>

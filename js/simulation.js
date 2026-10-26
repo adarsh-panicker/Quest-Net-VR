@@ -285,6 +285,15 @@ export class SimulationManager {
     return false;
   }
 
+  runDirectTrace(sourceId, destId, protocol = null) {
+    if (protocol) this.setProtocol(protocol);
+    this.stopTrace();
+    this.traceSource = sourceId;
+    this.traceDest = destId;
+    this.traceState = 'tracing';
+    this.calculateAndRunTrace();
+  }
+
   calculateAndRunTrace(isReroute = false) {
     if (!this.traceSource || !this.traceDest) return;
 

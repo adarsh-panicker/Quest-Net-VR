@@ -37,6 +37,7 @@ import { CCNAAcademyManager } from './ccna.js';
 import { ExplainerManager } from './explainer.js';
 import { StudyAcademyManager } from './study_academy.js';
 import { ClassroomManager } from './classroom.js';
+import { NetworkBuilderManager } from './network_builder.js';
 import { sound } from './audio.js';
 import {
   validateTopology,
@@ -68,6 +69,16 @@ class App {
     this.initDesktopUI();
     this.ccnaManager = new CCNAAcademyManager();
     this.studyAcademyManager = new StudyAcademyManager(this);
+    this.networkBuilderManager = new NetworkBuilderManager({
+      graph: this.graph,
+      nodeVisuals: this.nodeVisuals,
+      simulation: this.simulation,
+      renderer: this.renderer,
+      scene: this.scene,
+      camera: this.camera,
+      menuManager: this.menuManager,
+      applyTopologyCallback: (data) => this.applyTopologyData(data)
+    });
 
     runGraphSelfTest();
 
@@ -483,20 +494,18 @@ class App {
       }
     });
 
+    // Network Builder Studio & Diagnostics Suite Buttons
+    document.getElementById('btn-builder-studio')?.addEventListener('click', () => {
+      this.networkBuilderManager?.open('guide');
+    });
+
+    document.getElementById('btn-test-suite')?.addEventListener('click', () => {
+      this.networkBuilderManager?.open('testing');
+    });
+
     // PDF Export Button
     document.getElementById('btn-export-pdf')?.addEventListener('click', () => {
-      this.menuManager.setStatus('Generating high-resolution Network Topology PDF report...', 'warning');
-      setTimeout(() => {
-        const ok = exportNetworkToPDF({
-          renderer: this.renderer,
-          scene: this.scene,
-          camera: this.camera,
-          graph: this.graph
-        });
-        if (ok) {
-          this.menuManager.setStatus('PDF Report downloaded successfully!', 'success');
-        }
-      }, 100);
+      this.networkBuilderManager?.handlePDFDownload();
     });
 
     // Department Filter Dropdown
@@ -691,6 +700,8 @@ class App {
         }
       } else if (e.key === 's' || e.key === 'S') {
         this.studyAcademyManager?.openAcademy();
+      } else if (e.key === 'n' || e.key === 'N') {
+        this.networkBuilderManager?.open('guide');
       } else if (e.key === 'v' || e.key === 'V') {
         this.classroomManager?.toggle();
       }

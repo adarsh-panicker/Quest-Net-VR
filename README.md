@@ -18,6 +18,11 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
 
 - [Why This Exists](#-why-this-exists)
 - [Target Audience](#-who-its-for)
+- [Build Your Own Network Studio & 2D Blueprint Real Map](#-build-your-own-network-studio--2d-blueprint-real-map)
+  - [7-Step Guided Construction Workflow](#7-step-guided-construction-workflow)
+  - [Interactive Testing & Ping Diagnostic Suite](#interactive-testing--ping-diagnostic-suite)
+  - [Real 2D Architectural Schematic Blueprint Map](#real-2d-architectural-schematic-blueprint-map)
+  - [Comprehensive 4-Page PDF Engineering Blueprint](#comprehensive-4-page-pdf-engineering-blueprint)
 - [Topic-Wise Study Academy (CCNA, CCNP ENCOR, CCNP ENARSI)](#-topic-wise-study-academy)
   - [Exhaustive Syllabus Coverage](#exhaustive-syllabus-coverage)
   - [Interactive SVG Diagrams & Mental Models](#interactive-svg-diagrams--mental-models)
@@ -51,6 +56,107 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
 - [JSON Topology Schema Reference](#-json-topology-schema-reference)
 - [Performance & VR Optimization](#-performance--vr-optimization)
 - [License](#-license)
+
+---
+
+## 🛠️ Build Your Own Network Studio & 2D Blueprint Real Map
+
+Click the **🛠️ Build Network** button in the top navigation bar (or press `N` on your keyboard) to launch the **Network Builder Studio & Diagnostic Suite**.
+
+Whether you are designing a small branch office, a campus LAN, or an enterprise hybrid data center, this studio guides you step-by-step from a blank canvas to a verified, tested, production-ready network architecture blueprint.
+
+---
+
+### 7-Step Guided Construction Workflow
+
+Follow the structured engineering steps to build a resilient, segmented enterprise network:
+
+1. **🌐 Step 1: Perimeter & Edge Security Defense**
+   - **Why this comes first**: Protects internal LAN assets from public WAN threats.
+   - **Hardware**: Upstream Tier-1 Internet ISP Gateway (`203.0.113.1`), Next-Gen Perimeter Firewall (`10.0.0.1`), IPsec VPN Concentrator (`10.0.0.2`).
+2. **🔄 Step 2: Core & Distribution Switching Backbone**
+   - **Why this comes second**: Establishes multi-gigabit inter-VLAN routing, Spanning Tree (STP) loop protection, and LACP EtherChannel bandwidth aggregation.
+   - **Hardware**: Core Layer-3 Switch (`10.0.1.1`), Distribution Edge Router (`10.0.1.254`).
+3. **🏢 Step 3: Department Servers & Data Center Services**
+   - **Why this comes third**: Centralizes compute workloads and business applications in an isolated, ACL-firewalled Data Center subnet.
+   - **Hardware**: Corporate Web Server (`10.0.10.10`), PostgreSQL Database Cluster (`10.0.10.20`), VMware ESXi Type-1 Hypervisor (`10.0.10.30`), Core DNS/DHCP Server (`10.0.1.5`).
+4. **💻 Step 4: End-User Workstations & Office Peripherals**
+   - **Why this comes fourth**: Segment staff endpoints into department VLANs (Finance, Engineering, Sales, HR, Executive) to prevent lateral malware movement and broadcast storms.
+   - **Hardware**: Engineering Workstations, Finance Accounting PCs, Executive Staff Laptops, Network Laser Printers, Wi-Fi 6 Access Points (Catalyst 9120AX), VoIP Desk Phones.
+5. **🔗 Step 5: Physical Cabling & Link Interconnections**
+   - **Why this comes fifth**: Spans physical transmission media between devices:
+     - 🟢 **Cat6 Copper UTP (1 Gbps)**: Up to 100 meters for office workstations, printers, and VoIP phones.
+     - 🔵 **LC Single-Mode / Multi-Mode Optical Fiber SFP+ (10 Gbps)**: High-throughput uplinks between switches, servers, and hypervisors.
+     - 🟠 **802.1Q VLAN Trunks (40 Gbps)**: Multi-VLAN tagged interconnects between backbone switches.
+     - 🟣 **Wireless 5GHz 802.11ax (1.2 Gbps)**: High-speed Wi-Fi 6 mobility for staff laptops.
+     - ✨ **Auto-Wire Tool**: Automatically connects all unlinked devices to their nearest department switch in 1 click!
+6. **🧪 Step 6: Test Everything & Run Health Diagnostics**
+   - Live interactive ping testing, traceroute hops, and automated IP sanity checks (detailed below).
+7. **🗺️ Step 7: Real Architectural Map & PDF Blueprint Download**
+   - Inspect the live 2D schematic blueprint diagram and export the comprehensive 4-page PDF report.
+
+---
+
+### 🧪 Interactive Testing & Ping Diagnostic Suite
+
+Click the **🧪 Test Network** button to verify reachability and audit network health:
+
+- **⚡ Interactive Ping & Route Tracer**:
+  - Select any Source and Destination device from the network.
+  - Choose protocol: `ICMP Echo (Ping)`, `HTTP/S Web Traffic (Port 80/443)`, `DNS Query (Port 53)`, or `VoIP SIP Telephony (Port 5060)`.
+  - Triggers live **3D glowing packet flow animations** across the physical links in the Three.js viewport with realistic sound effects!
+  - Displays real Cisco IOS terminal ping logs:
+    ```text
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 10.0.10.10, timeout is 2 seconds:
+    !!!!!
+    Success rate is 100 percent (5/5), round-trip min/avg/max = 1.8/2.4/3.2 ms
+    Hop Route: Finance Workstation ➔ Core L3 Switch ➔ Enterprise Web Server
+    Status: 200 OK • Transmission media validated.
+    ```
+- **🔍 Automated 5-Point Network Health Audit**:
+  - Automatically audits:
+    1. **IP Conflict Audit**: Detects duplicate IP address allocations across subnets.
+    2. **Isolated Device Audit**: Flags devices without active physical or wireless cables.
+    3. **Perimeter Security Check**: Verifies that a firewall or VPN concentrator guards the edge.
+    4. **Core Switching Check**: Confirms routing backbone devices exist.
+    5. **Default Gateway Check**: Verifies that endpoint workstations have assigned default gateways.
+  - Computes an overall **Health Score (0-100%)** with an engineering grade (e.g. `100% - OPTIMAL / PRODUCTION READY`).
+
+---
+
+### 🗺️ Real 2D Architectural Schematic Blueprint Map
+
+Switch to the **🗺️ Real Blueprint Map** tab to view your network rendered as a publication-grade 2D architectural schematic:
+
+- **Hierarchical Tier Zoning**: Automatically organizes nodes into clean logical tiers:
+  - Tier 0: Internet WAN & Cloud SaaS
+  - Tier 1: Next-Gen Firewalls & VPN Concentrators
+  - Tier 2: Core Routers & Distribution Layer-3 Switches
+  - Tier 3: Access Switches & Wi-Fi Access Points
+  - Tier 4: Department Servers, Workstations, Laptops, and Laser Printers
+- **Department Cluster Containers**: Translucent bounding boxes group devices by department with glowing colored borders and VLAN subnet tags.
+- **Hardware Device Cards**: High-contrast dark cards displaying custom hardware vector thumbnails, device name, hardware role chip, monospace IP address badge, and real-time status LED.
+- **Physical Cabling Indicators**: Curved Bezier lines color-coded by transmission media (Cat6 Green, Fiber Cyan/Blue, 802.1Q Trunk Amber, Wireless Magenta).
+- **One-Click Image Download**: Save your architectural blueprint directly as a high-resolution PNG image (`enterprise-network-blueprint.png`).
+
+---
+
+### 📄 Comprehensive 4-Page PDF Engineering Blueprint
+
+Click the **📄 Download PDF** button in the header or builder studio to download a complete, publication-grade landscape A4 PDF document:
+
+- **Page 1: 🗺️ The Real Architectural Schematic Map**:
+  - Full-page high-resolution 2D blueprint diagram showing all hardware nodes, IP tags, cable media, and department zones.
+  - Executive summary metrics: Total Devices, Total Links, Subnets, and Health Score badge.
+- **Page 2: 🧪 Verification, Testing & Health Diagnostic Audit**:
+  - Automated Health Audit Checklist with Pass/Warn/Fail badges.
+  - Live Ping & Packet Tracer Execution Log table (Source, Destination, Protocol, RTT, Status).
+  - 3D WebGL Perspective Render Snapshot showing the 3D VR spatial layout.
+- **Page 3: 📋 Bill of Materials (BOM) & Device Inventory Matrix**:
+  - Complete tabular inventory: Device Full Name, Hardware Role, Department, IPv4 / Subnet Mask, MAC Address, Default Gateway, VLAN ID, Status, Connected Peers.
+- **Page 4: 🔗 Physical Cabling & Interconnection Port Schedule**:
+  - Complete cabling matrix: Link ID, Source Device & Port, Destination Device & Port, Physical Media Type (Cat6 / SFP+ Fiber / Trunk), Link Bandwidth Speed, Status.
 
 ---
 

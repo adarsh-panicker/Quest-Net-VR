@@ -347,6 +347,23 @@ export class StudyAcademyManager {
           </div>
         </div>
 
+        <!-- Real-World Worked Scenario & Step-by-Step Example -->
+        ${topic.example ? `
+        <div class="study-example-box">
+          <div class="study-example-header">
+            <span class="example-icon">🧪</span>
+            <strong>Real-World Worked Scenario &amp; Step-by-Step Example</strong>
+          </div>
+          <p class="study-example-scenario">${topic.example.scenario}</p>
+          <ol class="study-example-steps">
+            ${topic.example.steps.map(s => `<li>${this.escapeHtml(s)}</li>`).join('')}
+          </ol>
+          <div class="study-example-takeaway">
+            <strong>Key Engineering Takeaway:</strong> ${topic.example.keyTakeaway}
+          </div>
+        </div>
+        ` : ''}
+
         <!-- Deep-Dive Engineering Theory -->
         <div class="study-deepdive-box">
           <div class="study-box-title">🔬 Deep-Dive Technical Engineering</div>

@@ -1,0 +1,79 @@
+{
+  "name": "Corporate Edge Network",
+  "nodes": [
+    {
+      "id": "inet",
+      "name": "Global Internet",
+      "type": "internet",
+      "ip": "198.51.100.1",
+      "position": [-2.8, 1.5, -1.0]
+    },
+    {
+      "id": "fw1",
+      "name": "Edge Firewall",
+      "type": "firewall",
+      "ip": "192.168.1.1",
+      "position": [-1.7, 1.5, -1.0]
+    },
+    {
+      "id": "r_core",
+      "name": "Core Router",
+      "type": "router",
+      "ip": "10.0.0.1",
+      "position": [-0.6, 1.5, -1.0]
+    },
+    {
+      "id": "sw1",
+      "name": "DC Switch 1",
+      "type": "switch",
+      "ip": "10.0.10.1",
+      "position": [0.8, 1.9, -1.0]
+    },
+    {
+      "id": "sw2",
+      "name": "Access Switch 2",
+      "type": "switch",
+      "ip": "10.0.20.1",
+      "position": [0.8, 1.1, -1.0]
+    },
+    {
+      "id": "srv1",
+      "name": "App Server 1",
+      "type": "server",
+      "ip": "10.0.10.11",
+      "position": [2.3, 2.15, -1.0]
+    },
+    {
+      "id": "srv2",
+      "name": "DB Server 2",
+      "type": "server",
+      "ip": "10.0.10.12",
+      "position": [2.3, 1.65, -1.0]
+    },
+    {
+      "id": "pc1",
+      "name": "Workstation 1",
+      "type": "pc",
+      "ip": "10.0.20.101",
+      "position": [2.3, 1.25, -1.0]
+    },
+    {
+      "id": "pc2",
+      "name": "Workstation 2",
+      "type": "pc",
+      "ip": "10.0.20.102",
+      "position": [2.3, 0.75, -1.0]
+    }
+  ],
+  "links": [
+    { "id": "link-inet-fw1", "from": "inet", "to": "fw1" },
+    { "id": "link-fw1-rcore", "from": "fw1", "to": "r_core" },
+    { "id": "link-rcore-sw1", "from": "r_core", "to": "sw1" },
+    { "id": "link-rcore-sw2", "from": "r_core", "to": "sw2" },
+    { "id": "link-sw1-srv1", "from": "sw1", "to": "srv1" },
+    { "id": "link-sw1-srv2", "from": "sw1", "to": "srv2" },
+    { "id": "link-sw2-pc1", "from": "sw2", "to": "pc1" },
+    { "id": "link-sw2-pc2", "from": "sw2", "to": "pc2" },
+    { "id": "link-sw2-sw1", "from": "sw2", "to": "sw1" }
+  ]
+}

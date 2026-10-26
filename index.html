@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0b0f1a">
+  <title>VR Network Topology Explorer - Enterprise Training & Network Builder</title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- jsPDF for client-side PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Import Map pinned to Three.js r160 via jsDelivr CDN -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Desktop UI Overlay (hidden automatically when entering VR) -->
+  <div id="desktop-ui">
+    <!-- Top Header & Live Status Strip -->
+    <header class="top-bar">
+      <div class="brand-badge">
+        <div class="brand-icon"></div>
+        <div>
+          <div class="brand-title">VR Network Explorer</div>
+          <div class="brand-subtitle">Enterprise Training & Builder</div>
+        </div>
+      </div>
+
+      <!-- Template Preset Selector -->
+      <div class="header-control-group">
+        <label for="template-select" class="group-label">Stack:</label>
+        <select id="template-select" class="select-input">
+          <option value="corporate">🏢 Corporate Network (Dept-Wise)</option>
+          <option value="threeTier">☁️ 3-Tier Web App Architecture</option>
+          <option value="sdwan">🌐 SD-WAN Branch Office VPN</option>
+          <option value="blank">🎨 Blank Canvas (Build Own)</option>
+        </select>
+      </div>
+
+      <!-- 3D Layout Algorithm Switcher -->
+      <div class="header-control-group">
+        <label for="layout-select" class="group-label">3D Layout:</label>
+        <select id="layout-select" class="select-input">
+          <option value="layered">📐 Hierarchical Layered</option>
+          <option value="radial">🎯 Concentric Radial</option>
+          <option value="force">⚡ Force-Directed Spring</option>
+        </select>
+      </div>
+
+      <!-- Department Filter Selector -->
+      <div class="header-control-group">
+        <label for="dept-filter-select" class="group-label">Dept Filter:</label>
+        <select id="dept-filter-select" class="select-input">
+          <option value="">🏢 All Departments</option>
+          <option value="IT & Infrastructure">IT & Infrastructure</option>
+          <option value="Engineering & Dev">Engineering & Dev</option>
+          <option value="Finance & Accounting">Finance & Accounting</option>
+          <option value="Human Resources (HR)">Human Resources (HR)</option>
+          <option value="Sales & Marketing">Sales & Marketing</option>
+          <option value="Executive Suite">Executive Suite</option>
+          <option value="Operations">Operations</option>
+          <option value="DMZ & Perimeter">DMZ & Perimeter</option>
+          <option value="Data Center">Data Center</option>
+        </select>
+      </div>
+
+      <!-- Protocol Selector -->
+      <div class="header-control-group">
+        <span class="group-label">Protocol:</span>
+        <div class="proto-btn-group">
+          <button class="proto-btn active" data-proto="icmp" title="ICMP Echo / Ping">Ping</button>
+          <button class="proto-btn" data-proto="http" title="HTTP/S Web Request">HTTP</button>
+          <button class="proto-btn" data-proto="dns" title="DNS Resolution">DNS</button>
+          <button class="proto-btn" data-proto="sql" title="Database SQL Query">SQL</button>
+        </div>
+      </div>
+
+      <!-- Quick Action Pills -->
+      <div class="header-action-pills">
+        <button id="btn-export-pdf" class="pill-btn pill-primary" title="Generate and download a professional PDF report of this layout and inventory">
+          📄 Download PDF
+        </button>
+        <button id="btn-subnet-calc" class="pill-btn" title="Open IPv4 CIDR Subnet Calculator">
+          🧮 CIDR Calc
+        </button>
+        <button id="btn-toggle-wireshark" class="pill-btn" title="Open Wireshark live packet stream drawer">
+          🔍 Wireshark
+        </button>
+        <button id="btn-tour" class="pill-btn pill-accent" title="Launch guided onboarding tour for new joinees">
+          🎓 Joinee Tour
+        </button>
+        <button id="btn-traffic" class="pill-btn" title="Toggle background ambient NOC traffic flow">
+          🌊 Live Traffic
+        </button>
+        <button id="btn-cinematic-cam" class="pill-btn" title="Toggle 360 cinematic presentation camera orbit">
+          🎥 Orbit Cam
+        </button>
+        <button id="btn-sound" class="pill-btn" title="Toggle Web Audio sound effects">
+          🔊 Sound: On
+        </button>
+      </div>
+    </header>
+
+    <!-- Elevated Status Strip -->
+    <div id="status-strip-container">
+      <div id="status-strip">
+        <div id="status-indicator"></div>
+        <div id="status-message" class="status-info">Initializing network topology scene...</div>
+      </div>
+    </div>
+
+    <!-- Side Action Toolbar -->
+    <aside class="control-sidebar">
+      <button id="btn-trace" class="action-btn" title="Trace packet from source to destination">
+        <span>⚡</span> Trace Packet
+      </button>
+      <button id="btn-add-node" class="action-btn btn-accent" title="Add a custom server, desktop, laptop, printer or firewall">
+        <span>🏗️</span> + Add Device
+      </button>
+      <button id="btn-connect" class="action-btn" title="Click Node A then Node B to create a link">
+        <span>🔗</span> Connect Nodes
+      </button>
+      <button id="btn-ddos" class="action-btn btn-danger" title="Simulate a massive SYN Flood / DDoS attack from Internet">
+        <span>🚨</span> Launch DDoS
+      </button>
+      <button id="btn-mitigate" class="action-btn btn-shield" title="Activate WAF / DDoS Mitigation to drop attack packets">
+        <span>🛡️</span> WAF Shield
+      </button>
+      <button id="btn-break" class="action-btn btn-danger" title="Break or repair selected node / link">
+        <span>💥</span> Break Selected
+      </button>
+      <button id="btn-delete" class="action-btn btn-danger" title="Delete selected node or link from network">
+        <span>🗑️</span> Delete Selected
+      </button>
+      <button id="btn-reset" class="action-btn" title="Restore all links and nodes">
+        <span>🔄</span> Reset All
+      </button>
+      <button id="btn-labels" class="action-btn" title="Toggle 3D node text labels">
+        <span>🏷️</span> Toggle Labels
+      </button>
+      <button id="btn-toggle-json" class="action-btn" title="Open JSON import and export tools">
+        <span>⚙️</span> Topology JSON
+      </button>
+    </aside>
+
+    <!-- Real-time Performance Telemetry (Toggle with 'F' key) -->
+    <div id="perf-overlay">
+      <div id="perf-fps">-- FPS</div>
+      <div id="perf-triangles">-- Triangles</div>
+      <div id="perf-calls">-- Calls</div>
+    </div>
+
+    <!-- New Joinee Tour Desktop Card -->
+    <div id="tour-desktop-card" class="tour-card hidden">
+      <div class="tour-header">
+        <span class="tour-badge">🎓 NEW JOINEE TOUR</span>
+        <span id="tour-step-progress" class="tour-progress">Step 1 of 6</span>
+      </div>
+      <h3 id="tour-step-title" class="tour-title">1. The Perimeter & Security Edge</h3>
+      <p id="tour-step-content" class="tour-content">Tour content goes here...</p>
+      <div id="tour-step-concept" class="tour-concept">Key Concept: Ingress filtering & edge DMZ.</div>
+      <div class="tour-btn-row">
+        <button id="btn-tour-prev" class="btn-tour">← Prev</button>
+        <button id="btn-tour-next" class="btn-tour btn-tour-primary">Next Step →</button>
+        <button id="btn-tour-close" class="btn-tour">Exit Tour</button>
+      </div>
+    </div>
+
+    <!-- Modal: Add Custom Node (Server, Desktop, Laptop, Printer, Firewall, Router, Switch, etc.) -->
+    <div id="add-node-modal" class="modal-card hidden">
+      <div class="modal-header">
+        <span>🏗️ Add Custom Network System</span>
+      </div>
+      <div class="modal-form">
+        <div class="modal-preview-row">
+          <canvas id="node-icon-preview" width="80" height="80" class="icon-preview-canvas"></canvas>
+          <div class="modal-preview-text">
+            <strong id="preview-type-name">Server Blade</strong>
+            <span id="preview-dept-name">Data Center</span>
+          </div>
+        </div>
+
+        <label>
+          Device Role / Hardware Type:
+          <select id="node-type-input">
+            <option value="server">🖥️ Server (Blade Chassis)</option>
+            <option value="desktop">💻 Desktop PC (Workstation)</option>
+            <option value="laptop">💻 Laptop (Executive / Staff)</option>
+            <option value="printer">🖨️ Printer (Network Office Printer)</option>
+            <option value="firewall">🛡️ Firewall (Perimeter Security)</option>
+            <option value="router">🔄 Router (Core / Gateway)</option>
+            <option value="switch">🔀 Switch (Ethernet Distribution)</option>
+            <option value="database">🗄️ Database Cluster</option>
+            <option value="loadbalancer">⚖️ Load Balancer (HA)</option>
+            <option value="cloud">☁️ Cloud / SaaS Provider</option>
+            <option value="internet">🌐 Public Internet WAN</option>
+          </select>
+        </label>
+
+        <label>
+          Department:
+          <select id="node-dept-input">
+            <option value="IT & Infrastructure">IT & Infrastructure</option>
+            <option value="Engineering & Dev">Engineering & Dev</option>
+            <option value="Finance & Accounting">Finance & Accounting</option>
+            <option value="Human Resources (HR)">Human Resources (HR)</option>
+            <option value="Sales & Marketing">Sales & Marketing</option>
+            <option value="Executive Suite">Executive Suite</option>
+            <option value="Operations">Operations</option>
+            <option value="DMZ & Perimeter">DMZ & Perimeter</option>
+            <option value="Data Center">Data Center</option>
+          </select>
+        </label>
+
+        <label>
+          Full Device Name:
+          <input type="text" id="node-name-input" placeholder="e.g. Finance Color Laser Printer" value="Finance Laser Printer 02">
+        </label>
+
+        <label>
+          IPv4 Address:
+          <input type="text" id="node-ip-input" placeholder="e.g. 10.0.30.202" value="10.0.30.202">
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button id="btn-modal-cancel" class="btn-secondary">Cancel</button>
+        <button id="btn-modal-create" class="btn-secondary btn-primary-action">Add System in 3D</button>
+      </div>
+    </div>
+
+    <!-- Modal: IPv4 CIDR Subnet Calculator -->
+    <div id="subnet-calculator-modal" class="modal-card hidden">
+      <div class="modal-header">
+        <span>🧮 IPv4 CIDR Subnet Calculator</span>
+      </div>
+      <div class="modal-form">
+        <label>
+          Enter CIDR Network Address:
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="cidr-input-field" placeholder="e.g. 10.0.10.0/24 or 192.168.1.0/26" value="10.0.10.0/24">
+            <button id="btn-do-calc" class="btn-secondary" style="flex: 0; white-space: nowrap; padding: 0 16px;">Calculate</button>
+          </div>
+        </label>
+        <div id="subnet-calc-results" class="subnet-results-box">
+          <span style="color: var(--text-muted); font-size: 12px;">Enter a CIDR subnet and click Calculate to view mask, host range, and capacity.</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="btn-close-subnet" class="btn-secondary">Close Calculator</button>
+      </div>
+    </div>
+
+    <!-- Drawer: Wireshark-Lite Live Packet Sniffer -->
+    <section id="wireshark-drawer" class="wireshark-card hidden">
+      <div class="wireshark-header">
+        <div class="wireshark-title-row">
+          <span class="wireshark-logo">🦈 WIRESHARK-LITE PACKET SNIFFER</span>
+          <span class="wireshark-tag">PROMISCUOUS CAPTURE</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-clear-sniffer" class="btn-tool-sm">Clear Capture</button>
+          <button onclick="document.getElementById('wireshark-drawer').classList.add('hidden')" class="btn-tool-sm">✕ Close</button>
+        </div>
+      </div>
+      <div class="wireshark-table-wrapper">
+        <table class="wireshark-table">
+          <thead>
+            <tr>
+              <th style="width: 45px;">No.</th>
+              <th style="width: 85px;">Time</th>
+              <th style="width: 140px;">Source IP</th>
+              <th style="width: 140px;">Destination IP</th>
+              <th style="width: 90px;">Protocol</th>
+              <th style="width: 70px;">Length</th>
+              <th>Packet Information / Summary</th>
+            </tr>
+          </thead>
+          <tbody id="wireshark-table-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Collapsible JSON Import / Export Drawer -->
+    <section id="json-drawer" class="hidden">
+      <div class="drawer-header">
+        <span>Topology Data (JSON)</span>
+        <button id="btn-restore-last" class="btn-secondary" style="flex:0; padding:4px 8px;">Restore Cache</button>
+      </div>
+      <textarea id="json-input" placeholder="Paste or edit network topology JSON here..."></textarea>
+      <div class="drawer-btn-row">
+        <button id="btn-load-json" class="btn-secondary">Load JSON</button>
+        <button id="btn-export-json" class="btn-secondary">Export JSON</button>
+      </div>
+      <label class="file-input-label">
+        📁 Upload JSON File
+        <input type="file" id="file-upload" accept=".json,application/json">
+      </label>
+    </section>
+
+    <!-- Bottom Hints & Keybinding Reference -->
+    <footer class="bottom-bar">
+      <div class="keybind-hints">
+        <span><span class="key-tag">Left Click</span> Select</span>
+        <span><span class="key-tag">Shift + Drag</span> Move Node</span>
+        <span><span class="key-tag">C</span> Connect</span>
+        <span><span class="key-tag">T</span> Trace</span>
+        <span><span class="key-tag">B</span> Break</span>
+        <span><span class="key-tag">Del</span> Delete</span>
+        <span><span class="key-tag">R</span> Reset</span>
+        <span><span class="key-tag">F</span> Telemetry</span>
+        <span><span class="key-tag">H</span> Cheat Sheet</span>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

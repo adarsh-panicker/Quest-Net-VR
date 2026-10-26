@@ -1,4 +1,4 @@
-# 🌐 VR Network Topology Explorer
+# 🌐 VR Network Topology Explorer & Certification Academy
 
 <p align="center">
   <img src="https://img.shields.io/badge/Three.js-r160-00f3ff?style=for-the-badge&logo=three.js&logoColor=black" alt="Three.js r160">
@@ -8,9 +8,17 @@
   <img src="https://img.shields.io/badge/Status-Production_Ready-brightgreen?style=for-the-badge" alt="Status">
 </p>
 
-An interactive, zero-build **WebXR Network Engineering, Security Simulator, and Onboarding Training Suite** built specifically for the **Meta Quest 2 Browser** and modern desktop browsers (Chrome, Edge, Firefox, Safari).
+An interactive, zero-build **WebXR Network Engineering Suite, Visual Certification Academy, and Architecture Builder** built specifically for the **Meta Quest 2 / Quest 3 / Pro Browser** and modern desktop browsers (Chrome, Edge, Firefox, Safari).
 
-Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet flows hop-by-hop, launch and mitigate real-time DDoS cyber attacks, inspect live packet headers in an integrated Wireshark-lite stream, build custom hardware topologies with automatic device thumbnails, and download executive PDF inventory sheets.
+Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet flows hop-by-hop, design your own custom architecture with **real 3D hardware equipment models**, test reachability with an integrated Cisco CLI ping suite, inspect live packet headers in Wireshark-lite, master CCNA/CCNP certification curriculums with worked real-world examples, and export publication-grade **2D Architectural Blueprint Maps & 4-Page PDF Reports**.
+
+---
+
+<p align="center">
+  <img src="assets/screenshots/real_3d_equipment.png" alt="3D Real Hardware Equipment View" width="95%">
+  <br>
+  <em>Interactive 3D WebXR Campus Network with Photorealistic Cisco Switches, Routers, Servers, and In-World Equipment HUDs</em>
+</p>
 
 ---
 
@@ -18,93 +26,124 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
 
 - [Why This Exists](#-why-this-exists)
 - [Target Audience](#-who-its-for)
-- [Build Your Own Network Studio & 2D Blueprint Real Map](#-build-your-own-network-studio--2d-blueprint-real-map)
-  - [7-Step Guided Construction Workflow](#7-step-guided-construction-workflow)
-  - [Interactive Testing & Ping Diagnostic Suite](#interactive-testing--ping-diagnostic-suite)
-  - [Real 2D Architectural Schematic Blueprint Map](#real-2d-architectural-schematic-blueprint-map)
-  - [Comprehensive 4-Page PDF Engineering Blueprint](#comprehensive-4-page-pdf-engineering-blueprint)
-- [Topic-Wise Study Academy (CCNA, CCNP ENCOR, CCNP ENARSI)](#-topic-wise-study-academy)
-  - [Exhaustive Syllabus Coverage](#exhaustive-syllabus-coverage)
-  - [Interactive SVG Diagrams & Mental Models](#interactive-svg-diagrams--mental-models)
-  - [Production Cisco IOS CLI Commands](#production-cisco-ios-cli-commands)
-  - [1-Click 3D WebXR Lab Scene Launching](#1-click-3d-webxr-lab-scene-launching)
-- [3D WebXR Classroom Billboard (In-Headset VR Learning)](#-3d-webxr-classroom-billboard)
-- [CCNA 200-301 Visual Academy](#-ccna-200-301-visual-academy)
-  - [OSI 7-Layer vs TCP/IP 4-Layer Encapsulation Stack](#1-osi-7-layer-vs-tcpip-4-layer-encapsulation-stack)
-  - [TCP 3-Way Handshake vs UDP Datagram Simulator](#2-tcp-3-way-handshake-vs-udp-datagram-simulator)
-  - [Physical Cabling Media & T568A/B Pinouts](#3-physical-cabling-media--t568ab-pinouts)
-  - [Virtualization, Hypervisors, VMs & Containers](#4-virtualization-hypervisors-vms--containers)
-  - [Site-to-Site IPsec VPN & Cryptographic Tunnels](#5-site-to-site-ipsec-vpn--cryptographic-tunnels)
-  - [Interactive CCNA Knowledge Check Quiz](#6-interactive-ccna-knowledge-check-quiz)
-- [Physical Hardware Photos & Equipment Gallery](#-physical-hardware-photos--equipment-gallery)
-- [Comprehensive Network Topologies Library (23 Presets)](#-comprehensive-network-topologies-library)
-  - [1. Interactive 3D Network Builder](#1-interactive-3d-network-builder)
-  - [2. Cyber Security Attack & Defense Simulator](#2-cyber-security-attack--defense-simulator)
-  - [3. Wireshark-Lite Live Packet Sniffer](#3-wireshark-lite-live-packet-sniffer)
-  - [4. Multiple 3D Layout Algorithms](#4-multiple-3d-layout-algorithms)
-  - [5. Multi-Protocol Packet Routing & Return Trips](#5-multi-protocol-packet-routing--return-trips)
-  - [6. Interactive IPv4 CIDR Subnet Calculator](#6-interactive-ipv4-cidr-subnet-calculator)
-  - [7. Executive PDF Report & Inventory Download](#7-executive-pdf-report--inventory-download)
-  - [8. Ambient NOC Traffic & Web Audio Synthesizer](#8-ambient-noc-traffic--web-audio-synthesizer)
+- [Core Features Overview](#-core-features-overview)
+  - [1. Real 3D Hardware Equipment Models & Faceplates](#1-real-3d-hardware-equipment-models--faceplates)
+  - [2. Build Your Own Network Studio (7-Step Guided Workflow)](#2-build-your-own-network-studio-7-step-guided-workflow)
+  - [3. Real 2D Architectural Schematic Blueprint Map](#3-real-2d-architectural-schematic-blueprint-map)
+  - [4. Interactive Testing, Ping & 5-Point Health Diagnostics Suite](#4-interactive-testing-ping--5-point-health-diagnostics-suite)
+  - [5. Professional 4-Page PDF Blueprint & BOM Exporter](#5-professional-4-page-pdf-blueprint--bom-exporter)
+  - [6. Topic-Wise Study Academy (CCNA, CCNP ENCOR, CCNP ENARSI)](#6-topic-wise-study-academy-ccna-ccnp-encor-ccnp-enarsi)
+  - [7. 3D WebXR Classroom Billboard (In-Headset VR Learning)](#7-3d-webxr-classroom-billboard-in-headset-vr-learning)
+  - [8. Physical Cabling & Connector Visuals (RJ-45 & LC Fiber)](#8-physical-cabling--connector-visuals-rj-45--lc-fiber)
+  - [9. Comprehensive Network Topologies Library (23 Presets)](#9-comprehensive-network-topologies-library-23-presets)
+  - [10. Cyber Security Attack & Mitigation Suite (DDoS / WAF)](#10-cyber-security-attack--mitigation-suite-ddos--waf)
+  - [11. Wireshark-Lite Live Packet Sniffer](#11-wireshark-lite-live-packet-sniffer)
+  - [12. Interactive IPv4 CIDR Subnet Calculator](#12-interactive-ipv4-cidr-subnet-calculator)
+  - [13. Multi-Protocol Traffic Engine & Ambient NOC Audio](#13-multi-protocol-traffic-engine--ambient-noc-audio)
 - [Controls Cheatsheet](#-controls-cheatsheet)
-  - [Meta Quest 2 Touch Controllers](#meta-quest-2-touch-controllers)
   - [Desktop Mouse & Keyboard](#desktop-mouse--keyboard)
-- [Enterprise Architecture Presets](#-comprehensive-network-topologies-library)
-- [Getting Started (Local Running)](#-getting-started-local-running)
-- [Deploying to Netlify Drop (10 Seconds)](#-deploying-to-netlify-drop-10-seconds)
-- [Testing on Meta Quest 2](#-testing-on-meta-quest-2)
-- [JSON Topology Schema Reference](#-json-topology-schema-reference)
-- [Performance & VR Optimization](#-performance--vr-optimization)
+  - [Meta Quest Touch Controllers](#meta-quest-touch-controllers)
+- [Getting Started (Run Locally in 5 Seconds)](#-getting-started-run-locally-in-5-seconds)
+- [Deploying to Netlify / GitHub Pages](#-deploying-to-netlify--github-pages)
+- [Pushing via GitHub Desktop](#-pushing-via-github-desktop)
 - [License](#-license)
 
 ---
 
-## 🛠️ Build Your Own Network Studio & 2D Blueprint Real Map
+## 💡 Why This Exists
 
-Click the **🛠️ Build Network** button in the top navigation bar (or press `N` on your keyboard) to launch the **Network Builder Studio & Diagnostic Suite**.
+Traditional networking education relies on dry 2D topology diagrams, black-and-white CLI text consoles, and abstract packet capture hex dumps. Beginners and certification students struggle to visualize:
+- How physical cables (Cat6 copper vs OS2/OM4 fiber) connect to physical switch ports.
+- Why packets take specific multi-hop paths through VLANs, Spanning Tree root bridges, and NAT overload firewalls.
+- What happens when a link breaks or a DDoS SYN flood strikes the perimeter.
 
-Whether you are designing a small branch office, a campus LAN, or an enterprise hybrid data center, this studio guides you step-by-step from a blank canvas to a verified, tested, production-ready network architecture blueprint.
-
----
-
-### 7-Step Guided Construction Workflow
-
-Follow the structured engineering steps to build a resilient, segmented enterprise network:
-
-1. **🌐 Step 1: Perimeter & Edge Security Defense**
-   - **Why this comes first**: Protects internal LAN assets from public WAN threats.
-   - **Hardware**: Upstream Tier-1 Internet ISP Gateway (`203.0.113.1`), Next-Gen Perimeter Firewall (`10.0.0.1`), IPsec VPN Concentrator (`10.0.0.2`).
-2. **🔄 Step 2: Core & Distribution Switching Backbone**
-   - **Why this comes second**: Establishes multi-gigabit inter-VLAN routing, Spanning Tree (STP) loop protection, and LACP EtherChannel bandwidth aggregation.
-   - **Hardware**: Core Layer-3 Switch (`10.0.1.1`), Distribution Edge Router (`10.0.1.254`).
-3. **🏢 Step 3: Department Servers & Data Center Services**
-   - **Why this comes third**: Centralizes compute workloads and business applications in an isolated, ACL-firewalled Data Center subnet.
-   - **Hardware**: Corporate Web Server (`10.0.10.10`), PostgreSQL Database Cluster (`10.0.10.20`), VMware ESXi Type-1 Hypervisor (`10.0.10.30`), Core DNS/DHCP Server (`10.0.1.5`).
-4. **💻 Step 4: End-User Workstations & Office Peripherals**
-   - **Why this comes fourth**: Segment staff endpoints into department VLANs (Finance, Engineering, Sales, HR, Executive) to prevent lateral malware movement and broadcast storms.
-   - **Hardware**: Engineering Workstations, Finance Accounting PCs, Executive Staff Laptops, Network Laser Printers, Wi-Fi 6 Access Points (Catalyst 9120AX), VoIP Desk Phones.
-5. **🔗 Step 5: Physical Cabling & Link Interconnections**
-   - **Why this comes fifth**: Spans physical transmission media between devices:
-     - 🟢 **Cat6 Copper UTP (1 Gbps)**: Up to 100 meters for office workstations, printers, and VoIP phones.
-     - 🔵 **LC Single-Mode / Multi-Mode Optical Fiber SFP+ (10 Gbps)**: High-throughput uplinks between switches, servers, and hypervisors.
-     - 🟠 **802.1Q VLAN Trunks (40 Gbps)**: Multi-VLAN tagged interconnects between backbone switches.
-     - 🟣 **Wireless 5GHz 802.11ax (1.2 Gbps)**: High-speed Wi-Fi 6 mobility for staff laptops.
-     - ✨ **Auto-Wire Tool**: Automatically connects all unlinked devices to their nearest department switch in 1 click!
-6. **🧪 Step 6: Test Everything & Run Health Diagnostics**
-   - Live interactive ping testing, traceroute hops, and automated IP sanity checks (detailed below).
-7. **🗺️ Step 7: Real Architectural Map & PDF Blueprint Download**
-   - Inspect the live 2D schematic blueprint diagram and export the comprehensive 4-page PDF report.
+**VR Network Topology Explorer** transforms invisible radio waves, light pulses, and binary packets into **tangible, interactive 3D spatial environments**. You can walk through the network, rewire cables, simulate ping packets, and learn networking visually from start to finish.
 
 ---
 
-### 🧪 Interactive Testing & Ping Diagnostic Suite
+## 🎯 Who It's For
 
-Click the **🧪 Test Network** button to verify reachability and audit network health:
+- **CCNA & CCNP Certification Students**: Visual study guides, Cisco CLI snippets with 1-click copy, exam traps, and 1-click 3D lab topologies.
+- **Network Engineers & Architects**: Prototype multi-tier enterprise networks, test subnet sanity, and export Visio-grade 2D architectural blueprint maps and 4-page PDF documentation.
+- **IT Educators & University Professors**: Interactive classroom presentation tool with floating VR billboards and live packet simulations.
+- **Junior Sysadmins & Support Engineers**: Intuitive mental models and analogies explaining OSI layers, default gateways, and DNS/DHCP workflows.
+
+---
+
+## 🚀 Core Features Overview
+
+### 1. Real 3D Hardware Equipment Models & Faceplates
+
+Every node in the virtual environment is modeled with physical fidelity and high-definition front-panel faceplates:
+
+- **🔀 Cisco Catalyst 9300 Switch**: 1U rack-mount chassis with rack ears, **24 staggered RJ-45 Gigabit ports** with metallic shielding, gold pin contacts, green link LEDs, **4× 10G SFP+ uplink cages**, RJ-45 console port, and status LEDs (`SYST`, `STAT`, `PoE`).
+- **🔄 Cisco ISR 4331 Modular WAN Router**: 2U chassis with dual routed GE interfaces (`GE 0/0/0`, `GE 0/0/1`), SFP combo port, light-blue serial console/aux ports, and **dual modular NIM expansion slots** with knurled thumbscrews.
+- **🖥️ Enterprise 2U Rack Server (Dell PowerEdge / Cisco UCS)**: Brushed titanium bezel, **8 hot-swap 2.5" SAS/NVMe drive bays** with release latches and blinking activity LEDs, glowing blue power/UID button, diagnostic LCD, and honeycomb ventilation grilles.
+- **🛡️ Next-Gen Threat Defense Firewall**: Safety-red security bezel with color-coded dedicated security zone ports (Red WAN, Yellow DMZ, Green Internal LAN, Blue HA Sync) and security shield badge.
+- **🗄️ Enterprise SAN Storage Array / Database**: 3U chassis with **12 hot-swap enterprise drive trays** in a 3×4 grid with green/amber disk I/O activity LEDs and RAID-6 controller display.
+- **💻 Desktop Workstation**: Thin-bezel LCD monitor displaying an **active CLI terminal running `ping 10.0.1.1`** and a live cyan network throughput graph, with an aluminum stand and desktop tower.
+- **💻 Mobile Staff Laptop**: Anodized aluminum unibody clamshell with keyboard deck, trackpad, and screen displaying a network dashboard.
+- **🖨️ Office Network Laser Printer**: White/slate body with color touchscreen LCD showing `● READY TO PRINT`, IP address, toner status, paper output tray, and dual paper drawers.
+- **📶 Wi-Fi 6 Access Point (Catalyst 9120AX)**: Ceiling-mount AP with central Cisco logo and glowing green/cyan multi-color LED ring.
+- **📞 Cisco VoIP Desk Phone (8845)**: IP Phone with tilted color display showing extension `EXT: 4010 [ENGINEERING]`, SIP registration status, numeric dial pad, and coiled handset.
+- **🏷️ In-World Floating HUD Cards**: Hovering billboard cards above each device displaying the **photorealistic equipment photo**, device full name, IPv4 address, and department badge.
+
+---
+
+### 2. Build Your Own Network Studio (7-Step Guided Workflow)
+
+Click **`🛠️ Build Network`** in the header or press `N` on your keyboard to open the **Network Builder Studio**:
+
+<p align="center">
+  <img src="assets/screenshots/builder_wizard.png" alt="7-Step Guided Construction Wizard" width="95%">
+  <br>
+  <em>7-Step Guided Network Construction Studio with Engineering Rationale & 1-Click Hardware Deployment</em>
+</p>
+
+1. **🌐 Step 1: Perimeter & Edge Defense**: Upstream Tier-1 ISP Gateway (`203.0.113.1`), Next-Gen Firewall (`10.0.0.1`), and IPsec VPN Concentrator (`10.0.0.2`).
+2. **🔄 Step 2: Core & Distribution Switching**: Core Layer-3 Switch (`10.0.1.1`) and Distribution Router (`10.0.1.254`).
+3. **🏢 Step 3: Department Servers & Data Center**: Corporate Web Server (`10.0.10.10`), PostgreSQL Database Cluster (`10.0.10.20`), VMware ESXi Hypervisor (`10.0.10.30`), and DNS/DHCP Server (`10.0.1.5`).
+4. **💻 Step 4: End-User Workstations & Peripherals**: Engineering PCs, Finance Workstations, Executive Laptops, Network Laser Printers, Wi-Fi 6 APs, and VoIP Desk Phones.
+5. **🔗 Step 5: Physical Cabling & Ports**: Connect nodes with Cat6 Copper (1G), LC Optical Fiber (10G), 802.1Q Trunks (40G), or Wireless 5GHz. Includes a **✨ Auto-Wire Tool** to connect all unlinked devices in 1 click!
+6. **🧪 Step 6: Test Everything & Run Diagnostics**: Live interactive ping testing, traceroute hops, and automated IP sanity checks.
+7. **🗺️ Step 7: Real Architectural Map & PDF Blueprint**: Inspect the live 2D architectural blueprint map and export the complete 4-page PDF engineering report.
+
+*Users can also start from a **🧹 Blank Canvas** to build from scratch or load curated **Starter Templates** (Small Business Office or Enterprise Campus).*
+
+---
+
+### 3. Real 2D Architectural Schematic Blueprint Map
+
+Switch to the **`🗺️ Real Blueprint Map`** tab to view your network rendered as a publication-grade 2D architectural schematic:
+
+<p align="center">
+  <img src="assets/screenshots/real_map_equipment_photos.png" alt="Real 2D Architectural Schematic Blueprint Map" width="95%">
+  <br>
+  <em>Real 2D Architectural Schematic Map with Equipment Photos, IP Badges, Cable Indicators, and Department Zones</em>
+</p>
+
+- **Hierarchical Tier Zoning**: Automatically organizes nodes into clean logical tiers (WAN/Internet $\rightarrow$ Firewalls $\rightarrow$ Core L3 $\rightarrow$ Access Switches $\rightarrow$ Endpoints/Servers).
+- **Department Cluster Containers**: Translucent bounding boxes group devices by department with glowing colored borders and VLAN subnet tags.
+- **Hardware Device Cards**: High-contrast cards displaying custom hardware vector thumbnails, device name, hardware role chip, monospace IP address badge, and real-time status LED.
+- **Physical Cabling Indicators**: Curved Bezier lines color-coded by transmission media (Cat6 Green, Fiber Cyan/Blue, 802.1Q Trunk Amber, Wireless Magenta).
+- **One-Click Image Download**: Save the architectural blueprint directly as a high-resolution PNG image (`enterprise-network-blueprint.png`).
+
+---
+
+### 4. Interactive Testing, Ping & 5-Point Health Diagnostics Suite
+
+Click **`🧪 Test Network`** in the header or open the Testing tab inside the Studio:
+
+<p align="center">
+  <img src="assets/screenshots/builder_testing.png" alt="Interactive Ping & Health Audit Suite" width="95%">
+  <br>
+  <em>Live Cisco IOS Ping Terminal, Multi-Protocol Traceroute & Automated 5-Point Health Sanity Audit</em>
+</p>
 
 - **⚡ Interactive Ping & Route Tracer**:
   - Select any Source and Destination device from the network.
-  - Choose protocol: `ICMP Echo (Ping)`, `HTTP/S Web Traffic (Port 80/443)`, `DNS Query (Port 53)`, or `VoIP SIP Telephony (Port 5060)`.
-  - Triggers live **3D glowing packet flow animations** across the physical links in the Three.js viewport with realistic sound effects!
+  - Choose protocol: `ICMP Echo (Ping)`, `HTTP/S (80/443)`, `DNS (53)`, or `VoIP (5060)`.
+  - Triggers live **3D glowing packet animations** across the physical links in the Three.js viewport with realistic sound effects.
   - Displays real Cisco IOS terminal ping logs:
     ```text
     Type escape sequence to abort.
@@ -116,8 +155,8 @@ Click the **🧪 Test Network** button to verify reachability and audit network 
     ```
 - **🔍 Automated 5-Point Network Health Audit**:
   - Automatically audits:
-    1. **IP Conflict Audit**: Detects duplicate IP address allocations across subnets.
-    2. **Isolated Device Audit**: Flags devices without active physical or wireless cables.
+    1. **Duplicate IP Conflicts**: Flags duplicate IP addresses across subnets.
+    2. **Isolated Devices**: Flags devices without active physical or wireless cables.
     3. **Perimeter Security Check**: Verifies that a firewall or VPN concentrator guards the edge.
     4. **Core Switching Check**: Confirms routing backbone devices exist.
     5. **Default Gateway Check**: Verifies that endpoint workstations have assigned default gateways.
@@ -125,55 +164,35 @@ Click the **🧪 Test Network** button to verify reachability and audit network 
 
 ---
 
-### 🗺️ Real 2D Architectural Schematic Blueprint Map
+### 5. Professional 4-Page PDF Blueprint & BOM Exporter
 
-Switch to the **🗺️ Real Blueprint Map** tab to view your network rendered as a publication-grade 2D architectural schematic:
+Click **`📄 Download PDF`** to export a publication-grade landscape A4 PDF document:
 
-- **Hierarchical Tier Zoning**: Automatically organizes nodes into clean logical tiers:
-  - Tier 0: Internet WAN & Cloud SaaS
-  - Tier 1: Next-Gen Firewalls & VPN Concentrators
-  - Tier 2: Core Routers & Distribution Layer-3 Switches
-  - Tier 3: Access Switches & Wi-Fi Access Points
-  - Tier 4: Department Servers, Workstations, Laptops, and Laser Printers
-- **Department Cluster Containers**: Translucent bounding boxes group devices by department with glowing colored borders and VLAN subnet tags.
-- **Hardware Device Cards**: High-contrast dark cards displaying custom hardware vector thumbnails, device name, hardware role chip, monospace IP address badge, and real-time status LED.
-- **Physical Cabling Indicators**: Curved Bezier lines color-coded by transmission media (Cat6 Green, Fiber Cyan/Blue, 802.1Q Trunk Amber, Wireless Magenta).
-- **One-Click Image Download**: Save your architectural blueprint directly as a high-resolution PNG image (`enterprise-network-blueprint.png`).
+- **Page 1: 🗺️ The Real Architectural Schematic Map**: Full-page high-resolution 2D blueprint diagram showing all hardware nodes, IP tags, cable media, and department zones with executive metrics.
+- **Page 2: 🧪 Verification, Testing & Health Diagnostic Audit**: Automated Health Audit Checklist with Pass/Warn/Fail badges, Live Ping & Packet Tracer Execution Log table, and 3D WebGL Perspective Render Snapshot.
+- **Page 3: 📋 Bill of Materials (BOM) & Device Inventory Matrix**: Complete tabular inventory: Device Full Name, Hardware Role, Department, IPv4 / Subnet Mask, MAC Address, Default Gateway, VLAN ID, Status, Connected Peers.
+- **Page 4: 🔗 Physical Cabling & Interconnection Port Schedule**: Complete cabling matrix: Link ID, Source Device & Port, Destination Device & Port, Physical Media Type (Cat6 / SFP+ Fiber / Trunk), Link Bandwidth Speed, Status.
 
 ---
 
-### 📄 Comprehensive 4-Page PDF Engineering Blueprint
+### 6. Topic-Wise Study Academy (CCNA, CCNP ENCOR, CCNP ENARSI)
 
-Click the **📄 Download PDF** button in the header or builder studio to download a complete, publication-grade landscape A4 PDF document:
+Click **`📚 Study Academy (CCNA/CCNP)`** or press `S` on your keyboard to open the curriculum:
 
-- **Page 1: 🗺️ The Real Architectural Schematic Map**:
-  - Full-page high-resolution 2D blueprint diagram showing all hardware nodes, IP tags, cable media, and department zones.
-  - Executive summary metrics: Total Devices, Total Links, Subnets, and Health Score badge.
-- **Page 2: 🧪 Verification, Testing & Health Diagnostic Audit**:
-  - Automated Health Audit Checklist with Pass/Warn/Fail badges.
-  - Live Ping & Packet Tracer Execution Log table (Source, Destination, Protocol, RTT, Status).
-  - 3D WebGL Perspective Render Snapshot showing the 3D VR spatial layout.
-- **Page 3: 📋 Bill of Materials (BOM) & Device Inventory Matrix**:
-  - Complete tabular inventory: Device Full Name, Hardware Role, Department, IPv4 / Subnet Mask, MAC Address, Default Gateway, VLAN ID, Status, Connected Peers.
-- **Page 4: 🔗 Physical Cabling & Interconnection Port Schedule**:
-  - Complete cabling matrix: Link ID, Source Device & Port, Destination Device & Port, Physical Media Type (Cat6 / SFP+ Fiber / Trunk), Link Bandwidth Speed, Status.
+<p align="center">
+  <img src="assets/screenshots/study_academy_modal.png" alt="CCNA / CCNP Topic-Wise Study Academy" width="95%">
+  <br>
+  <em>Topic-Wise Certification Curriculum with Real Hardware Photos, Worked Examples & 1-Click 3D Labs</em>
+</p>
 
----
-
-## 🎓 Topic-Wise Study Academy
-
-Click the **📚 Study Academy (CCNA/CCNP)** button (or press `S` on your keyboard) to open the interactive curriculum portal.
-
-The application delivers an end-to-end, topic-by-topic training path aligned strictly with official Cisco certification standards:
-
-### Exhaustive Syllabus Coverage
+#### Exhaustive Syllabus Coverage (22 Lessons)
 1. **CCNA (200-301) Track**:
-   - **Module 1: Network Fundamentals**: OSI 7-Layer vs TCP/IP 4-Layer, IPv4 Subnetting & VLSM, IPv6 Global/Link-Local/EUI-64, Physical Layer Cables & PoE.
-   - **Module 2: Network Access**: 802.1Q VLANs & Voice VLAN, Spanning Tree (STP/RSTP/PVST+), EtherChannel LACP & PAgP.
-   - **Module 3: IP Connectivity**: Routing Concepts & AD, OSPFv2 Multi-Area Link-State, FHRP (HSRP & VRRP Gateway Redundancy).
-   - **Module 4: IP Services**: NAT/PAT Overload, DHCP DORA & Recursive DNS, Quality of Service (QoS) & Policing.
-   - **Module 5: Security Fundamentals**: Standard & Extended ACLs, Layer 2 Security (Port Security, DHCP Snooping, Dynamic ARP Inspection).
-   - **Module 6: Automation & Programmability**: SDN Architecture, REST APIs, JSON data, and Cisco DNA Center.
+   - **Network Fundamentals**: OSI 7-Layer vs TCP/IP 4-Layer, IPv4 Subnetting & VLSM, IPv6 Global/Link-Local/EUI-64, Physical Layer Cables & PoE.
+   - **Network Access**: 802.1Q VLANs & Voice VLAN, Spanning Tree (STP/RSTP/PVST+), EtherChannel LACP & PAgP.
+   - **IP Connectivity**: Routing Concepts & AD, OSPFv2 Multi-Area Link-State, FHRP (HSRP & VRRP Gateway Redundancy).
+   - **IP Services**: NAT/PAT Overload, DHCP DORA & Recursive DNS, Quality of Service (QoS) & Policing.
+   - **Security Fundamentals**: Standard & Extended ACLs, Layer 2 Security (Port Security, DHCP Snooping, Dynamic ARP Inspection).
+   - **Automation & Programmability**: SDN Architecture, REST APIs, JSON data, and Cisco DNA Center.
 2. **CCNP ENCOR (350-401) Track**:
    - **Cisco SD-WAN & VXLAN Overlay Fabric**: Decoupling overlays from underlays; VXLAN UDP port 4789 and 24-bit VNI.
    - **BGP Path Attributes & Route Selection**: Multi-attribute route selection (Weight, Local Pref, AS-Path, MED, eBGP vs iBGP).
@@ -183,22 +202,29 @@ The application delivers an end-to-end, topic-by-topic training path aligned str
    - **MPLS LDP & Layer 3 BGP VPNs**: 32-bit shim labels, Penultimate Hop Popping (PHP), Provider Edge (PE) and Core (P) LSR routers.
    - **Dynamic Multipoint VPN (DMVPN Phase 3)**: Multipoint GRE (mGRE), NHRP Redirect & Shortcut, dynamic spoke-to-spoke IPsec tunnels.
 
-### Every Lesson Includes:
+<p align="center">
+  <img src="assets/screenshots/scrolled_example.png" alt="Worked Step-by-Step Scenario Example" width="90%">
+  <br>
+  <em>Concrete Real-World Worked Scenarios with Step-by-Step Walkthroughs & Practical Engineering Rules-of-Thumb</em>
+</p>
+
+#### Every Lesson Includes:
 - 💡 **Everyday Mental Model & Analogy**: Plain-English analogies (e.g. shipping containers, airport baggage barcodes, flight co-pilots) that clarify complex protocol internals for complete beginners.
-- 📐 **Interactive SVG Architectural & Header Diagrams**: Crisp vector graphics illustrating encapsulation headers, frame formats, and traffic topology flows.
-- 🔬 **Deep-Dive Engineering Theory**: RFC references, finite-state machine transitions, packet structures, and calculation formulas.
+- 📸 **Real-World Hardware Showcase**: High-resolution equipment photo with engineering specs, port layouts, and deployment roles.
+- 🧪 **Concrete Worked Scenarios**: Step-by-step real-world walkthroughs (e.g., *Alice in Sales browsing cisco.com*, *Carving 192.168.10.0/24 for three departments*, *Deriving link-local IPv6 from a MAC address*, *Simulating router power failure with HSRP VIP*).
+- 📐 **Interactive SVG Architectural Diagrams**: Crisp vector graphics illustrating encapsulation headers, frame formats, and traffic flows.
+- 🔬 **Deep-Dive Technical Theory**: RFC references, finite-state machine transitions, packet structures, and calculation formulas.
 - 🖥️ **Production Cisco IOS CLI Commands**: Syntax-highlighted CLI terminal blocks with a 1-click **📋 Copy CLI Commands** button to copy configurations into Packet Tracer, GNS3, EVE-NG, or physical Cisco hardware.
 - 🎯 **Exam Traps & Certification Tips**: Critical warnings on common multiple-choice exam traps (e.g. OSPF timer mismatches, STP priority increments of 4096, HSRP preemption).
 - 🚀 **1-Click 3D Lab Scene Launch**: Instantly loads the exact corresponding 3D topology into the WebXR viewport and positions nodes for real-time packet tracing.
-- 📈 **Progress Tracking**: Tracks completed topics with checkmarks saved in browser `localStorage`.
 
 ---
 
-## 🥽 3D WebXR Classroom Billboard (In-Headset VR Learning)
+### 7. 3D WebXR Classroom Billboard (In-Headset VR Learning)
 
 Study while remaining inside Virtual Reality! When using a **Meta Quest 2 / Quest 3 / Pro** headset:
-- Press the **🕶️ Toggle VR Screen** button or press `V` on your keyboard (or trigger the in-VR button).
-- A floating high-resolution 3D billboard (`CanvasTexture` at 1200x725 resolution) appears in 3D space directly in front of you.
+- Press the **`🕶️ Toggle VR Screen`** button or press `V` on your keyboard (or trigger the in-VR button).
+- A floating high-resolution 3D billboard (`CanvasTexture` at 1200×725 resolution) appears in 3D space directly in front of you.
 - Use your Oculus Touch controller raycaster laser to click:
   - `[◄ Prev Topic]` / `[Next Topic ►]` to step through lessons.
   - `[🚀 Spawn 3D Lab]` to materialize the lesson's physical network in the virtual room!
@@ -206,268 +232,182 @@ Study while remaining inside Virtual Reality! When using a **Meta Quest 2 / Ques
 
 ---
 
-## 📘 CCNA 200-301 Visual Academy
+### 8. Physical Cabling & Connector Visuals (RJ-45 & LC Fiber)
 
-Click the **📘 CCNA Academy** button in the top navigation bar to open an interactive study academy designed for junior engineers, network students, and CCNA candidates:
+Click **`📘 CCNA Academy`** to inspect physical layer transmission media and pinout standards:
 
-### 1. OSI 7-Layer vs TCP/IP 4-Layer Encapsulation Stack
-- **Color-Coded Layers**: From Layer 7 (Application) down to Layer 1 (Physical).
-- **PDU Tracking**: Follow data transformation as headers are prepended: **Data** (L7-5) $\rightarrow$ **Segment** (L4) $\rightarrow$ **Packet** (L3) $\rightarrow$ **Frame** (L2) $\rightarrow$ **Bits** (L1).
-- **Hardware Mapping**: See which devices operate at each layer (L2 Switches, L3 Routers, L4 Firewalls/Load Balancers).
+<p align="center">
+  <img src="assets/screenshots/cabling_diagram.png" alt="Physical Cabling Pinouts & LC Optical Fiber" width="90%">
+  <br>
+  <em>Detailed Visual Pinouts for RJ-45 (T568A/T568B) and LC Duplex Optical Fiber Transceivers</em>
+</p>
 
-### 2. TCP 3-Way Handshake vs UDP Datagram Simulator
-- **Interactive 3-Way Handshake**: Step 1 Client SYN (`Seq=0 Win=65535`) $\rightarrow$ Step 2 Server SYN-ACK (`Seq=0 Ack=1`) $\rightarrow$ Step 3 Client ACK (`Seq=1 Ack=1`) $\rightarrow$ Established session.
-- **Header Comparison**: Side-by-side breakdown of TCP 20-byte reliable headers (Sequence/Ack numbers, Windowing, Flags) vs UDP 8-byte lightweight datagram headers.
-- **Trace in 3D**: Select **TCP** or **UDP** in the top bar to watch handshake round-trips or high-speed datagram streams traverse the network in real-time, logged to the Wireshark drawer.
-
-### 3. Physical Cabling Media & T568A/B Pinouts
-- **Cabling Media Catalog**:
-  - `Cat6 UTP`: Blue jacket copper twisted pair, 100m distance limit, RJ-45 connector.
-  - `Single-Mode Fiber (OS2)`: Yellow jacket, 9/125µm laser core, 10km-40km long-range carrier links.
-  - `Multi-Mode Fiber (OM4)`: Aqua jacket, 50/125µm VCSEL LED core, 400m data center fabric.
-  - `Twinax DAC`: Shielded black direct-attach copper, passive SFP28/QSFP28, 1m-5m intra-rack.
-  - `IPsec Encrypted Tunnel`: Holographic violet shield cylinder with cryptographic parameters.
-- **Interactive T568A vs T568B RJ-45 Pinout Chart**: Color-coded wire pairs (White/Orange, Orange, White/Green, Blue, White/Blue, Green, White/Brown, Brown).
-
-### 4. Virtualization, Hypervisors, VMs & Containers
-- **Type-1 Bare-Metal (ESXi, KVM, Proxmox)** vs **Type-2 Hosted (VirtualBox, VMware Workstation)** architecture.
-- **Virtual Distributed Switch (vSwitch)**: Port-groups, vNICs, physical uplink NIC teaming (802.3ad LACP).
-- **Virtual Machines vs Docker Containers**: Hardware virtualization with full Guest OS vs OS kernel namespace and cgroup isolation.
-
-### 5. Site-to-Site IPsec VPN & Cryptographic Tunnels
-- **IKEv1 / IKEv2 Phase 1 (ISAKMP SA)**: HAGLE parameters (Hash SHA-256, Authentication PSK/Cert, DH Group 14/19, Lifetime, Encryption AES-256).
-- **IKE Phase 2 (IPsec SA)**: ESP (Protocol 50) vs AH (Protocol 51), Tunnel Mode vs Transport Mode.
-- **Visual Tunnel Model**: 3D links render as translucent glowing cryptographic sleeves enclosing packets.
-
-### 6. Interactive CCNA Knowledge Check Quiz
-- Rapid-fire multiple-choice quiz testing core CCNA 200-301 concepts with instant scoring, feedback, and detailed explanations.
+- **RJ-45 (8P8C) Modular Plug Illustration**: Complete color-coded pinout (T568B: White/Orange, Orange, White/Green, Blue, White/Blue, Green, White/Brown, Brown) with gold-plated contact points.
+- **Optical Fiber Transceiver (LC Duplex)**:
+  - **Single-Mode Fiber (OS2 Yellow)**: 9µm core, 1310/1550nm Laser, 40km range.
+  - **Multi-Mode Fiber (OM4 Aqua)**: 50µm core, 850nm VCSEL LED, 400m data center range.
+  - Illustrates physical TX (Transmit) and RX (Receive) ceramic ferrules.
 
 ---
 
-## 💡 Why This Exists
+### 9. Comprehensive Network Topologies Library (23 Presets)
 
-Flat 2D network architecture diagrams (Visio, Lucidchart, draw.io) are static, lifeless, and fail to convey how packets actually traverse routing hops, how Spanning Tree failover works during an outage, or what happens during a DDoS attack.
+<p align="center">
+  <img src="assets/screenshots/topologies_overview.png" alt="Preset Topologies & 3D Interactive Labs" width="95%">
+  <br>
+  <em>23 Built-in Topologies Ranging from Basic LANs to Enterprise Clos Fabrics, DMVPN & MPLS</em>
+</p>
 
-**VR Network Topology Explorer** transforms network diagrams into a **living, breathing, interactive 3D spatial simulation**. Put on a Meta Quest 2 headset to physically inspect enterprise infrastructure at eye height, grab devices to rearrange wiring, trigger link failures to observe cascading recovery ripples, and teach network concepts to junior engineers in an unforgettable visual format.
+1. **Star Topology**: Central access switch interconnecting department workstations, laptops, and printers.
+2. **Ring Topology**: Redundant closed ring with automated failover testing.
+3. **Full Mesh Topology**: Complete $N(N-1)/2$ interconnection matrix with zero single points of failure.
+4. **Bus Topology**: Classic linear trunk cable with BNC T-connectors and 50-ohm terminators.
+5. **Spine-and-Leaf Clos Fabric**: High-bandwidth data center fabric with 100G uplinks.
+6. **Campus LAN & Wi-Fi 6**: Multi-building access layer with PoE+ switches, WAPs, and IP phones.
+7. **Industrial IoT / SCADA**: Purdue Enterprise Reference Architecture (PERA) with PLC sensors.
+8. **Cisco 3-Tier Enterprise**: Core, Distribution, and Access layers with redundant uplinks.
+9. **3-Tier Cloud Web Architecture**: Internet WAN, Cloud VPC, WAF, Load Balancers, Web tier, and DB cluster.
+10. **SD-WAN Multi-Site Branch VPN**: Hub-and-spoke encrypted overlays across dual ISP transports.
+11. **STP & EtherChannel Lab**: Loop resolution with root bridge election and LACP bundles.
+12. **FHRP Gateway Redundancy**: HSRP/VRRP active/standby router failover with Virtual IPs.
+13. **NAT / PAT Address Translation**: Inside local to inside global port multiplexing.
+14. **DHCP & DNS Services**: DORA handshake simulation and recursive DNS resolution.
+15. **BGP & MPLS WAN Core**: Autonomous system peering and MPLS label-switched paths.
+16. **Enterprise Wireless WLC**: Split-MAC architecture with CAPWAP tunnels.
+17. **DMVPN Phase 3**: Multipoint GRE tunnels with dynamic spoke-to-spoke resolution.
+18. **VXLAN & EVPN Fabric**: BGP EVPN control plane and VXLAN encapsulation.
+19. **OSPF Multi-Area**: Backbone Area 0 and standard/stub areas with ABR/ASBR routers.
+20. **IPsec Site-to-Site VPN**: Cryptographic ESP tunnels with AES-256 encryption.
+21. **Zero-Trust Network Access**: Micro-segmented container pods with strict security boundaries.
+22. **Small Business Office**: Compact starter network with firewall, switch, and office devices.
+23. **Blank Canvas**: Clean workspace ready for step-by-step construction.
 
 ---
 
-## 🎯 Who It's For
+### 10. Cyber Security Attack & Mitigation Suite (DDoS / WAF)
 
-- **🏢 IT & Enterprise Teams:** Onboard new joinees and junior sysadmins with a guided, interactive walk-through of your company's network tiers, security perimeter, and failover design.
-- **🎓 Educators & Universities:** Teach computer networking (CS/IT courses, CCNA/Network+ training) with tactile 3D packet traces, subnetting calculators, and packet sniffing.
-- **🛡️ Cybersecurity Teams & SOC Analysts:** Visually demonstrate SYN Flood DDoS attacks, botnet traffic surges, and WAF shield mitigation to stakeholders.
-- **☁️ Cloud & DevOps Engineers:** Visualize microservices, HA load balancers, database clusters, and SD-WAN branch tunnels.
-- **🥽 WebXR & Three.js Enthusiasts:** A reference example of pure static ES modules running at a locked 90 FPS on standalone Quest 2 hardware with zero bundler or npm dependencies.
+- Click **`🚨 Launch DDoS`** to simulate a massive distributed TCP SYN flood originating from botnet nodes across the Internet.
+- Watch thousands of high-velocity red attack pulses barrage the perimeter firewall, causing connection queues to spike and link latency to flash red.
+- Click **`🛡️ WAF Shield`** to deploy Next-Gen Web Application Firewall mitigation: malicious attack packets are immediately dropped at the perimeter, restoring normal green traffic flow to internal servers!
 
 ---
 
-## 🚀 Feature Showcase
+### 11. Wireshark-Lite Live Packet Sniffer
 
-### 1. Interactive 3D Network Builder
-Design, rearrange, and test custom network topologies on the fly:
-- **+ Add Device (`🏗️`)**: Add any hardware unit into the 3D world with custom Name, IPv4 address, and Department.
-- **12 Hardware Device Roles with 3D Models & 2D Vector Icons**:
-  - `🖥️ Server Blade` &mdash; Tall rack chassis with drive bays & LED activity lights
-  - `💻 Desktop PC` &mdash; Monitor on stand with desktop workstation tower
-  - `💻 Laptop` &mdash; Clamshell laptop with angled screen & keyboard
-  - `🖨️ Printer` &mdash; Office laser printer with paper tray & output slot
-  - `📶 Wi-Fi 6 AP (WAP)` &mdash; Ceiling-mounted saucer access point with concentric radio arcs
-  - `📞 VoIP Phone` &mdash; IP desk phone with handset, screen, and dialpad buttons
-  - `🏭 Industrial IoT / PLC` &mdash; DIN-rail industrial controller with sensor antenna and status LED
-  - `🛡️ Firewall` &mdash; Perimeter security appliance with shield/wall motif
-  - `🔄 Router` &mdash; Core and edge routing pucks with directional arrows
-  - `🔀 Switch` &mdash; Ethernet distribution rack switch
-  - `🗄️ Database` &mdash; Cylindrical database disk array
-  - `⚖️ Load Balancer` &mdash; High-availability proxy cluster
-- **Deep Enterprise Network Metadata Specs**:
-  - Automatically generates and displays **MAC Addresses** (`52:54:00:xx:xx:xx`), **Subnet Masks** (`/24`, `/16`), **Default Gateways**, **VLAN IDs**, **Port Interfaces** (`GigE 0/1`, `eth0`), **Bandwidth Speeds** (`100 Gbps QSFP28`, `10 Gbps Fiber`, `1 Gbps`), and **OS / Firmware versions** (`Cisco IOS-XE`, `Ubuntu LTS`, `pfSense`).
-- **Automatic Generic Device Thumbnails**: Dedicated 2D vector hardware icons rendered directly onto floating 3D canvas labels, creation modals, and info panels.
-- **Department-Wise Segmentation**: 9 color-coded departments (IT & Infrastructure, Engineering & Dev, Finance & Accounting, HR, Sales & Marketing, Executive Suite, Operations & OT, DMZ & Perimeter, Data Center) with one-click **Department Isolation Filtering**.
-- **Connect Tool (`C`)**: Click Node A &rarr; Node B to span real-time dynamic cyber-cables.
-- **Physical 3D Dragging**: Hold <kbd>Shift</kbd> (or Grip on Quest) to freely move devices; links stretch and follow in real-time.
+Click **`🔍 Wireshark`** in the header to open the promiscuous mode packet sniffer drawer:
+- Captures live network traffic in real time.
+- Displays standard Wireshark columns: Frame No., Timestamp, Source IP, Destination IP, Protocol, Length, and Packet Info summary.
+- Inspect TCP SYN/ACK flags, DNS query resolution strings, HTTP GET headers, and ICMP echo payloads.
+- Filter or clear capture with a single click.
 
-### 3. Cyber Security Attack & Defense Simulator
-Simulate realistic SOC/NOC incident response:
-- **🚨 Launch DDoS Attack**: Spawns a high-velocity botnet SYN Flood surging from the Internet WAN towards target servers. Links glow intensely red/orange as packet queues surge.
-- **🔥 Server Thermal Overload**: If unmitigated, target servers overheat, crash into `DOWN` state, and trigger cascading downstream failure ripples.
-- **🛡️ WAF Shield Mitigation**: Toggle Web Application Firewall mitigation to filter rogue botnet IPs at the edge firewall, restoring server health in green.
+---
 
-### 4. Wireshark-Lite Live Packet Sniffer
-Click **🔍 Wireshark** to open a real-time promiscuous packet capture drawer:
-- Live streaming log of simulated Ethernet/IP frames:
-  - `No.`, `Time`, `Source IP`, `Destination IP`, `Protocol (TCP SYN, TCP RST, ICMP, HTTP, DNS, SQL)`, `Packet Length`, and `Detailed Header / Flag Summary`.
-- Color-coded protocol rows matching Wireshark standards.
+### 12. Interactive IPv4 CIDR Subnet Calculator
 
-### 5. Multiple 3D Layout Algorithms
-Switch between spatial layout engines via the **3D Layout** dropdown:
-- **📐 Hierarchical Layered (Default)**: Clean left-to-right enterprise flow (Perimeter &rarr; Core &rarr; Distribution &rarr; Access &rarr; Endpoints).
-- **🎯 Concentric Radial**: Core router centered at origin with departments orbiting outwards in radial rings.
-- **⚡ Force-Directed Physics**: Coulomb repulsion + Hooke's spring attraction steps that organically relax nodes into an optimal balanced 3D structure.
+Click **`🧮 CIDR Calc`** in the header or press `Enter` in the calculator modal:
+- Enter any IPv4 address with prefix (e.g. `192.168.10.0/24`, `10.0.0.0/16`, `172.16.50.0/27`).
+- Instantly computes:
+  - Network ID & Broadcast Address
+  - Subnet Mask & Wildcard Mask
+  - Usable Host Range (`First Usable` $\leftrightarrow$ `Last Usable`)
+  - Total Usable IPv4 Host Count
+  - Binary Subnet Mask representation (showing network vs host bit boundaries)
 
-### 6. Multi-Protocol Packet Routing & Return Trips
-Choose your protocol before tracing:
-- **Ping (ICMP)**: High-speed connectivity probe.
-- **HTTP/S Web Request**: Green request packet hops to the server, then a **blue response payload returns to the client**.
-- **DNS Query**: Domain lookup resolution.
-- **Database SQL Query**: Queries application databases.
+---
 
-### 7. Interactive IPv4 CIDR Subnet Calculator
-Click **🧮 CIDR Calc** to open an integrated IP subnet calculator:
-- Enter any CIDR prefix (e.g. `10.0.10.0/24`, `192.168.1.0/26`, `172.16.0.0/16`).
-- Computes: Subnet Mask, Wildcard Mask, Network Address, Broadcast Address, Usable Host Range, Usable Host Count, and RFC 1918 Private/Public scope.
+### 13. Multi-Protocol Traffic Engine & Ambient NOC Audio
 
-### 8. Executive PDF Report & Inventory Download
-Click **📄 Download PDF**:
-- Captures a high-resolution snapshot of the current 3D topology diagram.
-- Generates a formatted PDF report:
-  - **Page 1**: Executive Summary, 3D Network Snapshot, Total Systems & Links, and Department Device Allocation metrics.
-  - **Page 2**: Complete Device & Server Inventory Table with Full Names, Hardware Roles, Departments, IP Addresses, Online Status, and Connected Peer Matrix.
-  - Downloads directly as `network-topology-layout-report.pdf`.
-
-### 9. Ambient NOC Traffic & Web Audio Synthesizer
-- **🌊 Live Ambient Traffic**: Simulates background packets continually flowing across healthy links for a 24/7 Network Operations Center feel.
-- **🔊 Native Web Audio Synthesizer**: Generates futuristic sci-fi sound effects (device clicks, packet hops, electrical crackles on link failure, and attack sirens) with zero external audio assets.
+- **Protocol Packet Generator**: Select between `HTTP`, `DNS`, `SQL`, `ICMP`, and `VoIP` in the top bar to fire colored protocol packets across links.
+- **Wave Particle Animation**: Packets travel along curved 3D link paths with glowing tails and pulse effects.
+- **Synthesized Web Audio Engine**: Integrated audio generator produces subtle click, hum, ping, and warning sound effects without any external MP3 files! Toggle with the **`🔊 Sound`** button.
+- **Ambient NOC Mode**: Click **`🌊 Live Traffic`** to generate continuous background traffic simulating a live Network Operations Center.
+- **360° Cinematic Orbit**: Click **`🎥 Orbit Cam`** for smooth presentation camera rotation around your architecture.
 
 ---
 
 ## 🎮 Controls Cheatsheet
 
-### Meta Quest 2 Touch Controllers
-
-| Input | Hand | Action |
-|---|---|---|
-| **Trigger (Index)** | Either | Point laser and pull to select device/link, or tap holographic menu buttons |
-| **Grip (Squeeze)** | Either | Point at a device, squeeze and hold to physically grab & move it in 3D |
-| **Left Thumbstick** | Left | Smooth locomotion relative to headset gaze (2 m/s, deadzone 0.15) |
-| **Right Thumbstick** | Right | Comfort snap-turn by 30° with flick cooldown |
-| **Y Button** | Left | Toggle floating VR wrist menu visibility |
-| **Trigger on Start**| Either | Dismisses the startup "How To Use" tutorial card |
-
 ### Desktop Mouse & Keyboard
 
-| Input | Action |
-|---|---|
-| **Left Click** | Select device or link (opens detail Info Panel) |
-| **Shift + Click & Drag** | Move any device along the camera view plane (links update in real-time) |
-| **Right Click + Drag** | OrbitControls: rotate camera view around network center |
-| **Scroll Wheel** | Zoom in / out |
-| **C Key** | Toggle Connect Tool (Click Device A &rarr; Click Device B to bridge) |
-| **T Key** | Start Packet Trace mode |
-| **B Key** | Break or repair currently selected device/link |
-| **Delete / Backspace** | Delete selected device or link from network |
-| **R Key** | Reset all nodes, links, and simulations to operational |
-| **L Key** | Toggle 3D floating text labels |
-| **F Key** | Toggle FPS / Triangles / Draw Calls telemetry overlay |
-| **H Key** | Toggle startup cheat sheet |
+| Control | Action |
+| :--- | :--- |
+| **Left Click** | Select device or cable to inspect properties |
+| **Left Click + Drag** | Orbit camera around the 3D scene |
+| **Right Click + Drag** | Pan camera laterally |
+| **Mouse Wheel** | Zoom in / Zoom out |
+| **Shift + Click & Drag** | Move selected device to a new 3D position |
+| **`N`** | Open **Network Builder Studio & Diagnostics** |
+| **`S`** | Open **Topic-Wise Study Academy** |
+| **`V`** | Toggle **In-Headset 3D VR Classroom Billboard** |
+| **`C`** | Toggle **Connect Nodes** tool (Click Node A $\rightarrow$ Click Node B) |
+| **`T`** | Toggle **Trace Packet** tool |
+| **`B`** | Break / repair selected link or device |
+| **`Del` / `Backspace`** | Delete selected device or cable from network |
+| **`R`** | Reset network topology to default state |
+| **`F`** | Toggle real-time FPS, triangle count, and draw call telemetry |
+| **`H`** | Toggle on-screen controls cheatsheet overlay |
+
+### Meta Quest Touch Controllers
+
+| Button / Trigger | Controller | Action |
+| :--- | :--- | :--- |
+| **Trigger** | Right / Left | Select device, click buttons, or grab nodes |
+| **Grip Button** | Right / Left | Hold to drag and reposition devices in 3D space |
+| **Thumbstick (Click)** | Right / Left | Teleport to target location on the floor |
+| **Thumbstick (Tilt)** | Right / Left | Smooth locomotion & snap rotation |
+| **`A` / `X` Button** | Right / Left | Toggle In-VR Floating Controls Menu |
+| **`B` / `Y` Button** | Right / Left | Quick Packet Trace from pointed device |
 
 ---
 
-## 🏢 Comprehensive Network Topologies Library
+## 🛠️ Getting Started (Run Locally in 5 Seconds)
 
-Switch instantly between 11 classic topologies and enterprise production architectures using the **Topology** dropdown:
+Because this is a **pure static front-end application** built with standard ES modules and Three.js r160, there is **NO npm, NO bundler, and NO build step** required!
 
-1. **🏢 Cisco 3-Tier Enterprise Network (Dept-Wise)**: Full hierarchical enterprise network featuring Internet WAN, Edge Firewall, Core Layer 3 Router, Distribution Switches, Data Center Servers, Engineering & Finance Desktops, Executive Laptops, and Office Laser Printers.
-2. **⭐ Star Topology (Central Switch LAN)**: Foundational LAN architecture where all endpoints connect into a single high-speed central switch. Highlights single-cable failure resilience.
-3. **🔄 Ring Topology (Self-Healing Loop)**: Closed loop where every node has two neighbors. Demonstrates automated bidirectional traffic failover with zero packet loss if any link is cut.
-4. **🕸️ Full Mesh Topology (High-Resilience WAN)**: Every mission-critical router is directly meshed to every other node ($O(N^2)$ links). Demonstrates ultra-resilient multipath routing for telco and military backbones.
-5. **🚌 Bus Topology (Backbone Trunk & Drops)**: Classic shared medium Ethernet with coaxial trunk line, 50-ohm terminators at both ends, and AUI drop cables to workstations. Demonstrates broadcast collision domains.
-6. **🌿 Spine-and-Leaf Data Center (Clos Architecture)**: Hyperscale data center fabric where every leaf switch connects to every spine switch. Eliminates Spanning Tree blocking and optimizes east-west server communication.
-7. **📶 Campus Enterprise & Wi-Fi 6 (WAPs, VoIP, Laptops)**: Modern enterprise campus with PoE+ distribution switches, ceiling Wi-Fi 6 Access Points, VoIP telephony, executive laptops, and shared network printers.
-8. **🏭 Industrial IoT & SCADA (Purdue OT Model)**: Critical infrastructure network with isolated Operational Technology (OT) DMZ, SCADA historian server, factory floor HMI console, and assembly line PLC controllers.
-9. **☁️ 3-Tier Cloud Web Architecture (N-Tier)**: Public clients &rarr; Cloudflare WAF &rarr; HA Load Balancer &rarr; NGINX Web tier &rarr; Core API App tier &rarr; PostgreSQL Primary & Read Replica.
-10. **🌐 SD-WAN Branch Office VPN (MPLS Backup)**: Multi-branch enterprise with SD-WAN edge routers, dual carrier MPLS & broadband underlays, and IPSec encrypted tunnels.
-11. **🎨 Blank Canvas**: Completely empty 3D space to freely add custom systems, define IP subnets, route connections, and test network behaviors from scratch.
-
----
-
-## 🏃 Getting Started (Local Running)
-
-Because the project is built with **native browser ES modules** and pinned via `<script type="importmap">`, **no npm, node_modules, or build step is required**.
-
-WebXR requires a secure context (**HTTPS** or **localhost**).
-
-### Option 1: Python HTTP Server (Fastest)
+### Option 1: Python HTTP Server (Built into Windows/macOS/Linux)
+Open a terminal in the project directory and run:
 ```bash
 python -m http.server 8000
 ```
-Open **[http://localhost:8000](http://localhost:8000)** in Chrome, Edge, or Firefox.
+Open your browser and navigate to:
+```
+http://localhost:8000/
+```
 
-### Option 2: Node npx serve
+### Option 2: Node.js `npx serve`
 ```bash
 npx serve .
 ```
 
----
-
-## ☁️ Deploying to Netlify Drop (10 Seconds)
-
-1. Open **[https://app.netlify.com/drop](https://app.netlify.com/drop)** in your desktop browser.
-2. Drag and drop this entire project folder (`Quest/`) directly onto the Netlify Drop target area.
-3. Netlify will immediately provide a free, live **HTTPS URL** (e.g. `https://my-vr-network.netlify.app`).
-4. The included `netlify.toml` automatically configures the publish root and sets the appropriate JavaScript module MIME headers.
+### Option 3: VS Code Live Server
+Right-click `index.html` in VS Code and click **Open with Live Server**.
 
 ---
 
-## 🥽 Testing on Meta Quest 2
+## 🌐 Deploying to Netlify / GitHub Pages
 
-1. Turn on your Meta Quest 2 headset and connect to Wi-Fi.
-2. Open the **Meta Quest Browser**.
-3. Navigate to your deployed Netlify HTTPS URL.
-4. Click the cyan **ENTER VR** button at the bottom center.
-5. In the permission prompt, choose **Allow** to enter the immersive WebXR session.
-6. Look at your left wrist to access your holographic VR controller pad!
+### Netlify Drop (10 Seconds)
+1. Go to [app.netlify.com/drop](https://app.netlify.com/drop).
+2. Drag and drop the entire project folder into your browser window.
+3. Your 3D WebXR simulator is instantly live with a public HTTPS URL ready for your Meta Quest headset!
 
----
-
-## 📦 JSON Topology Schema Reference
-
-You can import or export topologies by clicking **Topology JSON**:
-
-```json
-{
-  "name": "Corporate Enterprise Network",
-  "nodes": [
-    {
-      "id": "srv1",
-      "name": "Enterprise App Server",
-      "type": "server",
-      "department": "Data Center",
-      "ip": "10.0.10.11",
-      "position": [2.0, 2.30, -1.0]
-    },
-    {
-      "id": "prn_fin",
-      "name": "Finance Laser Printer",
-      "type": "printer",
-      "department": "Finance & Accounting",
-      "ip": "10.0.30.201",
-      "position": [2.9, 0.70, -1.0]
-    }
-  ],
-  "links": [
-    {
-      "id": "link-sw-srv",
-      "from": "sw_it",
-      "to": "srv1"
-    }
-  ]
-}
-```
-
-*Note: If the `position` array `[x, y, z]` is omitted, the built-in BFS layout engine automatically calculates optimal 3D coordinates.*
+### GitHub Pages
+1. Push this repository to GitHub.
+2. In GitHub, go to **Settings** $\rightarrow$ **Pages**.
+3. Under **Branch**, select `main` and root `/`, then click **Save**.
+4. Your site will be published at `https://<username>.github.io/<repo-name>/`.
 
 ---
 
-## ⚡ Performance & VR Optimization
+## 🚀 Pushing via GitHub Desktop
 
-- **Polygon Budget**: Total topology is ~8,500 triangles (far below the Quest 2 mobile GPU budget of 100,000 triangles).
-- **Draw Calls**: ~26 draw calls via shared geometry and instanced materials.
-- **Zero Garbage Collection**: Vector math (`Vector3`, `Matrix4`, `Quaternion`) uses pre-allocated module-level instances in the 90 FPS render loop.
-- **Fixed Foveated Rendering**: Leverages WebXR `renderer.xr.setFoveation(1.0)` for maximum Quest 2 frame pacing.
+1. Open **GitHub Desktop**.
+2. Select the **`Quest`** repository.
+3. You will see that all features, real 3D models, hardware textures, and screenshots are already committed to `main`.
+4. Click **Push origin** in the top bar to publish everything directly to GitHub!
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** &mdash; see the LICENSE file for details. Free for educational, personal, and commercial enterprise training use.
+This project is licensed under the **MIT License** — you are free to use, modify, distribute, and integrate this software for personal, academic, or commercial purposes.

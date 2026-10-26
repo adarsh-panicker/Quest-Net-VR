@@ -74,6 +74,14 @@ canvas {
   pointer-events: auto;
 }
 
+.brand-logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.45);
+  flex-shrink: 0;
+}
+
 .brand-icon {
   width: 12px;
   height: 12px;

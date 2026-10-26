@@ -1,4 +1,8 @@
-# 🌐 VR Network Topology Explorer & Certification Academy
+<p align="center">
+  <img src="assets/logo.svg" alt="Quest NetVR Logo Banner" width="100%">
+</p>
+
+# 🌐 Quest NetVR - 3D Network Topology Explorer & Certification Academy
 
 <p align="center">
   <img src="https://img.shields.io/badge/Three.js-r160-00f3ff?style=for-the-badge&logo=three.js&logoColor=black" alt="Three.js r160">

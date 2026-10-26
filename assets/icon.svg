@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0e1726" />
+      <stop offset="70%" stop-color="#070b14" />
+      <stop offset="100%" stop-color="#03050a" />
+    </radialGradient>
+
+    <!-- Neon Cable Link Gradients -->
+    <linearGradient id="cyanBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f3ff" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+
+    <linearGradient id="purplePink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+
+    <linearGradient id="greenCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#00f3ff" />
+    </linearGradient>
+
+    <!-- Node Glow Filters -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="superGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur1" />
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- VR Visor Gradient -->
+    <linearGradient id="visorGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="50%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Icon Container (Rounded Shield App Icon) -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bgGlow)" stroke="#1e293b" stroke-width="4" />
+  <rect x="24" y="24" width="464" height="464" rx="100" fill="none" stroke="rgba(0, 243, 255, 0.25)" stroke-width="2" />
+
+  <!-- Subtle Blueprint Coordinate Grid Lines -->
+  <g stroke="rgba(56, 189, 248, 0.08)" stroke-width="1.5">
+    <line x1="80" y1="40" x2="80" y2="472" />
+    <line x1="160" y1="40" x2="160" y2="472" />
+    <line x1="256" y1="40" x2="256" y2="472" stroke="rgba(0, 243, 255, 0.2)" stroke-width="2" />
+    <line x1="352" y1="40" x2="352" y2="472" />
+    <line x1="432" y1="40" x2="432" y2="472" />
+
+    <line x1="40" y1="80" x2="472" y2="80" />
+    <line x1="40" y1="160" x2="472" y2="160" />
+    <line x1="40" y1="256" x2="472" y2="256" stroke="rgba(0, 243, 255, 0.2)" stroke-width="2" />
+    <line x1="40" y1="352" x2="472" y2="352" />
+    <line x1="40" y1="432" x2="472" y2="432" />
+  </g>
+
+  <!-- Futuristic VR Headset Visor Silhouette (Bottom Frame) -->
+  <g transform="translate(106, 335)" filter="url(#glow)">
+    <!-- Headset Visor Body -->
+    <path d="M 10 35 C 10 10, 50 0, 150 0 C 250 0, 290 10, 290 35 C 290 75, 230 90, 150 90 C 70 90, 10 75, 10 35 Z" fill="url(#visorGrad)" stroke="#475569" stroke-width="3" />
+    <!-- Center Nose Recess -->
+    <path d="M 130 90 Q 150 68 170 90 Z" fill="#070b14" />
+    <!-- Visor Glowing Horizon Light Bar -->
+    <path d="M 30 35 Q 150 25 270 35" fill="none" stroke="#00f3ff" stroke-width="4" stroke-linecap="round" filter="url(#superGlow)" />
+  </g>
+
+  <!-- Holographic Projection Rays Rising from VR Headset -->
+  <g stroke="rgba(0, 243, 255, 0.18)" stroke-width="1.5" stroke-dasharray="4,4">
+    <line x1="256" y1="335" x2="256" y2="105" />
+    <line x1="180" y1="345" x2="135" y2="225" />
+    <line x1="332" y1="345" x2="377" y2="225" />
+    <line x1="210" y1="340" x2="185" y2="135" />
+    <line x1="302" y1="340" x2="327" y2="135" />
+  </g>
+
+  <!-- 3D Isometric Network Topology Links (Glowing Cables) -->
+  <g stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <!-- Backbone Fiber Links -->
+    <line x1="256" y1="105" x2="135" y2="225" stroke="url(#cyanBlue)" stroke-width="6" />
+    <line x1="256" y1="105" x2="377" y2="225" stroke="url(#cyanBlue)" stroke-width="6" />
+    <line x1="135" y1="225" x2="256" y2="300" stroke="url(#greenCyan)" stroke-width="5" />
+    <line x1="377" y1="225" x2="256" y2="300" stroke="url(#purplePink)" stroke-width="5" />
+    <!-- Central Cross-Trunk Link -->
+    <line x1="135" y1="225" x2="377" y2="225" stroke="#00f3ff" stroke-width="4" stroke-dasharray="8,6" />
+    <line x1="256" y1="105" x2="256" y2="300" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,4" />
+  </g>
+
+  <!-- Animated High-Velocity Data Packets -->
+  <circle cx="200" cy="160" r="5" fill="#ffffff" filter="url(#superGlow)" />
+  <circle cx="312" cy="168" r="5" fill="#00f3ff" filter="url(#superGlow)" />
+  <circle cx="195" cy="262" r="4.5" fill="#10b981" filter="url(#superGlow)" />
+  <circle cx="317" cy="262" r="4.5" fill="#ec4899" filter="url(#superGlow)" />
+  <circle cx="256" cy="225" r="5.5" fill="#facc15" filter="url(#superGlow)" />
+
+  <!-- 3D Network Topology Hardware Nodes -->
+
+  <!-- NODE 1: TOP - Cloud WAN / Internet Gateway (x: 256, y: 105) -->
+  <g transform="translate(256, 105)" filter="url(#superGlow)">
+    <circle cx="0" cy="0" r="34" fill="#0b1329" stroke="#38bdf8" stroke-width="4" />
+    <circle cx="0" cy="0" r="26" fill="none" stroke="rgba(56, 189, 248, 0.4)" stroke-width="2" />
+    <!-- Globe / WAN Grid Lines -->
+    <ellipse cx="0" cy="0" rx="18" ry="8" fill="none" stroke="#38bdf8" stroke-width="2" />
+    <ellipse cx="0" cy="0" rx="8" ry="18" fill="none" stroke="#38bdf8" stroke-width="2" />
+    <circle cx="0" cy="0" r="5" fill="#00f3ff" />
+  </g>
+
+  <!-- NODE 2: LEFT - Next-Gen Firewall & Core Router (x: 135, y: 225) -->
+  <g transform="translate(135, 225)" filter="url(#superGlow)">
+    <rect x="-30" y="-30" width="60" height="60" rx="14" fill="#1c1917" stroke="#ef4444" stroke-width="4" />
+    <!-- Security Shield Emblem -->
+    <path d="M 0 -16 L 14 -10 C 14 6 6 16 0 19 C -6 16 -14 6 -14 -10 Z" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+    <!-- Port LED status dots -->
+    <circle cx="-16" cy="20" r="2" fill="#10b981" />
+    <circle cx="-8" cy="20" r="2" fill="#10b981" />
+    <circle cx="0" cy="20" r="2" fill="#f59e0b" />
+    <circle cx="8" cy="20" r="2" fill="#10b981" />
+    <circle cx="16" cy="20" r="2" fill="#00f3ff" />
+  </g>
+
+  <!-- NODE 3: RIGHT - Core Multilayer Switch (x: 377, y: 225) -->
+  <g transform="translate(377, 225)" filter="url(#superGlow)">
+    <rect x="-32" y="-24" width="64" height="48" rx="10" fill="#06251b" stroke="#10b981" stroke-width="4" />
+    <!-- Switch Bidirectional Flow Arrows -->
+    <path d="M -16 -4 L 16 -4 M 10 -9 L 16 -4 L 10 1" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 16 6 L -16 6 M -10 1 L -16 6 L -10 11" fill="none" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Port Status LEDs -->
+    <circle cx="-20" cy="16" r="2" fill="#10b981" />
+    <circle cx="-10" cy="16" r="2" fill="#10b981" />
+    <circle cx="0" cy="16" r="2" fill="#10b981" />
+    <circle cx="10" cy="16" r="2" fill="#10b981" />
+    <circle cx="20" cy="16" r="2" fill="#00f3ff" />
+  </g>
+
+  <!-- NODE 4: BOTTOM CENTER - Data Center Server / Hypervisor (x: 256, y: 300) -->
+  <g transform="translate(256, 300)" filter="url(#superGlow)">
+    <rect x="-32" y="-28" width="64" height="56" rx="10" fill="#1e1035" stroke="#a855f7" stroke-width="4" />
+    <!-- Server Drive Bays & LED Indicators -->
+    <rect x="-24" y="-20" width="48" height="8" rx="2" fill="#3b0764" stroke="#c084fc" stroke-width="1" />
+    <circle cx="-18" cy="-16" r="2" fill="#10b981" />
+    <line x1="-12" y1="-16" x2="18" y2="-16" stroke="#9333ea" stroke-width="1.5" />
+
+    <rect x="-24" y="-8" width="48" height="8" rx="2" fill="#3b0764" stroke="#c084fc" stroke-width="1" />
+    <circle cx="-18" cy="-4" r="2" fill="#00f3ff" />
+    <line x1="-12" y1="-4" x2="18" y2="-4" stroke="#9333ea" stroke-width="1.5" />
+
+    <rect x="-24" y="4" width="48" height="8" rx="2" fill="#3b0764" stroke="#c084fc" stroke-width="1" />
+    <circle cx="-18" cy="8" r="2" fill="#10b981" />
+    <line x1="-12" y1="8" x2="18" y2="8" stroke="#9333ea" stroke-width="1.5" />
+
+    <!-- Server Power Glow -->
+    <circle cx="0" cy="20" r="3" fill="#00f3ff" />
+  </g>
+
+  <!-- Central Glowing Convergence Core -->
+  <circle cx="256" cy="210" r="14" fill="rgba(0, 243, 255, 0.25)" filter="url(#superGlow)" />
+  <circle cx="256" cy="210" r="7" fill="#00f3ff" />
+  <circle cx="256" cy="210" r="3" fill="#ffffff" />
+</svg>

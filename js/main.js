@@ -35,6 +35,7 @@ import { TopologyLayoutManager } from './layout.js';
 import { calculateSubnet } from './subnet.js';
 import { exportNetworkToPDF } from './exportPdf.js';
 import { CCNAAcademyManager } from './ccna.js';
+import { ExplainerManager } from './explainer.js';
 import { sound } from './audio.js';
 import {
   validateTopology,
@@ -183,6 +184,13 @@ class App {
       this.graph,
       this.nodeVisuals
     );
+
+    this.explainerManager = new ExplainerManager(
+      this.graph,
+      this.simulation,
+      this.menuManager
+    );
+    this.simulation.setExplainerManager(this.explainerManager);
   }
 
   // ==========================================
@@ -198,6 +206,7 @@ class App {
     const template = NETWORK_TEMPLATES[key] || NETWORK_TEMPLATES.corporate;
     this.applyTopologyData(template.data);
     this.menuManager.setStatus(`Loaded Stack: [${template.title}].`, 'success');
+    this.explainerManager?.onTopologyChanged(key);
     sound.playSuccess();
   }
 

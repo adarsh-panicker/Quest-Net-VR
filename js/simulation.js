@@ -39,6 +39,7 @@ export class SimulationManager {
     this.menuManager = menuManager;
     this.triggerHaptics = hapticsCallback || (() => {});
     this.securityManager = null;
+    this.explainerManager = null;
 
     // Packet Trace State
     this.traceState = 'idle'; // 'idle' | 'await_source' | 'await_dest' | 'tracing'
@@ -175,6 +176,14 @@ export class SimulationManager {
         speed: 1.8 + Math.random() * 0.8
       });
     }
+  }
+
+  setSecurityManager(sec) {
+    this.securityManager = sec;
+  }
+
+  setExplainerManager(explainer) {
+    this.explainerManager = explainer;
   }
 
   toggleAmbientTraffic() {
@@ -668,6 +677,28 @@ export class SimulationManager {
               reachedMesh.userData.material.emissive.setHex(origEmissive);
             }
           }, 180);
+        }
+
+        // Live Real-Time Hop Narration for Beginners
+        if (this.explainerManager) {
+          const prevIdx = this.isReturning
+            ? (totalHops - this.currentHopIndex + 1)
+            : (this.currentHopIndex - 1);
+          const prevNodeId = this.currentPath[prevIdx];
+          const prevNode = this.graph.nodes.get(prevNodeId);
+          const reachedNode = this.graph.nodes.get(reachedId);
+          const link = this.graph.findLink(prevNodeId, reachedId);
+          this.explainerManager.narrateHop({
+            sourceNode: this.graph.nodes.get(this.traceSource),
+            destNode: this.graph.nodes.get(this.traceDest),
+            currentNode: prevNode,
+            nextNode: reachedNode,
+            hopIndex: this.currentHopIndex,
+            totalHops: totalHops,
+            protocol: proto.name,
+            link: link,
+            isReturning: this.isReturning
+          });
         }
 
         // Wireshark Sniffer log

@@ -98,6 +98,9 @@
 
       <!-- Quick Action Pills -->
       <div class="header-action-pills">
+        <button id="btn-explainer" class="pill-btn pill-accent" title="Open Real-Time Interactive Network Explanation (How It Works & Noobie Guide)">
+          💡 How It Works
+        </button>
         <button id="btn-ccna-academy" class="pill-btn pill-primary" title="Open CCNA Visual Academy (OSI 7-Layer, Cabling, TCP/UDP, Hypervisors, VPN & Quiz)">
           📘 CCNA Academy
         </button>
@@ -132,6 +135,9 @@
         <div id="status-message" class="status-info">Initializing network topology scene...</div>
       </div>
     </div>
+
+    <!-- Real-time Play-by-Play Packet Trace Narration Ticker -->
+    <div id="narration-toast" class="narration-toast hidden"></div>
 
     <!-- Side Action Toolbar -->
     <aside class="control-sidebar">
@@ -620,6 +626,23 @@
       <div class="modal-actions" style="margin-top: 16px;">
         <button id="btn-ccna-calc" class="btn-secondary">🧮 Open Subnet Calculator</button>
         <button onclick="document.getElementById('ccna-modal').classList.add('hidden')" class="btn-secondary btn-primary-action">Done Studying</button>
+      </div>
+    </div>
+
+    <!-- Modal: Interactive Real-Time Network Explanation & Teacher -->
+    <div id="explainer-drawer" class="modal-card explainer-modal-card hidden">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span>💡</span>
+          <strong>Real-Time Network Architecture Explainer & Learning Co-Pilot</strong>
+        </div>
+        <button id="btn-close-explainer" class="btn-tool-sm">✕ Close</button>
+      </div>
+      <div id="explainer-content-body" class="explainer-content-body">
+        <!-- Dynamically rendered by ExplainerManager based on current network -->
+      </div>
+      <div class="modal-actions" style="margin-top: 14px;">
+        <button onclick="document.getElementById('explainer-drawer').classList.add('hidden')" class="btn-secondary btn-primary-action">Got It, Let Me Explore!</button>
       </div>
     </div>
 

@@ -10,6 +10,7 @@
 import * as THREE from 'three';
 import { sound } from './audio.js';
 import { CABLING_SPECS } from './ccna.js';
+import { DEVICE_ANALOGIES, CABLE_ANALOGIES } from './explainer.js';
 
 export class VRMenuManager {
   /**
@@ -148,15 +149,15 @@ export class VRMenuManager {
   // ==========================================
   buildInfoPanel() {
     this.infoCanvas = document.createElement('canvas');
-    this.infoCanvas.width = 720;
-    this.infoCanvas.height = 700;
+    this.infoCanvas.width = 740;
+    this.infoCanvas.height = 740;
     this.infoCtx = this.infoCanvas.getContext('2d');
 
     this.infoTexture = new THREE.CanvasTexture(this.infoCanvas);
     this.infoTexture.minFilter = THREE.LinearFilter;
     this.infoTexture.generateMipmaps = false;
 
-    const infoGeo = new THREE.PlaneGeometry(0.56, 0.54);
+    const infoGeo = new THREE.PlaneGeometry(0.58, 0.56);
     const infoMat = new THREE.MeshBasicMaterial({
       map: this.infoTexture,
       transparent: true,
@@ -216,9 +217,12 @@ export class VRMenuManager {
 
     ctx.textAlign = 'left';
 
+    const devAnalogy = DEVICE_ANALOGIES[nodeData.type] || DEVICE_ANALOGIES.desktop;
+
     const rows = [
       { label: 'Device Name:', val: nodeData.name, valColor: '#ffffff' },
       { label: 'Hardware Role:', val: (nodeData.type || 'desktop').toUpperCase(), valColor: '#38bdf8' },
+      { label: 'Plain Analogy:', val: devAnalogy.analogy, valColor: '#facc15' },
       { label: 'Department:', val: nodeData.department || 'IT & Infrastructure', valColor: '#facc15' },
       { label: 'IPv4 Address:', val: nodeData.ip, valColor: '#a5f3fc' },
       { label: 'Subnet Mask:', val: nodeData.mask || nodeData.subnetMask || '255.255.255.0 (/24)', valColor: '#cbd5e1' },
@@ -231,19 +235,19 @@ export class VRMenuManager {
       { label: 'Active Links:', val: `${connectedLinkCount} connected link(s)`, valColor: '#4ade80' }
     ];
 
-    let startY = 96;
+    let startY = 94;
     for (const r of rows) {
       ctx.fillStyle = '#94a3b8';
-      ctx.font = '22px "Segoe UI", Roboto, sans-serif';
+      ctx.font = '21px "Segoe UI", Roboto, sans-serif';
       ctx.fillText(r.label, 32, startY);
 
       ctx.fillStyle = r.valColor;
-      ctx.font = 'bold 22px "Consolas", monospace';
+      ctx.font = 'bold 21px "Consolas", monospace';
       let valStr = String(r.val);
-      if (valStr.length > 28) valStr = valStr.substring(0, 26) + '...';
+      if (valStr.length > 29) valStr = valStr.substring(0, 27) + '...';
       ctx.fillText(valStr, 235, startY);
 
-      startY += 48;
+      startY += 47;
     }
 
     this.infoTexture.needsUpdate = true;
@@ -303,14 +307,16 @@ export class VRMenuManager {
 
     const cableKey = linkData.cable || 'cat6';
     const cableSpec = CABLING_SPECS[cableKey] || CABLING_SPECS.cat6;
+    const cableAnalogy = CABLE_ANALOGIES[cableKey] || CABLE_ANALOGIES.cat6;
 
     const rows = [
       { label: 'Link ID:', val: linkData.id || linkData.linkId, valColor: '#ffffff' },
       { label: 'Cable Type:', val: cableSpec.name, valColor: '#facc15' },
-      { label: 'Media & Optics:', val: cableSpec.media, valColor: '#38bdf8' },
-      { label: 'Connector Type:', val: cableSpec.connector, valColor: '#a5f3fc' },
-      { label: 'Max Distance Limit:', val: cableSpec.maxDistance, valColor: '#a7f3d0' },
-      { label: 'Throughput Speed:', val: linkData.speed || cableSpec.maxSpeed, valColor: '#e2e8f0' },
+      { label: 'Plain Concept:', val: cableAnalogy.analogy, valColor: '#38bdf8' },
+      { label: 'Media & Optics:', val: cableSpec.media, valColor: '#a5f3fc' },
+      { label: 'Connector Type:', val: cableSpec.connector, valColor: '#a7f3d0' },
+      { label: 'Max Distance Limit:', val: cableSpec.maxDistance, valColor: '#e2e8f0' },
+      { label: 'Throughput Speed:', val: linkData.speed || cableSpec.maxSpeed, valColor: '#fed7aa' },
       { label: 'Link Operational State:', val: isUp ? 'OPERATIONAL / PASSING' : 'FAULT / PACKET LOSS', valColor: isUp ? '#34d399' : '#f87171' }
     ];
 

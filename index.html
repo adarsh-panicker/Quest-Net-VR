@@ -38,20 +38,27 @@
         <label for="template-select" class="group-label">Topology:</label>
         <select id="template-select" class="select-input">
           <option value="corporate">🏢 Cisco 3-Tier Enterprise Network (Dept-Wise)</option>
+          <option value="stp_etherchannel">🛡️ STP & EtherChannel (LACP Bundling & Loop Prevention)</option>
+          <option value="fhrp_hsrp">🔄 FHRP (HSRP / VRRP Default Gateway Redundancy)</option>
+          <option value="nat_pat">🌐 NAT / PAT (Private RFC 1918 to Public Translation)</option>
+          <option value="dhcp_dns">📡 DHCP DORA & Recursive DNS Resolution</option>
+          <option value="ospf_routing">🔀 OSPF Dynamic Multi-Area Routing</option>
+          <option value="vlan_segmentation">🏷️ 802.1Q VLANs & Router-on-a-Stick</option>
           <option value="vpn_ipsec">🔒 Site-to-Site IPsec VPN (Encrypted Tunnel)</option>
+          <option value="bgp_mpls">🌐 CCNP BGP & MPLS Label Switching Core</option>
+          <option value="wlc_capwap">📶 Cisco Catalyst 9800 WLC & CAPWAP Wi-Fi 6</option>
+          <option value="dmvpn">🔒 DMVPN Phase 3 (mGRE + NHRP Dynamic Mesh)</option>
           <option value="virtualization">🖥️ Virtualization & Cloud (ESXi, vSwitch & VMs)</option>
           <option value="cloud_hybrid">☁️ Hybrid Cloud (AWS VPC & DirectConnect)</option>
-          <option value="vlan_segmentation">🏷️ 802.1Q VLANs & Router-on-a-Stick</option>
-          <option value="ospf_routing">🔀 OSPF Dynamic Multi-Area Routing</option>
+          <option value="sdwan">🌐 SD-WAN Branch Office VPN (MPLS Backup)</option>
+          <option value="spineLeaf">🌿 Spine-and-Leaf Data Center (Clos Architecture)</option>
+          <option value="campusWifi">📶 Campus Enterprise & Wi-Fi 6 (WAPs, VoIP, Laptops)</option>
+          <option value="threeTier">☁️ 3-Tier Web App Architecture (N-Tier)</option>
+          <option value="iot">🏭 Industrial IoT & SCADA (Purdue OT Model)</option>
           <option value="star">⭐ Star Topology (Central Switch LAN)</option>
           <option value="ring">🔄 Ring Topology (Self-Healing Circular Loop)</option>
           <option value="mesh">🕸️ Full Mesh Topology (High-Resilience WAN)</option>
           <option value="bus">🚌 Bus Topology (Backbone Trunk & Drops)</option>
-          <option value="spineLeaf">🌿 Spine-and-Leaf Data Center (Clos Architecture)</option>
-          <option value="campusWifi">📶 Campus Enterprise & Wi-Fi 6 (WAPs, VoIP, Laptops)</option>
-          <option value="iot">🏭 Industrial IoT & SCADA (Purdue OT Model)</option>
-          <option value="threeTier">☁️ 3-Tier Web App Architecture (N-Tier)</option>
-          <option value="sdwan">🌐 SD-WAN Branch Office VPN (MPLS Backup)</option>
           <option value="blank">🎨 Blank Canvas (Build Own Network)</option>
         </select>
       </div>
@@ -98,6 +105,9 @@
 
       <!-- Quick Action Pills -->
       <div class="header-action-pills">
+        <button id="btn-study-academy" class="pill-btn pill-primary pill-glow" title="Open Complete End-to-End CCNA & CCNP Study Academy (Topic-Wise Lessons, Cisco CLI, Diagrams & 3D Labs)">
+          📚 Study Academy (CCNA/CCNP)
+        </button>
         <button id="btn-explainer" class="pill-btn pill-accent" title="Open Real-Time Interactive Network Explanation (How It Works & Noobie Guide)">
           💡 How It Works
         </button>
@@ -629,6 +639,72 @@
       </div>
     </div>
 
+    <!-- Modal: Complete Topic-Wise CCNA & CCNP Study Academy -->
+    <div id="study-academy-modal" class="modal-card study-academy-modal hidden">
+      <div class="study-modal-layout">
+        <!-- Left Sidebar: Track Filters & Topic List -->
+        <aside class="study-sidebar">
+          <div class="study-sidebar-header">
+            <div class="study-brand">
+              <span class="study-icon">🎓</span>
+              <div>
+                <strong>CCNA / CCNP ACADEMY</strong>
+                <div class="study-subtitle">Visual Network Certification Lab</div>
+              </div>
+            </div>
+            <!-- Progress Widget -->
+            <div class="study-progress-container">
+              <div class="study-progress-bar">
+                <div id="study-progress-fill" class="study-progress-fill" style="width: 0%;"></div>
+              </div>
+              <div id="study-progress-label" class="study-progress-label">0 / 22 Completed (0%)</div>
+            </div>
+            <!-- Track Pills -->
+            <div class="study-track-pills">
+              <button class="study-track-pill active" data-track="ALL">All (22)</button>
+              <button class="study-track-pill" data-track="CCNA 200-301">CCNA</button>
+              <button class="study-track-pill" data-track="CCNP ENCOR 350-401">ENCOR</button>
+              <button class="study-track-pill" data-track="CCNP ENARSI 300-410">ENARSI</button>
+            </div>
+            <!-- Search Box -->
+            <input type="text" id="study-search-input" class="study-search-input" placeholder="🔍 Search topics, RFCs, CLI...">
+          </div>
+
+          <!-- Topics Navigation Tree -->
+          <div id="study-topic-list" class="study-topic-list">
+            <!-- Dynamically populated by StudyAcademyManager -->
+          </div>
+        </aside>
+
+        <!-- Right Viewport: Lesson Deep Dive -->
+        <main class="study-main-viewport">
+          <div class="study-main-topbar">
+            <div style="display:flex; align-items:center; gap: 8px;">
+              <span class="pulse-indicator"></span>
+              <span style="font-size: 13px; color: #94a3b8; font-weight: 600;">ACTIVE INTERACTIVE LESSON</span>
+            </div>
+            <div style="display:flex; gap: 8px;">
+              <button id="btn-toggle-vr-billboard" class="btn-tool-sm" title="Toggle 3D WebXR Classroom in the VR Scene">🕶️ Toggle VR Screen</button>
+              <button id="btn-close-study" class="btn-tool-sm">✕ Close</button>
+            </div>
+          </div>
+
+          <!-- Lesson Content Body -->
+          <div id="study-detail-panel" class="study-detail-panel">
+            <!-- Dynamically populated by StudyAcademyManager -->
+          </div>
+
+          <!-- Sticky Bottom Navigation Bar -->
+          <div class="study-action-footer">
+            <button id="btn-study-prev" class="btn-secondary">← Previous Topic</button>
+            <button id="btn-study-launch-lab" class="btn-secondary btn-launch-lab-primary">🚀 Launch 3D Lab Scene</button>
+            <button id="btn-study-next" class="btn-secondary">Next Topic →</button>
+            <button id="btn-study-complete-next" class="btn-secondary btn-primary-action">✓ Mark Complete &amp; Next →</button>
+          </div>
+        </main>
+      </div>
+    </div>
+
     <!-- Modal: Interactive Real-Time Network Explanation & Teacher -->
     <div id="explainer-drawer" class="modal-card explainer-modal-card hidden">
       <div class="modal-header">
@@ -705,6 +781,8 @@
         <span><span class="key-tag">B</span> Break</span>
         <span><span class="key-tag">Del</span> Delete</span>
         <span><span class="key-tag">R</span> Reset</span>
+        <span><span class="key-tag">S</span> Study Academy</span>
+        <span><span class="key-tag">V</span> VR Screen</span>
         <span><span class="key-tag">F</span> Telemetry</span>
         <span><span class="key-tag">H</span> Cheat Sheet</span>
       </div>

@@ -36,6 +36,8 @@ import { calculateSubnet } from './subnet.js';
 import { exportNetworkToPDF } from './exportPdf.js';
 import { CCNAAcademyManager } from './ccna.js';
 import { ExplainerManager } from './explainer.js';
+import { StudyAcademyManager } from './study_academy.js';
+import { ClassroomManager } from './classroom.js';
 import { sound } from './audio.js';
 import {
   validateTopology,
@@ -63,8 +65,11 @@ class App {
     this.initTour();
     this.initSecurityAndLayout();
     this.initTutorialPanel();
+    this.classroomManager = new ClassroomManager(this.scene, this);
+    this.interaction.setClassroomManager(this.classroomManager);
     this.initDesktopUI();
     this.ccnaManager = new CCNAAcademyManager();
+    this.studyAcademyManager = new StudyAcademyManager(this);
 
     runGraphSelfTest();
 
@@ -693,12 +698,28 @@ class App {
     });
 
     const perfOverlay = document.getElementById('perf-overlay');
+    const btnToggleVR = document.getElementById('btn-toggle-vr-billboard');
+    if (btnToggleVR) {
+      btnToggleVR.addEventListener('click', () => {
+        this.classroomManager?.toggle();
+        if (this.classroomManager?.visible) {
+          this.menuManager?.setStatus('VR Classroom Screen Visible in 3D Space! Look around.', 'success');
+        } else {
+          this.menuManager?.setStatus('VR Classroom Screen Hidden.', 'info');
+        }
+      });
+    }
+
     window.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (e.key === 'f' || e.key === 'F') {
         if (perfOverlay) {
           perfOverlay.classList.toggle('hidden');
         }
+      } else if (e.key === 's' || e.key === 'S') {
+        this.studyAcademyManager?.openAcademy();
+      } else if (e.key === 'v' || e.key === 'V') {
+        this.classroomManager?.toggle();
       }
     });
   }

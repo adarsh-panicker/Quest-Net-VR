@@ -18,3 +18,4 @@ yarn-error.log*
 # Test artifacts
 test_*.png
 test_*.js
+scratch/

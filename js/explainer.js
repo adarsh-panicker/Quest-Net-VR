@@ -360,6 +360,114 @@ export const TOPOLOGY_EXPLANATIONS = {
     faultTolerance: 'If Carrier A is accidentally cut, SD-WAN fails over to Carrier B in under 50 milliseconds—without dropping the active phone call!'
   },
 
+  stp_etherchannel: {
+    name: 'STP & EtherChannel LACP Lab',
+    badge: '🛡️ Layer 2 Loop Prevention & Aggregation',
+    tagline: 'Eliminate broadcast loops and double inter-switch bandwidth with LACP port channeling.',
+    summary: 'Spanning Tree Protocol (STP) elects a Root Bridge (lowest priority 24576) and places redundant links into Alternate/Blocking state to prevent catastrophic broadcast storms. EtherChannel aggregates multiple physical cables into a single logical link (Po1).',
+    analogy: 'A traffic roundabout with emergency barricades: If two bridges cross the same river, one has a barrier raised (blocking) to prevent head-on crashes. EtherChannel turns two single-lane bridges into a single wide two-lane bridge that cars cross simultaneously.',
+    journey: [
+      '1. Root Bridge switch broadcasts BPDUs every 2 seconds.',
+      '2. Switch B and Switch C elect Root Ports with lowest path cost to the Root Bridge.',
+      '3. Switch C blocks its redundant link to Switch B (Alternate/Blocking Port) to break the circular loop.',
+      '4. Dual 10Gbps DAC links between Root and Switch B are bundled into Port-Channel 1 (Po1) via LACP, giving 20Gbps combined throughput!'
+    ],
+    faultTolerance: 'If the active primary link fails, the blocked port transitions to Forwarding in under 2 seconds (Rapid PVST+).'
+  },
+
+  fhrp_hsrp: {
+    name: 'FHRP (HSRP / VRRP) High Availability Gateway',
+    badge: '🔄 Zero-Downtime Client Default Gateway Failover',
+    tagline: 'Two physical routers acting as one virtual gateway so users never lose internet connectivity.',
+    summary: 'HSRP (Hot Standby Router Protocol) allows R1 (Active, priority 110) and R2 (Standby, priority 100) to share a single Virtual IP (192.168.1.254) and Virtual MAC address (0000.0c07.ac01). Client PCs point to the Virtual IP as their Default Gateway.',
+    analogy: 'Commercial jet airline co-pilots: The Captain (Active Router) flies the aircraft. The First Officer (Standby Router) listens on the radio. If the Captain faints, the First Officer instantly grabs the flight yoke without passengers spilling their drinks.',
+    journey: [
+      '1. Client PC sends an outbound internet packet with destination MAC set to Virtual Gateway MAC 0000.0c07.ac01.',
+      '2. R1 (Active) receives the frame, decrements TTL, and routes the packet out its fiber WAN uplink.',
+      '3. R1 and R2 exchange multicast Hello packets every 3 seconds on 224.0.0.2 UDP 1985.',
+      '4. If R1 goes offline, R2 misses 3 Hellos (Hold time 10s) and immediately claims the Active role with zero client configuration changes!'
+    ],
+    faultTolerance: 'With "preempt" enabled, when R1 recovers from maintenance, it automatically reclaims the Active gateway role.'
+  },
+
+  nat_pat: {
+    name: 'Network Address Translation (NAT / PAT Overload)',
+    badge: '🌐 Private RFC 1918 to Public IP Translation',
+    tagline: 'How millions of devices access the Internet using a single public IP address.',
+    summary: 'Translates private RFC 1918 addresses (192.168.1.x) into public routable IPs. Port Address Translation (PAT) modifies Layer 4 TCP/UDP port numbers, allowing an entire enterprise of 5,000 employees to surf the web through one public IP.',
+    analogy: 'A corporate office receptionist: Inside callers don’t each have their own direct outside phone line. Everyone dials outside through the main switchboard, and the receptionist tracks extension numbers (Port numbers) to route incoming callbacks to the right desk.',
+    journey: [
+      '1. Inside Local PC (192.168.1.50) sends HTTP request with source port 52410 to Cloud Web Server (198.51.100.80:443).',
+      '2. NAT Router intercepts packet at inside interface Gi0/1 and checks its NAT translation table.',
+      '3. NAT Router rewrites Source IP from 192.168.1.50 to public IP 203.0.113.2 (Inside Global) with translated port 61001.',
+      '4. Cloud Server replies to 203.0.113.2:61001.',
+      '5. NAT Router receives the reply, looks up port 61001 in its table, translates destination IP back to 192.168.1.50, and delivers it to the PC!'
+    ],
+    faultTolerance: 'Protects internal LAN machines from being directly scanned or probed from the public Internet.'
+  },
+
+  dhcp_dns: {
+    name: 'DHCP DORA & Recursive DNS Resolution',
+    badge: '📡 Dynamic Host Configuration & Name Translation',
+    tagline: 'The two critical protocols that configure your network and turn domain names into IP addresses.',
+    summary: 'DHCP automatically assigns IP configuration to unconfigured machines via the 4-step DORA handshake (Discover, Offer, Request, Acknowledge). DNS recursively resolves human-friendly names (cisco.com) into IP addresses (198.51.100.80).',
+    analogy: 'Checking into a hotel: You ask reception for a room key (DHCP DORA). Once in your room, you call the concierge desk to find the street address of a restaurant in town (DNS lookup).',
+    journey: [
+      '1. Unconfigured PC boots up with IP 0.0.0.0 and broadcasts DHCP Discover (UDP 68 -> 67).',
+      '2. DHCP Server replies with DHCP Offer proposing IP 192.168.1.105, subnet mask /24, and DNS server 192.168.1.253.',
+      '3. PC broadcasts DHCP Request accepting the lease.',
+      '4. Server confirms with DHCP Acknowledge (ACK). The PC is now fully online!',
+      '5. PC types "google.com", sends a DNS query to 192.168.1.253 (UDP 53), which resolves the A-record and returns the IP address.'
+    ],
+    faultTolerance: 'DHCP leases renew automatically halfway through their duration (T1 timer at 50% lease time).'
+  },
+
+  bgp_mpls: {
+    name: 'CCNP BGP & MPLS Label Switching Core',
+    badge: '🌐 Service Provider Backbone & MP-BGP VPNv4',
+    tagline: 'How telecom carriers route Internet traffic across continents at optical speeds using MPLS labels.',
+    summary: 'Customer Edge (CE) routers peer with Provider Edge (PE) routers via eBGP. Inside the Service Provider core, P routers swap simple 32-bit MPLS labels (LDP) instead of doing slow, deep IP table lookups, with Penultimate Hop Popping (PHP) at the exit.',
+    analogy: 'Express shipping barcodes: Instead of postal workers opening and reading every address label at every transfer hub, they slap an express barcode on the box. Conveyor belts (P routers) read the barcode in 1 millisecond and sort the package without opening it.',
+    journey: [
+      '1. CE-HQ router sends an IPv4 packet destined for Branch subnet 10.2.0.0/24.',
+      '2. PE-1 Ingress router looks up customer VRF and pushes MPLS VPN label (1002) + Transport label onto the packet.',
+      '3. P-Core LSR receives the labeled packet, swaps label 1002 for 2004, and sends it along the fast label-switched path (LSP).',
+      '4. PE-2 Egress router performs Penultimate Hop Popping, strips the MPLS shim header, and hands the clean IPv4 packet to CE-Branch.'
+    ],
+    faultTolerance: 'MPLS Fast Reroute (FRR) pre-programs backup bypass tunnels that reroute traffic around severed fiber lines in under 50ms.'
+  },
+
+  wlc_capwap: {
+    name: 'Cisco Catalyst 9800 WLC & Split-MAC CAPWAP',
+    badge: '📶 Centralized Enterprise Wi-Fi 6 Controller',
+    tagline: 'Managing hundreds of campus Wi-Fi access points from a single centralized brain.',
+    summary: 'Decouples Wi-Fi functions into Split-MAC architecture: Lightweight Access Points (LAPs) handle real-time RF antenna signals, while the Catalyst 9800 WLC centrally manages 802.1X security, client roaming, channel allocation, and QoS via CAPWAP tunnels.',
+    analogy: 'A hive mind: The worker bees (Lightweight APs) gather pollen and observe the flowers, while the Queen Bee (WLC) coordinates the entire hive, tells bees which flowers to pollinate, and manages hive defenses.',
+    journey: [
+      '1. Corporate Laptop connects to SSID "CorpSecure" on LAP-Campus-101.',
+      '2. LAP encapsulates the 802.11 association request inside a CAPWAP tunnel (UDP 5246) to the Catalyst 9800 WLC.',
+      '3. WLC authenticates the user via RADIUS 802.1X, assigns the user to VLAN 30, and downloads encryption keys to the LAP.',
+      '4. When the user walks to another building, the WLC smoothly hands off the client to LAP-Branch-102 without dropping an active Webex call (802.11r Fast Roaming)!'
+    ],
+    faultTolerance: 'FlexConnect local switching allows branch APs to keep functioning and switching local data even if the WAN link to the central WLC goes down.'
+  },
+
+  dmvpn: {
+    name: 'DMVPN Phase 3 (mGRE + NHRP Dynamic Mesh)',
+    badge: '🔒 Dynamic Multipoint VPN Spoke-to-Spoke',
+    tagline: 'On-demand direct spoke-to-spoke encrypted tunnels across any public Internet transport.',
+    summary: 'Cisco DMVPN Phase 3 combines Multipoint GRE (mGRE) Tunnel0 with Next Hop Resolution Protocol (NHRP) and IPsec. Spokes register with the central Hub NHS, but when Dallas talks to London, they establish an on-demand direct IPsec tunnel between themselves!',
+    analogy: 'Calling a friend on a mobile phone network: You don’t need a permanent wire running between your house and your friend’s house. The cellular tower (Hub NHRP) connects your call, and your phones communicate directly.',
+    journey: [
+      '1. Dallas Branch host sends a database packet to London Branch server.',
+      '2. Initial packets travel through the Hub over mGRE Tunnel0.',
+      '3. Hub recognizes that both Dallas and London are spokes on the same mGRE subnet and sends an NHRP Redirect to Dallas.',
+      '4. Dallas router sends an NHRP Resolution Request directly to London router.',
+      '5. Dallas and London establish an on-demand direct IPsec tunnel (NHRP Shortcut) and send all subsequent packets directly across the Internet with ZERO Hub delay!'
+    ],
+    faultTolerance: 'Zero single point of failure bottleneck at the Hub—data flows directly spoke-to-spoke at line rate.'
+  },
+
   blank: {
     name: 'Custom Network (Blank Canvas)',
     badge: '🎨 Your Own Sandbox',

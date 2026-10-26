@@ -752,6 +752,175 @@ export const NETWORK_TEMPLATES = {
     }
   },
 
+  // 16. Spanning Tree Protocol (STP) & EtherChannel Port Bundling (LACP)
+  stp_etherchannel: {
+    id: 'stp_etherchannel',
+    title: '🛡️ STP & EtherChannel (LACP Bundling & Loop Elimination)',
+    desc: 'Core CCNA Layer 2 switching architecture. Demonstrates Spanning Tree Protocol (Root Bridge election, Root Ports, Designated Ports, Alternate/Blocking loop-free ports) combined with 802.3ad LACP EtherChannel link aggregation.',
+    data: {
+      name: "STP & EtherChannel Lab",
+      nodes: [
+        { id: "sw_root", name: "Root Bridge Switch (Priority: 24576)", type: "switch", ip: "192.168.10.1", department: "IT & Infrastructure", firmware: "Cisco Catalyst 9300 (PVST+ Root for VLAN 10/20)", position: [0.0, 1.8, -1.0] },
+        { id: "sw_dist", name: "Distribution Switch B (Priority: 28672)", type: "switch", ip: "192.168.10.2", department: "Engineering & Dev", firmware: "Cisco Catalyst 9300 (Secondary Root)", position: [-1.8, 1.1, -1.0] },
+        { id: "sw_acc", name: "Access Switch C (Priority: 32768)", type: "switch", ip: "192.168.10.3", department: "Finance & Accounting", firmware: "Cisco Catalyst 2960X", position: [1.8, 1.1, -1.0] },
+        { id: "pc_v10", name: "Engineering PC (VLAN 10)", type: "desktop", ip: "192.168.10.15", department: "Engineering & Dev", position: [-1.8, 0.3, -1.0] },
+        { id: "pc_v20", name: "Finance PC (VLAN 20)", type: "desktop", ip: "192.168.20.25", department: "Finance & Accounting", position: [1.8, 0.3, -1.0] }
+      ],
+      links: [
+        { id: "l-po1-a", from: "sw_root", to: "sw_dist", cable: "dac", speed: "10 Gbps (Po1 Bundled Member Gi0/1 - LACP Active)" },
+        { id: "l-po1-b", from: "sw_dist", to: "sw_root", cable: "dac", speed: "10 Gbps (Po1 Bundled Member Gi0/2 - LACP Active)" },
+        { id: "l-root-acc", from: "sw_root", to: "sw_acc", cable: "cat6", speed: "1 Gbps (Root Port - Forwarding State)" },
+        { id: "l-dist-acc", from: "sw_dist", to: "sw_acc", cable: "cat6", speed: "1 Gbps (STP Alternate Port - Blocking State / Loop-Free)" },
+        { id: "l-dist-pc10", from: "sw_dist", to: "pc_v10", cable: "cat6", speed: "1 Gbps Cat6 UTP (VLAN 10 Access)" },
+        { id: "l-acc-pc20", from: "sw_acc", to: "pc_v20", cable: "cat6", speed: "1 Gbps Cat6 UTP (VLAN 20 Access)" }
+      ]
+    }
+  },
+
+  // 17. First Hop Redundancy Protocols (HSRP / VRRP Default Gateway Redundancy)
+  fhrp_hsrp: {
+    id: 'fhrp_hsrp',
+    title: '🔄 FHRP (HSRP / VRRP) High Availability Gateway Lab',
+    desc: 'Cisco First Hop Redundancy Protocol (HSRP). R1 (Active Priority 110 Preempt) and R2 (Standby Priority 100) share Virtual IP 192.168.1.254 and Virtual MAC 0000.0c07.ac01 to provide transparent zero-downtime client failover.',
+    data: {
+      name: "HSRP / VRRP High Availability Lab",
+      nodes: [
+        { id: "hsrp_inet", name: "Upstream ISP WAN Gateway", type: "internet", ip: "198.51.100.1", department: "IT & Infrastructure", firmware: "BGP / Edge ISP Core", position: [0.0, 2.3, -1.0] },
+        { id: "r1_active", name: "R1-Active (Pri: 110 Preempt)", type: "router", ip: "192.168.1.1", department: "IT & Infrastructure", firmware: "Cisco ISR 4331 (HSRP Group 1 State: ACTIVE)", position: [-1.6, 1.6, -1.0] },
+        { id: "r2_standby", name: "R2-Standby (Pri: 100)", type: "router", ip: "192.168.1.2", department: "IT & Infrastructure", firmware: "Cisco ISR 4331 (HSRP Group 1 State: STANDBY)", position: [1.6, 1.6, -1.0] },
+        { id: "sw_hsrp_core", name: "Campus Core Switch (VIP: 192.168.1.254)", type: "switch", ip: "192.168.1.10", department: "IT & Infrastructure", position: [0.0, 0.9, -1.0] },
+        { id: "pc_hsrp_client", name: "Client PC (DG: 192.168.1.254)", type: "desktop", ip: "192.168.1.50", department: "Engineering & Dev", position: [0.0, 0.2, -1.0] }
+      ],
+      links: [
+        { id: "l-r1-inet", from: "r1_active", to: "hsrp_inet", cable: "smf", speed: "10 Gbps SMF (Active Primary WAN)" },
+        { id: "l-r2-inet", from: "r2_standby", to: "hsrp_inet", cable: "smf", speed: "10 Gbps SMF (Standby Backup WAN)" },
+        { id: "l-r1-core", from: "r1_active", to: "sw_hsrp_core", cable: "cat6", speed: "1 Gbps Copper (Active Forwarding to VIP)" },
+        { id: "l-r2-core", from: "r2_standby", to: "sw_hsrp_core", cable: "cat6", speed: "1 Gbps Copper (Standby Listening Hellos 3s/10s)" },
+        { id: "l-core-pc", from: "sw_hsrp_core", to: "pc_hsrp_client", cable: "cat6", speed: "1 Gbps Cat6 UTP (Host Default Gateway 192.168.1.254)" }
+      ]
+    }
+  },
+
+  // 18. Network Address Translation (Static NAT, Dynamic NAT & PAT Overload)
+  nat_pat: {
+    id: 'nat_pat',
+    title: '🌐 NAT / PAT (Private RFC 1918 to Public Translation)',
+    desc: 'Essential IPv4 conservation technology. Demonstrates Inside Local (192.168.1.50), Inside Global (203.0.113.2:Port), Outside Global (198.51.100.80) port address translation with Cisco NAT Overload.',
+    data: {
+      name: "NAT / PAT Translation Lab",
+      nodes: [
+        { id: "nat_pc", name: "Inside Local PC (192.168.1.50)", type: "desktop", ip: "192.168.1.50", department: "Engineering & Dev", position: [-2.2, 0.6, -1.0] },
+        { id: "nat_dmz", name: "Inside DMZ Web Server (192.168.1.100)", type: "server", ip: "192.168.1.100", department: "IT & Infrastructure", firmware: "Apache HTTP (Static NAT -> 203.0.113.10)", position: [-2.2, 1.6, -1.0] },
+        { id: "nat_lan_sw", name: "Internal LAN Switch", type: "switch", ip: "192.168.1.2", department: "IT & Infrastructure", position: [-1.1, 1.1, -1.0] },
+        { id: "nat_rtr", name: "NAT/PAT Gateway Router", type: "router", ip: "203.0.113.2", department: "IT & Infrastructure", firmware: "Cisco ISR (ip nat inside source list 1 int Gi0/0 overload)", position: [0.3, 1.1, -1.0] },
+        { id: "nat_isp", name: "Public Internet WAN Gateway", type: "internet", ip: "203.0.113.1", department: "IT & Infrastructure", position: [1.6, 1.1, -1.0] },
+        { id: "nat_cloud_svr", name: "Public Cloud Web Server (Outside)", type: "cloud_vpc", ip: "198.51.100.80", department: "IT & Infrastructure", position: [2.6, 1.1, -1.0] }
+      ],
+      links: [
+        { id: "l-nat-pc-sw", from: "nat_pc", to: "nat_lan_sw", cable: "cat6", speed: "1 Gbps Cat6 UTP (Private RFC 1918)" },
+        { id: "l-nat-dmz-sw", from: "nat_dmz", to: "nat_lan_sw", cable: "cat6", speed: "1 Gbps Cat6 UTP (DMZ Host)" },
+        { id: "l-nat-sw-rtr", from: "nat_lan_sw", to: "nat_rtr", cable: "cat6", speed: "1 Gbps Inside NAT Interface (Gi0/1)" },
+        { id: "l-nat-rtr-isp", from: "nat_rtr", to: "nat_isp", cable: "smf", speed: "10 Gbps Outside NAT Interface (Gi0/0 - Public IP 203.0.113.2)" },
+        { id: "l-nat-isp-cloud", from: "nat_isp", to: "nat_cloud_svr", cable: "smf", speed: "100 Gbps Internet Transit (Destination 198.51.100.80:443)" }
+      ]
+    }
+  },
+
+  // 19. Infrastructure Services: DHCP DORA & Recursive DNS
+  dhcp_dns: {
+    id: 'dhcp_dns',
+    title: '📡 DHCP DORA & Recursive DNS Resolution Lab',
+    desc: 'Demonstrates the 4-step DHCP lease process (Discover, Offer, Request, Acknowledge) and hierarchical recursive DNS name resolution from Root Hints to Local Resolver.',
+    data: {
+      name: "DHCP DORA & DNS Resolution Lab",
+      nodes: [
+        { id: "srv_dhcp", name: "Cisco IOS DHCP Server", type: "server", ip: "192.168.1.250", department: "IT & Infrastructure", firmware: "DHCP Scope: 192.168.1.100-200 (Lease: 8 Days)", position: [-1.8, 1.7, -1.0] },
+        { id: "srv_dns", name: "Local Recursive DNS Server", type: "server", ip: "192.168.1.253", department: "IT & Infrastructure", firmware: "BIND9 DNS (Forwarders: 8.8.8.8, 1.1.1.1)", position: [1.8, 1.7, -1.0] },
+        { id: "sw_dhcp", name: "Campus Aggregation Switch", type: "switch", ip: "192.168.1.1", department: "IT & Infrastructure", position: [0.0, 1.1, -1.0] },
+        { id: "pc_dora", name: "Host PC (DHCP Discovering Client)", type: "desktop", ip: "0.0.0.0 (Awaiting DORA Lease)", department: "Engineering & Dev", position: [-1.3, 0.3, -1.0] },
+        { id: "pc_dns_user", name: "Configured PC (DNS Querying)", type: "desktop", ip: "192.168.1.15", department: "Sales & Marketing", position: [1.3, 0.3, -1.0] }
+      ],
+      links: [
+        { id: "l-dhcp-sw", from: "srv_dhcp", to: "sw_dhcp", cable: "cat6", speed: "1 Gbps Copper (DHCP Server Offer/Ack UDP 67)" },
+        { id: "l-dns-sw", from: "srv_dns", to: "sw_dhcp", cable: "cat6", speed: "1 Gbps Copper (DNS Resolver UDP 53)" },
+        { id: "l-dora-sw", from: "pc_dora", to: "sw_dhcp", cable: "cat6", speed: "1 Gbps Copper (DHCP Broadcast Discover UDP 68->67)" },
+        { id: "l-user-sw", from: "pc_dns_user", to: "sw_dhcp", cable: "cat6", speed: "1 Gbps Copper (DNS Query: 'cisco.com' A-Record)" }
+      ]
+    }
+  },
+
+  // 20. CCNP BGP Path Attributes & MPLS LDP Label Switching Core
+  bgp_mpls: {
+    id: 'bgp_mpls',
+    title: '🌐 CCNP BGP & MPLS Label Switching (LSR / LDP Core)',
+    desc: 'Service Provider & Enterprise Core routing. Customer Edge (CE) eBGP peering to Provider Edge (PE-1/PE-2) with Multi-Protocol BGP VPNv4 and MPLS LDP Label Switching through the P-Core LSR with Penultimate Hop Popping (PHP).',
+    data: {
+      name: "BGP & MPLS Label Switched Core Lab",
+      nodes: [
+        { id: "ce_hq", name: "CE-HQ Router (AS 65001)", type: "router", ip: "10.1.0.1", department: "IT & Infrastructure", firmware: "Cisco ISR 4451 (eBGP AS 65001)", position: [-2.6, 1.1, -1.0] },
+        { id: "pe_ingress", name: "PE-1 Ingress LSR (AS 65000)", type: "router", ip: "172.16.0.1", department: "IT & Infrastructure", firmware: "Cisco ASR 9000 (MP-BGP VPNv4 & LDP Ingress)", position: [-1.3, 1.1, -1.0] },
+        { id: "p_core_lsr", name: "P-Core LSR (Transit Router)", type: "router", ip: "172.16.0.2", department: "IT & Infrastructure", firmware: "Cisco CRS (Label Switching Router - LSR)", position: [0.0, 1.1, -1.0] },
+        { id: "pe_egress", name: "PE-2 Egress LSR (PHP Node)", type: "router", ip: "172.16.0.3", department: "IT & Infrastructure", firmware: "Cisco ASR 9000 (Penultimate Hop Popping PHP)", position: [1.3, 1.1, -1.0] },
+        { id: "ce_branch", name: "CE-Branch Router (AS 65002)", type: "router", ip: "10.2.0.1", department: "Finance & Accounting", firmware: "Cisco ISR 4451 (eBGP AS 65002)", position: [2.6, 1.1, -1.0] }
+      ],
+      links: [
+        { id: "l-ce1-pe1", from: "ce_hq", to: "pe_ingress", cable: "smf", speed: "10 Gbps Fiber (eBGP Peering - IP Packet IPv4)" },
+        { id: "l-pe1-p", from: "pe_ingress", to: "p_core_lsr", cable: "smf", speed: "100 Gbps SMF (MPLS Ingress Push Label 1002)" },
+        { id: "l-p-pe2", from: "p_core_lsr", to: "pe_egress", cable: "smf", speed: "100 Gbps SMF (MPLS Swap Label 1002->2004)" },
+        { id: "l-pe2-ce2", from: "pe_egress", to: "ce_branch", cable: "smf", speed: "10 Gbps Fiber (PHP Pop Label -> IP Packet eBGP)" }
+      ]
+    }
+  },
+
+  // 21. CCNP Enterprise Wireless: Catalyst 9800 WLC & CAPWAP Split-MAC
+  wlc_capwap: {
+    id: 'wlc_capwap',
+    title: '📶 Cisco Catalyst 9800 WLC & Split-MAC CAPWAP',
+    desc: 'CCNP ENCOR Enterprise Wireless. Centralized Catalyst 9800 Wireless Controller managing Lightweight APs via encrypted CAPWAP Control (UDP 5246) and Data (UDP 5247) split-MAC tunnels, handling 802.11ax Wi-Fi 6 roaming and QoS.',
+    data: {
+      name: "Catalyst 9800 WLC & CAPWAP Lab",
+      nodes: [
+        { id: "wlc_9800", name: "Cisco Catalyst 9800-CL WLC", type: "server", ip: "10.10.10.2", department: "IT & Infrastructure", firmware: "Cisco IOS-XE Wireless 17.9 (Split-MAC Controller)", position: [0.0, 2.0, -1.0] },
+        { id: "sw_poe_core", name: "Campus PoE+ Core Switch 3850", type: "switch", ip: "10.10.10.1", department: "IT & Infrastructure", firmware: "802.3at PoE+ (30W per port for APs)", position: [0.0, 1.1, -1.0] },
+        { id: "lap_campus", name: "LAP-Campus-101 (Wi-Fi 6)", type: "wap", ip: "10.10.20.11", department: "Engineering & Dev", firmware: "Cisco Catalyst 9130AX (Local Mode CAPWAP)", position: [-1.7, 1.1, -1.0] },
+        { id: "lap_branch", name: "LAP-Branch-102 (FlexConnect)", type: "wap", ip: "10.10.20.12", department: "Sales & Marketing", firmware: "Cisco Catalyst 9120AX (FlexConnect Local Switching)", position: [1.7, 1.1, -1.0] },
+        { id: "lap_laptop", name: "Corporate Wi-Fi 6 Laptop", type: "laptop", ip: "10.10.30.55", department: "Engineering & Dev", position: [-1.7, 0.3, -1.0] },
+        { id: "lap_phone", name: "Executive VoIP Smartphone", type: "phone", ip: "10.10.40.77", department: "Executive Suite", position: [1.7, 0.3, -1.0] }
+      ],
+      links: [
+        { id: "l-wlc-sw", from: "wlc_9800", to: "sw_poe_core", cable: "dac", speed: "10 Gbps DAC (CAPWAP Tunnel Termination Gi0/0)" },
+        { id: "l-sw-lap1", from: "sw_poe_core", to: "lap_campus", cable: "cat6", speed: "1 Gbps PoE+ (CAPWAP UDP 5246/5247 Tunnel)" },
+        { id: "l-sw-lap2", from: "sw_poe_core", to: "lap_branch", cable: "cat6", speed: "1 Gbps PoE+ (FlexConnect Tunnel)" },
+        { id: "l-lap1-laptop", from: "lap_campus", to: "lap_laptop", cable: "cat6", speed: "802.11ax 1200 Mbps (WPA3-Enterprise 802.1X)" },
+        { id: "l-lap2-phone", from: "lap_branch", to: "lap_phone", cable: "cat6", speed: "802.11ax 866 Mbps (Fast BSS Transition 802.11r)" }
+      ]
+    }
+  },
+
+  // 22. CCNP ENARSI Dynamic Multipoint VPN (DMVPN Phase 3 with mGRE & NHRP)
+  dmvpn: {
+    id: 'dmvpn',
+    title: '🔒 DMVPN Phase 3 (mGRE + NHRP Dynamic Spoke-to-Spoke)',
+    desc: 'Cisco CCNP ENARSI advanced WAN VPN. DMVPN Phase 3 combines Multipoint GRE (mGRE) Tunnel0 with Next Hop Resolution Protocol (NHRP) and IPsec crypto, enabling spokes to establish on-demand direct spoke-to-spoke encrypted tunnels without traversing the Hub.',
+    data: {
+      name: "DMVPN Phase 3 Advanced WAN Lab",
+      nodes: [
+        { id: "dmvpn_hub", name: "DMVPN HQ Hub Router", type: "vpn", ip: "172.16.1.1", department: "IT & Infrastructure", firmware: "Cisco ISR 4451 (NHRP NHS / mGRE Tunnel0)", position: [0.0, 1.8, -1.0] },
+        { id: "spoke_dallas", name: "Spoke 1 Router (Dallas)", type: "vpn", ip: "172.16.1.2", department: "Engineering & Dev", firmware: "Cisco ISR 4331 (NHRP Client / Spoke-to-Spoke Enabled)", position: [-1.8, 1.1, -1.0] },
+        { id: "spoke_london", name: "Spoke 2 Router (London)", type: "vpn", ip: "172.16.1.3", department: "Finance & Accounting", firmware: "Cisco ISR 4331 (NHRP Client / Spoke-to-Spoke Enabled)", position: [1.8, 1.1, -1.0] },
+        { id: "dallas_host", name: "Dallas Dev PC", type: "desktop", ip: "192.168.10.50", department: "Engineering & Dev", position: [-1.8, 0.3, -1.0] },
+        { id: "london_db", name: "London Finance DB Server", type: "database", ip: "192.168.20.100", department: "Finance & Accounting", position: [1.8, 0.3, -1.0] }
+      ],
+      links: [
+        { id: "l-hub-dallas", from: "dmvpn_hub", to: "spoke_dallas", cable: "vpn_tunnel", speed: "IPsec mGRE Tunnel0 (NHRP Control Plane)" },
+        { id: "l-hub-london", from: "dmvpn_hub", to: "spoke_london", cable: "vpn_tunnel", speed: "IPsec mGRE Tunnel0 (NHRP Control Plane)" },
+        { id: "l-spoke-shortcut", from: "spoke_dallas", to: "spoke_london", cable: "vpn_tunnel", speed: "Dynamic Direct Spoke-to-Spoke IPsec Shortcut (Zero Hub Hairpin)" },
+        { id: "l-dallas-pc", from: "spoke_dallas", to: "dallas_host", cable: "cat6", speed: "1 Gbps LAN Access (Dallas Subnet 192.168.10.0/24)" },
+        { id: "l-london-db", from: "spoke_london", to: "london_db", cable: "cat6", speed: "10 Gbps LAN Access (London Subnet 192.168.20.0/24)" }
+      ]
+    }
+  },
+
   // 11. Custom Blank Canvas
   blank: {
     id: 'blank',

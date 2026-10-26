@@ -18,6 +18,12 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
 
 - [Why This Exists](#-why-this-exists)
 - [Target Audience](#-who-its-for)
+- [Topic-Wise Study Academy (CCNA, CCNP ENCOR, CCNP ENARSI)](#-topic-wise-study-academy)
+  - [Exhaustive Syllabus Coverage](#exhaustive-syllabus-coverage)
+  - [Interactive SVG Diagrams & Mental Models](#interactive-svg-diagrams--mental-models)
+  - [Production Cisco IOS CLI Commands](#production-cisco-ios-cli-commands)
+  - [1-Click 3D WebXR Lab Scene Launching](#1-click-3d-webxr-lab-scene-launching)
+- [3D WebXR Classroom Billboard (In-Headset VR Learning)](#-3d-webxr-classroom-billboard)
 - [CCNA 200-301 Visual Academy](#-ccna-200-301-visual-academy)
   - [OSI 7-Layer vs TCP/IP 4-Layer Encapsulation Stack](#1-osi-7-layer-vs-tcpip-4-layer-encapsulation-stack)
   - [TCP 3-Way Handshake vs UDP Datagram Simulator](#2-tcp-3-way-handshake-vs-udp-datagram-simulator)
@@ -25,7 +31,7 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
   - [Virtualization, Hypervisors, VMs & Containers](#4-virtualization-hypervisors-vms--containers)
   - [Site-to-Site IPsec VPN & Cryptographic Tunnels](#5-site-to-site-ipsec-vpn--cryptographic-tunnels)
   - [Interactive CCNA Knowledge Check Quiz](#6-interactive-ccna-knowledge-check-quiz)
-- [Feature Showcase](#-feature-showcase)
+- [Comprehensive Network Topologies Library (23 Presets)](#-comprehensive-network-topologies-library)
   - [1. Interactive New Joinee Guided Tour](#1-interactive-new-joinee-guided-tour)
   - [2. Interactive 3D Network Builder](#2-interactive-3d-network-builder)
   - [3. Cyber Security Attack & Defense Simulator](#3-cyber-security-attack--defense-simulator)
@@ -45,6 +51,52 @@ Walk inside enterprise corporate networks in 3D/VR, trace multi-protocol packet 
 - [JSON Topology Schema Reference](#-json-topology-schema-reference)
 - [Performance & VR Optimization](#-performance--vr-optimization)
 - [License](#-license)
+
+---
+
+## 🎓 Topic-Wise Study Academy
+
+Click the **📚 Study Academy (CCNA/CCNP)** button (or press `S` on your keyboard) to open the interactive curriculum portal.
+
+The application delivers an end-to-end, topic-by-topic training path aligned strictly with official Cisco certification standards:
+
+### Exhaustive Syllabus Coverage
+1. **CCNA (200-301) Track**:
+   - **Module 1: Network Fundamentals**: OSI 7-Layer vs TCP/IP 4-Layer, IPv4 Subnetting & VLSM, IPv6 Global/Link-Local/EUI-64, Physical Layer Cables & PoE.
+   - **Module 2: Network Access**: 802.1Q VLANs & Voice VLAN, Spanning Tree (STP/RSTP/PVST+), EtherChannel LACP & PAgP.
+   - **Module 3: IP Connectivity**: Routing Concepts & AD, OSPFv2 Multi-Area Link-State, FHRP (HSRP & VRRP Gateway Redundancy).
+   - **Module 4: IP Services**: NAT/PAT Overload, DHCP DORA & Recursive DNS, Quality of Service (QoS) & Policing.
+   - **Module 5: Security Fundamentals**: Standard & Extended ACLs, Layer 2 Security (Port Security, DHCP Snooping, Dynamic ARP Inspection).
+   - **Module 6: Automation & Programmability**: SDN Architecture, REST APIs, JSON data, and Cisco DNA Center.
+2. **CCNP ENCOR (350-401) Track**:
+   - **Cisco SD-WAN & VXLAN Overlay Fabric**: Decoupling overlays from underlays; VXLAN UDP port 4789 and 24-bit VNI.
+   - **BGP Path Attributes & Route Selection**: Multi-attribute route selection (Weight, Local Pref, AS-Path, MED, eBGP vs iBGP).
+   - **Enterprise Wireless (Catalyst 9800 & CAPWAP)**: Split-MAC architecture, CAPWAP Control (UDP 5246) and Data (UDP 5247), Wi-Fi 6 roaming.
+3. **CCNP ENARSI (300-410) Track**:
+   - **Advanced OSPFv2/v3**: Not-So-Stubby Areas (NSSA), Type-7 to Type-5 translation, OSPF Virtual Links.
+   - **MPLS LDP & Layer 3 BGP VPNs**: 32-bit shim labels, Penultimate Hop Popping (PHP), Provider Edge (PE) and Core (P) LSR routers.
+   - **Dynamic Multipoint VPN (DMVPN Phase 3)**: Multipoint GRE (mGRE), NHRP Redirect & Shortcut, dynamic spoke-to-spoke IPsec tunnels.
+
+### Every Lesson Includes:
+- 💡 **Everyday Mental Model & Analogy**: Plain-English analogies (e.g. shipping containers, airport baggage barcodes, flight co-pilots) that clarify complex protocol internals for complete beginners.
+- 📐 **Interactive SVG Architectural & Header Diagrams**: Crisp vector graphics illustrating encapsulation headers, frame formats, and traffic topology flows.
+- 🔬 **Deep-Dive Engineering Theory**: RFC references, finite-state machine transitions, packet structures, and calculation formulas.
+- 🖥️ **Production Cisco IOS CLI Commands**: Syntax-highlighted CLI terminal blocks with a 1-click **📋 Copy CLI Commands** button to copy configurations into Packet Tracer, GNS3, EVE-NG, or physical Cisco hardware.
+- 🎯 **Exam Traps & Certification Tips**: Critical warnings on common multiple-choice exam traps (e.g. OSPF timer mismatches, STP priority increments of 4096, HSRP preemption).
+- 🚀 **1-Click 3D Lab Scene Launch**: Instantly loads the exact corresponding 3D topology into the WebXR viewport and positions nodes for real-time packet tracing.
+- 📈 **Progress Tracking**: Tracks completed topics with checkmarks saved in browser `localStorage`.
+
+---
+
+## 🥽 3D WebXR Classroom Billboard (In-Headset VR Learning)
+
+Study while remaining inside Virtual Reality! When using a **Meta Quest 2 / Quest 3 / Pro** headset:
+- Press the **🕶️ Toggle VR Screen** button or press `V` on your keyboard (or trigger the in-VR button).
+- A floating high-resolution 3D billboard (`CanvasTexture` at 1200x725 resolution) appears in 3D space directly in front of you.
+- Use your Oculus Touch controller raycaster laser to click:
+  - `[◄ Prev Topic]` / `[Next Topic ►]` to step through lessons.
+  - `[🚀 Spawn 3D Lab]` to materialize the lesson's physical network in the virtual room!
+  - `[✕ Hide Screen]` to dock the display.
 
 ---
 

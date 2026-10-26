@@ -90,6 +90,10 @@ export class InteractionManager {
     this.tourManager = tour;
   }
 
+  setClassroomManager(classroom) {
+    this.classroomManager = classroom;
+  }
+
   // ==========================================
   // BUILDER: CONNECT MODE
   // ==========================================
@@ -195,6 +199,15 @@ export class InteractionManager {
       if (hit && hit.object === this.tourManager.mesh) {
         this.tourManager.nextStep();
         this.triggerHaptic(controller, 0.6, 80);
+        return;
+      }
+    }
+
+    // VR Classroom Billboard hit-testing
+    if (this.classroomManager && this.classroomManager.visible) {
+      const hit = this.getControllerIntersection(controller);
+      if (hit && this.classroomManager.handlePointerDown(hit)) {
+        this.triggerHaptic(controller, 0.6, 70);
         return;
       }
     }
@@ -413,6 +426,9 @@ export class InteractionManager {
         if (this.tourManager && this.tourManager.mesh && this.tourManager.mesh.visible) {
           targets.push(this.tourManager.mesh);
         }
+        if (this.classroomManager && this.classroomManager.visible && this.classroomManager.billboardMesh) {
+          targets.push(this.classroomManager.billboardMesh);
+        }
 
         const hits = _mouseRaycaster.intersectObjects(targets, true);
         if (hits.length > 0) {
@@ -424,6 +440,10 @@ export class InteractionManager {
           }
           if (this.tourManager && hit.object === this.tourManager.mesh) {
             this.tourManager.nextStep();
+            return;
+          }
+          if (this.classroomManager && this.classroomManager.visible && hit.object === this.classroomManager.billboardMesh) {
+            this.classroomManager.handlePointerDown(hit);
             return;
           }
 

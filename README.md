@@ -73,18 +73,23 @@ Click **🎓 Joinee Tour** to launch a 6-step interactive training curriculum:
 ### 2. Interactive 3D Network Builder
 Design, rearrange, and test custom network topologies on the fly:
 - **+ Add Device (`🏗️`)**: Add any hardware unit into the 3D world with custom Name, IPv4 address, and Department.
-- **9 Hardware Device Roles**:
+- **12 Hardware Device Roles with 3D Models & 2D Vector Icons**:
   - `🖥️ Server Blade` &mdash; Tall rack chassis with drive bays & LED activity lights
-  - `💻 Desktop PC` &mdash; Monitor on stand with desktop tower unit
+  - `💻 Desktop PC` &mdash; Monitor on stand with desktop workstation tower
   - `💻 Laptop` &mdash; Clamshell laptop with angled screen & keyboard
   - `🖨️ Printer` &mdash; Office laser printer with paper tray & output slot
+  - `📶 Wi-Fi 6 AP (WAP)` &mdash; Ceiling-mounted saucer access point with concentric radio arcs
+  - `📞 VoIP Phone` &mdash; IP desk phone with handset, screen, and dialpad buttons
+  - `🏭 Industrial IoT / PLC` &mdash; DIN-rail industrial controller with sensor antenna and status LED
   - `🛡️ Firewall` &mdash; Perimeter security appliance with shield/wall motif
   - `🔄 Router` &mdash; Core and edge routing pucks with directional arrows
   - `🔀 Switch` &mdash; Ethernet distribution rack switch
   - `🗄️ Database` &mdash; Cylindrical database disk array
   - `⚖️ Load Balancer` &mdash; High-availability proxy cluster
+- **Deep Enterprise Network Metadata Specs**:
+  - Automatically generates and displays **MAC Addresses** (`52:54:00:xx:xx:xx`), **Subnet Masks** (`/24`, `/16`), **Default Gateways**, **VLAN IDs**, **Port Interfaces** (`GigE 0/1`, `eth0`), **Bandwidth Speeds** (`100 Gbps QSFP28`, `10 Gbps Fiber`, `1 Gbps`), and **OS / Firmware versions** (`Cisco IOS-XE`, `Ubuntu LTS`, `pfSense`).
 - **Automatic Generic Device Thumbnails**: Dedicated 2D vector hardware icons rendered directly onto floating 3D canvas labels, creation modals, and info panels.
-- **Department-Wise Segmentation**: 9 color-coded departments (IT, Engineering, Finance, HR, Sales, Executive Suite, Operations, DMZ, Data Center) with one-click **Department Isolation Filtering**.
+- **Department-Wise Segmentation**: 9 color-coded departments (IT & Infrastructure, Engineering & Dev, Finance & Accounting, HR, Sales & Marketing, Executive Suite, Operations & OT, DMZ & Perimeter, Data Center) with one-click **Department Isolation Filtering**.
 - **Connect Tool (`C`)**: Click Node A &rarr; Node B to span real-time dynamic cyber-cables.
 - **Physical 3D Dragging**: Hold <kbd>Shift</kbd> (or Grip on Quest) to freely move devices; links stretch and follow in real-time.
 
@@ -164,14 +169,21 @@ Click **📄 Download PDF**:
 
 ---
 
-## 🏢 Enterprise Architecture Presets
+## 🏢 Comprehensive Network Topologies Library
 
-Select from pre-built production stacks using the **Stack** dropdown:
+Switch instantly between 11 classic topologies and enterprise production architectures using the **Topology** dropdown:
 
-1. **🏢 Corporate Network (Dept-Wise)**: Edge perimeter firewall, core router, department switches, server blades, workstations, executive laptops, and finance laser printers.
-2. **☁️ 3-Tier Cloud Web Architecture**: Public clients &rarr; Cloudflare WAF &rarr; HA Load Balancer &rarr; NGINX Web tier &rarr; Core API App tier &rarr; PostgreSQL Primary & Read Replica.
-3. **🌐 SD-WAN Branch Office VPN**: Headquarters Data Center, SD-WAN Gateway, Carrier WAN underlay, Branch Office Gateway, Workstations & Printers.
-4. **🎨 Blank Canvas**: Start from scratch to design, cable, and test custom topologies.
+1. **🏢 Cisco 3-Tier Enterprise Network (Dept-Wise)**: Full hierarchical enterprise network featuring Internet WAN, Edge Firewall, Core Layer 3 Router, Distribution Switches, Data Center Servers, Engineering & Finance Desktops, Executive Laptops, and Office Laser Printers.
+2. **⭐ Star Topology (Central Switch LAN)**: Foundational LAN architecture where all endpoints connect into a single high-speed central switch. Highlights single-cable failure resilience.
+3. **🔄 Ring Topology (Self-Healing Loop)**: Closed loop where every node has two neighbors. Demonstrates automated bidirectional traffic failover with zero packet loss if any link is cut.
+4. **🕸️ Full Mesh Topology (High-Resilience WAN)**: Every mission-critical router is directly meshed to every other node ($O(N^2)$ links). Demonstrates ultra-resilient multipath routing for telco and military backbones.
+5. **🚌 Bus Topology (Backbone Trunk & Drops)**: Classic shared medium Ethernet with coaxial trunk line, 50-ohm terminators at both ends, and AUI drop cables to workstations. Demonstrates broadcast collision domains.
+6. **🌿 Spine-and-Leaf Data Center (Clos Architecture)**: Hyperscale data center fabric where every leaf switch connects to every spine switch. Eliminates Spanning Tree blocking and optimizes east-west server communication.
+7. **📶 Campus Enterprise & Wi-Fi 6 (WAPs, VoIP, Laptops)**: Modern enterprise campus with PoE+ distribution switches, ceiling Wi-Fi 6 Access Points, VoIP telephony, executive laptops, and shared network printers.
+8. **🏭 Industrial IoT & SCADA (Purdue OT Model)**: Critical infrastructure network with isolated Operational Technology (OT) DMZ, SCADA historian server, factory floor HMI console, and assembly line PLC controllers.
+9. **☁️ 3-Tier Cloud Web Architecture (N-Tier)**: Public clients &rarr; Cloudflare WAF &rarr; HA Load Balancer &rarr; NGINX Web tier &rarr; Core API App tier &rarr; PostgreSQL Primary & Read Replica.
+10. **🌐 SD-WAN Branch Office VPN (MPLS Backup)**: Multi-branch enterprise with SD-WAN edge routers, dual carrier MPLS & broadband underlays, and IPSec encrypted tunnels.
+11. **🎨 Blank Canvas**: Completely empty 3D space to freely add custom systems, define IP subnets, route connections, and test network behaviors from scratch.
 
 ---
 

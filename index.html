@@ -35,12 +35,19 @@
 
       <!-- Template Preset Selector -->
       <div class="header-control-group">
-        <label for="template-select" class="group-label">Stack:</label>
+        <label for="template-select" class="group-label">Topology:</label>
         <select id="template-select" class="select-input">
-          <option value="corporate">🏢 Corporate Network (Dept-Wise)</option>
-          <option value="threeTier">☁️ 3-Tier Web App Architecture</option>
-          <option value="sdwan">🌐 SD-WAN Branch Office VPN</option>
-          <option value="blank">🎨 Blank Canvas (Build Own)</option>
+          <option value="corporate">🏢 Cisco 3-Tier Enterprise Network (Dept-Wise)</option>
+          <option value="star">⭐ Star Topology (Central Switch LAN)</option>
+          <option value="ring">🔄 Ring Topology (Self-Healing Circular Loop)</option>
+          <option value="mesh">🕸️ Full Mesh Topology (High-Resilience WAN)</option>
+          <option value="bus">🚌 Bus Topology (Backbone Trunk & Drops)</option>
+          <option value="spineLeaf">🌿 Spine-and-Leaf Data Center (Clos Architecture)</option>
+          <option value="campusWifi">📶 Campus Enterprise & Wi-Fi 6 (WAPs, VoIP, Laptops)</option>
+          <option value="iot">🏭 Industrial IoT & SCADA (Purdue OT Model)</option>
+          <option value="threeTier">☁️ 3-Tier Web App Architecture (N-Tier)</option>
+          <option value="sdwan">🌐 SD-WAN Branch Office VPN (MPLS Backup)</option>
+          <option value="blank">🎨 Blank Canvas (Build Own Network)</option>
         </select>
       </div>
 
@@ -65,7 +72,7 @@
           <option value="Human Resources (HR)">Human Resources (HR)</option>
           <option value="Sales & Marketing">Sales & Marketing</option>
           <option value="Executive Suite">Executive Suite</option>
-          <option value="Operations">Operations</option>
+          <option value="Operations & OT">Operations & OT</option>
           <option value="DMZ & Perimeter">DMZ & Perimeter</option>
           <option value="Data Center">Data Center</option>
         </select>
@@ -194,6 +201,9 @@
             <option value="desktop">💻 Desktop PC (Workstation)</option>
             <option value="laptop">💻 Laptop (Executive / Staff)</option>
             <option value="printer">🖨️ Printer (Network Office Printer)</option>
+            <option value="wap">📶 Wi-Fi 6 Access Point (WAP)</option>
+            <option value="phone">📞 VoIP Desk Phone (IP Telephony)</option>
+            <option value="iot">🏭 Industrial IoT / PLC Sensor</option>
             <option value="firewall">🛡️ Firewall (Perimeter Security)</option>
             <option value="router">🔄 Router (Core / Gateway)</option>
             <option value="switch">🔀 Switch (Ethernet Distribution)</option>
@@ -213,7 +223,7 @@
             <option value="Human Resources (HR)">Human Resources (HR)</option>
             <option value="Sales & Marketing">Sales & Marketing</option>
             <option value="Executive Suite">Executive Suite</option>
-            <option value="Operations">Operations</option>
+            <option value="Operations & OT">Operations & OT</option>
             <option value="DMZ & Perimeter">DMZ & Perimeter</option>
             <option value="Data Center">Data Center</option>
           </select>

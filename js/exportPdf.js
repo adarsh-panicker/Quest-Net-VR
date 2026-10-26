@@ -127,31 +127,33 @@ function generateJsPDFDocument({ snapshotDataUrl, nodes, links, deptMap }) {
 
   // Table Header
   const startY = 75;
-  const rowHeight = 24;
+  const rowHeight = 22;
   doc.setFillColor(30, 41, 59);
   doc.rect(30, startY, pageWidth - 60, rowHeight, 'F');
 
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(10.5);
+  doc.setFontSize(9.5);
   doc.setFont('helvetica', 'bold');
 
-  doc.text('DEVICE FULL NAME', 40, startY + 16);
-  doc.text('ROLE / TYPE', 230, startY + 16);
-  doc.text('DEPARTMENT', 330, startY + 16);
-  doc.text('IPV4 ADDRESS', 480, startY + 16);
-  doc.text('STATUS', 600, startY + 16);
-  doc.text('CONNECTED PEERS', 670, startY + 16);
+  doc.text('DEVICE FULL NAME', 36, startY + 15);
+  doc.text('ROLE', 185, startY + 15);
+  doc.text('DEPARTMENT', 255, startY + 15);
+  doc.text('IPV4 / MASK', 380, startY + 15);
+  doc.text('MAC ADDRESS', 495, startY + 15);
+  doc.text('VLAN / GATEWAY', 610, startY + 15);
+  doc.text('STATUS', 715, startY + 15);
+  doc.text('PEERS', 765, startY + 15);
 
   // Rows
   let curY = startY + rowHeight;
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9.5);
+  doc.setFontSize(8.5);
 
   nodes.forEach((node, idx) => {
     // Check if new page needed
-    if (curY > pageHeight - 40) {
+    if (curY > pageHeight - 35) {
       doc.addPage('a4', 'landscape');
-      curY = 40;
+      curY = 35;
     }
 
     if (idx % 2 === 0) {
@@ -160,26 +162,36 @@ function generateJsPDFDocument({ snapshotDataUrl, nodes, links, deptMap }) {
     }
 
     doc.setTextColor(15, 23, 42);
-    doc.text(node.name || node.id, 40, curY + 16);
+    let displayName = node.name || node.id;
+    if (displayName.length > 24) displayName = displayName.substring(0, 22) + '...';
+    doc.text(displayName, 36, curY + 14);
 
     doc.setTextColor(59, 130, 246);
-    doc.text((node.type || 'desktop').toUpperCase(), 230, curY + 16);
+    doc.text((node.type || 'desktop').toUpperCase(), 185, curY + 14);
 
     doc.setTextColor(100, 116, 139);
-    doc.text(node.department || 'IT Infrastructure', 330, curY + 16);
+    let deptName = node.department || 'IT Infrastructure';
+    if (deptName.length > 20) deptName = deptName.substring(0, 18) + '...';
+    doc.text(deptName, 255, curY + 14);
 
     doc.setTextColor(15, 23, 42);
-    doc.text(node.ip || '10.0.0.1', 480, curY + 16);
+    doc.text(node.ip || '10.0.0.1', 380, curY + 14);
+
+    doc.setTextColor(71, 85, 105);
+    doc.text(node.mac || '00:1A:2B:3C:4D:5E', 495, curY + 14);
+
+    doc.setTextColor(15, 23, 42);
+    const vlanStr = `${node.vlan || 'V1'} (${node.gateway || '10.0.0.1'})`;
+    doc.text(vlanStr, 610, curY + 14);
 
     const isUp = (node.status !== 'down');
     doc.setTextColor(isUp ? 22 : 220, isUp ? 163 : 38, isUp ? 74 : 38);
-    doc.text(isUp ? 'ONLINE' : 'DOWN', 600, curY + 16);
+    doc.text(isUp ? 'ONLINE' : 'DOWN', 715, curY + 14);
 
     // Connected peers count
     const peerLinks = links.filter(l => l.from === node.id || l.to === node.id);
-    const peerNames = peerLinks.map(l => (l.from === node.id ? l.to : l.from)).slice(0, 3).join(', ');
     doc.setTextColor(71, 85, 105);
-    doc.text(`${peerLinks.length} link(s) (${peerNames})`, 670, curY + 16);
+    doc.text(`${peerLinks.length} link(s)`, 765, curY + 14);
 
     curY += rowHeight;
   });
@@ -201,8 +213,10 @@ function generatePrintableFallback({ snapshotDataUrl, nodes, links, deptMap }) {
     <tr>
       <td><strong>${n.name}</strong></td>
       <td><code>${n.type.toUpperCase()}</code></td>
-      <td>${n.department}</td>
+      <td>${n.department || 'IT Infrastructure'}</td>
       <td><code>${n.ip}</code></td>
+      <td><code>${n.mac || '00:1A:2B:3C:4D:5E'}</code></td>
+      <td>${n.vlan || 'VLAN 1'} (GW: ${n.gateway || '10.0.0.1'})</td>
       <td><span style="color: ${n.status === 'down' ? '#ef4444' : '#10b981'}; font-weight: bold;">${n.status === 'down' ? 'DOWN' : 'ONLINE'}</span></td>
       <td>${links.filter(l => l.from === n.id || l.to === n.id).length} Connected</td>
     </tr>
@@ -238,6 +252,8 @@ function generatePrintableFallback({ snapshotDataUrl, nodes, links, deptMap }) {
             <th>Role / Type</th>
             <th>Department</th>
             <th>IPv4 Address</th>
+            <th>MAC Address</th>
+            <th>VLAN / Gateway</th>
             <th>Status</th>
             <th>Peers</th>
           </tr>

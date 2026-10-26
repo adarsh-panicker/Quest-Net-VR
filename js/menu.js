@@ -143,19 +143,19 @@ export class VRMenuManager {
   }
 
   // ==========================================
-  // 2. INFO PANEL (Floating Node Details)
+  // 2. INFO PANEL (Floating Node Details & Deep Specs)
   // ==========================================
   buildInfoPanel() {
     this.infoCanvas = document.createElement('canvas');
-    this.infoCanvas.width = 680;
-    this.infoCanvas.height = 460;
+    this.infoCanvas.width = 720;
+    this.infoCanvas.height = 700;
     this.infoCtx = this.infoCanvas.getContext('2d');
 
     this.infoTexture = new THREE.CanvasTexture(this.infoCanvas);
     this.infoTexture.minFilter = THREE.LinearFilter;
     this.infoTexture.generateMipmaps = false;
 
-    const infoGeo = new THREE.PlaneGeometry(0.52, 0.35);
+    const infoGeo = new THREE.PlaneGeometry(0.56, 0.54);
     const infoMat = new THREE.MeshBasicMaterial({
       map: this.infoTexture,
       transparent: true,
@@ -182,67 +182,74 @@ export class VRMenuManager {
     ctx.clearRect(0, 0, w, h);
 
     // Frame
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.96)';
     ctx.strokeStyle = (nodeData.status === 'down') ? '#ef4444' : '#00f3ff';
     ctx.lineWidth = 6;
     this.drawRoundedRect(ctx, 12, 12, w - 24, h - 24, 22, true, true);
 
     // Header title
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 36px "Segoe UI", Roboto, sans-serif';
+    ctx.font = 'bold 34px "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText('NODE DETAILS', 36, 32);
+    ctx.fillText('NODE SPECIFICATIONS', 32, 28);
 
     // Status Badge
     const isUp = (nodeData.status !== 'down');
     ctx.fillStyle = isUp ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)';
     ctx.strokeStyle = isUp ? '#10b981' : '#ef4444';
     ctx.lineWidth = 3;
-    this.drawRoundedRect(ctx, w - 165, 28, 130, 44, 10, true, true);
+    this.drawRoundedRect(ctx, w - 165, 24, 130, 42, 10, true, true);
 
     ctx.fillStyle = isUp ? '#34d399' : '#f87171';
-    ctx.font = 'bold 22px monospace';
+    ctx.font = 'bold 20px monospace';
     ctx.textAlign = 'center';
-    ctx.fillText(isUp ? '● ONLINE' : '▲ DOWN', w - 100, 39);
+    ctx.fillText(isUp ? '● ONLINE' : '▲ DOWN', w - 100, 34);
 
     ctx.strokeStyle = 'rgba(148, 163, 184, 0.3)';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(36, 88);
-    ctx.lineTo(w - 36, 88);
+    ctx.moveTo(32, 80);
+    ctx.lineTo(w - 32, 80);
     ctx.stroke();
 
     ctx.textAlign = 'left';
-    ctx.font = '26px "Segoe UI", Roboto, sans-serif';
-    ctx.fillStyle = '#94a3b8';
 
     const rows = [
-      { label: 'Name:', val: nodeData.name, valColor: '#ffffff' },
-      { label: 'Device Role:', val: (nodeData.type || 'desktop').toUpperCase(), valColor: '#38bdf8' },
+      { label: 'Device Name:', val: nodeData.name, valColor: '#ffffff' },
+      { label: 'Hardware Role:', val: (nodeData.type || 'desktop').toUpperCase(), valColor: '#38bdf8' },
       { label: 'Department:', val: nodeData.department || 'IT & Infrastructure', valColor: '#facc15' },
       { label: 'IPv4 Address:', val: nodeData.ip, valColor: '#a5f3fc' },
-      { label: 'Active Links:', val: `${connectedLinkCount} connected`, valColor: '#e2e8f0' }
+      { label: 'Subnet Mask:', val: nodeData.mask || nodeData.subnetMask || '255.255.255.0 (/24)', valColor: '#cbd5e1' },
+      { label: 'MAC Address:', val: nodeData.mac || '00:1A:2B:3C:4D:5E', valColor: '#93c5fd' },
+      { label: 'Default Gateway:', val: nodeData.gateway || '10.0.0.1', valColor: '#f472b6' },
+      { label: 'VLAN / Segment:', val: nodeData.vlan || 'VLAN 1 (Default)', valColor: '#a7f3d0' },
+      { label: 'Port Interface:', val: nodeData.port || 'GigE 0/1', valColor: '#e2e8f0' },
+      { label: 'Interface Speed:', val: nodeData.speed || '1 Gbps Full-Duplex', valColor: '#fed7aa' },
+      { label: 'OS / Firmware:', val: nodeData.firmware || 'Embedded Network OS', valColor: '#d8b4fe' },
+      { label: 'Active Links:', val: `${connectedLinkCount} connected link(s)`, valColor: '#4ade80' }
     ];
 
-    let startY = 110;
+    let startY = 96;
     for (const r of rows) {
       ctx.fillStyle = '#94a3b8';
-      ctx.font = '24px "Segoe UI", Roboto, sans-serif';
-      ctx.fillText(r.label, 36, startY);
+      ctx.font = '22px "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(r.label, 32, startY);
 
       ctx.fillStyle = r.valColor;
-      ctx.font = 'bold 24px "Segoe UI", monospace';
-      ctx.fillText(r.val, 240, startY);
+      ctx.font = 'bold 22px "Consolas", monospace';
+      let valStr = String(r.val);
+      if (valStr.length > 28) valStr = valStr.substring(0, 26) + '...';
+      ctx.fillText(valStr, 235, startY);
 
-      startY += 54;
+      startY += 48;
     }
 
     this.infoTexture.needsUpdate = true;
 
     if (worldPosition) {
       this.infoMesh.position.set(
-        worldPosition.x + 0.42,
+        worldPosition.x + 0.45,
         worldPosition.y + 0.22,
         worldPosition.z
       );
@@ -262,56 +269,57 @@ export class VRMenuManager {
 
     ctx.clearRect(0, 0, w, h);
 
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.96)';
     const isUp = (linkData.status !== 'down');
     ctx.strokeStyle = isUp ? '#00f3ff' : '#ef4444';
     ctx.lineWidth = 6;
     this.drawRoundedRect(ctx, 12, 12, w - 24, h - 24, 22, true, true);
 
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 36px "Segoe UI", Roboto, sans-serif';
+    ctx.font = 'bold 34px "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText('LINK DETAILS', 36, 32);
+    ctx.fillText('LINK SPECIFICATIONS', 32, 28);
 
     ctx.fillStyle = isUp ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)';
     ctx.strokeStyle = isUp ? '#10b981' : '#ef4444';
     ctx.lineWidth = 3;
-    this.drawRoundedRect(ctx, w - 165, 28, 130, 44, 10, true, true);
+    this.drawRoundedRect(ctx, w - 165, 24, 130, 42, 10, true, true);
 
     ctx.fillStyle = isUp ? '#34d399' : '#f87171';
-    ctx.font = 'bold 22px monospace';
+    ctx.font = 'bold 20px monospace';
     ctx.textAlign = 'center';
-    ctx.fillText(isUp ? '● HEALTHY' : '▲ BROKEN', w - 100, 39);
+    ctx.fillText(isUp ? '● HEALTHY' : '▲ BROKEN', w - 100, 34);
 
     ctx.strokeStyle = 'rgba(148, 163, 184, 0.3)';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(36, 88);
-    ctx.lineTo(w - 36, 88);
+    ctx.moveTo(32, 80);
+    ctx.lineTo(w - 32, 80);
     ctx.stroke();
 
     ctx.textAlign = 'left';
-    ctx.fillStyle = '#94a3b8';
 
     const rows = [
       { label: 'Link ID:', val: linkData.id || linkData.linkId, valColor: '#ffffff' },
       { label: 'Endpoint A:', val: linkData.from, valColor: '#38bdf8' },
       { label: 'Endpoint B:', val: linkData.to, valColor: '#38bdf8' },
-      { label: 'Link Status:', val: isUp ? 'OPERATIONAL' : 'FAULT / DOWN', valColor: isUp ? '#34d399' : '#f87171' }
+      { label: 'Bandwidth / Media:', val: linkData.speed || '10 Gbps Fiber Optic', valColor: '#facc15' },
+      { label: 'Duplex Mode:', val: 'Full-Duplex (Non-blocking)', valColor: '#a7f3d0' },
+      { label: 'Link State:', val: isUp ? 'OPERATIONAL / PASSING' : 'FAULT / PACKET LOSS', valColor: isUp ? '#34d399' : '#f87171' }
     ];
 
-    let startY = 120;
+    let startY = 110;
     for (const r of rows) {
       ctx.fillStyle = '#94a3b8';
-      ctx.font = '26px "Segoe UI", Roboto, sans-serif';
-      ctx.fillText(r.label, 36, startY);
+      ctx.font = '24px "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(r.label, 32, startY);
 
       ctx.fillStyle = r.valColor;
-      ctx.font = 'bold 26px "Segoe UI", monospace';
-      ctx.fillText(r.val, 240, startY);
+      ctx.font = 'bold 24px "Consolas", monospace';
+      ctx.fillText(String(r.val), 250, startY);
 
-      startY += 62;
+      startY += 58;
     }
 
     this.infoTexture.needsUpdate = true;

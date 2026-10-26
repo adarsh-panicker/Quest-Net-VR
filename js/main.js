@@ -757,5 +757,5 @@ class App {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  new App();
+  window.app = new App();
 });

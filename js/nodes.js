@@ -24,7 +24,10 @@ export const NODE_COLORS = {
   printer:      0xe2e8f0, // White / Pearl
   loadbalancer: 0x06b6d4, // Cyan / Teal
   database:     0xf59e0b, // Amber / Gold
-  cloud:        0x60a5fa  // Light Blue
+  cloud:        0x60a5fa, // Light Blue
+  wap:          0x06b6d4, // Cyan Wi-Fi AP
+  phone:        0x10b981, // Emerald Green VoIP Phone
+  iot:          0xf59e0b  // Amber Industrial PLC/Sensor
 };
 
 export const STATUS_COLORS = {
@@ -77,6 +80,13 @@ export class NodeVisualManager {
       loadbalancer: new THREE.CylinderGeometry(0.26, 0.26, 0.24, 8),
       database: new THREE.CylinderGeometry(0.22, 0.22, 0.42, 16),
       cloud: new THREE.DodecahedronGeometry(0.26, 1),
+      wapDome: new THREE.CylinderGeometry(0.22, 0.26, 0.06, 20),
+      wapRing: new THREE.TorusGeometry(0.14, 0.012, 8, 24),
+      phoneBase: new THREE.BoxGeometry(0.26, 0.06, 0.22),
+      phoneHandset: new THREE.BoxGeometry(0.07, 0.05, 0.24),
+      phoneScreen: new THREE.BoxGeometry(0.12, 0.08, 0.02),
+      iotBody: new THREE.BoxGeometry(0.22, 0.34, 0.18),
+      iotAntenna: new THREE.CylinderGeometry(0.008, 0.008, 0.18, 8),
       linkCylinder: new THREE.CylinderGeometry(0.014, 0.014, 1, 8),
       linkHitBox: new THREE.CylinderGeometry(0.08, 0.08, 1, 6)
     };
@@ -239,12 +249,53 @@ export class NodeVisualManager {
       tray.rotation.x = -0.4;
       mainMesh.add(body);
       mainMesh.add(tray);
+    } else if (type === 'wap') {
+      mainMesh = new THREE.Group();
+      const dome = new THREE.Mesh(this.geometries.wapDome, material);
+      const ring = new THREE.Mesh(
+        this.geometries.wapRing,
+        new THREE.MeshBasicMaterial({ color: 0x00f3ff })
+      );
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = 0.035;
+      mainMesh.add(dome);
+      mainMesh.add(ring);
+    } else if (type === 'phone') {
+      mainMesh = new THREE.Group();
+      const baseMesh = new THREE.Mesh(this.geometries.phoneBase, material);
+      const handset = new THREE.Mesh(
+        this.geometries.phoneHandset,
+        new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 })
+      );
+      handset.position.set(-0.08, 0.04, 0);
+      const screenMesh = new THREE.Mesh(
+        this.geometries.phoneScreen,
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+      );
+      screenMesh.position.set(0.04, 0.045, -0.04);
+      screenMesh.rotation.x = -0.3;
+      mainMesh.add(baseMesh);
+      mainMesh.add(handset);
+      mainMesh.add(screenMesh);
+    } else if (type === 'iot') {
+      mainMesh = new THREE.Group();
+      const body = new THREE.Mesh(this.geometries.iotBody, material);
+      const antenna = new THREE.Mesh(
+        this.geometries.iotAntenna,
+        new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, roughness: 0.2 })
+      );
+      antenna.position.set(0.08, 0.22, 0);
+      mainMesh.add(body);
+      mainMesh.add(antenna);
     } else {
       const geom = this.geometries[type] || this.geometries.pcBase;
       mainMesh = new THREE.Mesh(geom, material);
     }
 
     mainMesh.userData = { parentGroup: group };
+    mainMesh.traverse((child) => {
+      child.userData.parentGroup = group;
+    });
     group.add(mainMesh);
     group.userData.mainMesh = mainMesh;
     group.userData.material = material;
@@ -488,6 +539,54 @@ export class NodeVisualManager {
           ctx.fill();
           ctx.stroke();
         }
+        break;
+
+      case 'wap':
+        // Wi-Fi 6 Access Point with broadcast radio waves
+        ctx.fillStyle = '#06b6d4';
+        ctx.beginPath();
+        ctx.arc(cx, cy + 10, 9, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3;
+        for (let r = 18; r <= 32; r += 7) {
+          ctx.beginPath();
+          ctx.arc(cx, cy + 10, r, Math.PI * 1.25, Math.PI * 1.75);
+          ctx.stroke();
+        }
+        break;
+
+      case 'phone':
+        // VoIP IP Phone
+        ctx.fillStyle = '#10b981';
+        this.drawRoundedRect(ctx, cx - 22, cy - 16, 44, 34, 4, true, true);
+        ctx.fillStyle = '#0f172a';
+        this.drawRoundedRect(ctx, cx - 5, cy - 12, 22, 14, 2, true, false);
+        ctx.fillStyle = '#ffffff';
+        this.drawRoundedRect(ctx, cx - 18, cy - 19, 9, 40, 3, true, false);
+        ctx.fillStyle = '#94a3b8';
+        for (let r = 0; r < 3; r++) {
+          for (let c = 0; c < 3; c++) {
+            ctx.fillRect(cx - 2 + c * 7, cy + 5 + r * 4, 3, 2);
+          }
+        }
+        break;
+
+      case 'iot':
+        // Industrial PLC & IoT Microchip
+        ctx.fillStyle = '#f59e0b';
+        this.drawRoundedRect(ctx, cx - 20, cy - 20, 40, 40, 5, true, true);
+        ctx.fillStyle = '#0f172a';
+        this.drawRoundedRect(ctx, cx - 11, cy - 11, 22, 22, 3, true, false);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - 16, cy - 7, 5, 3);
+        ctx.fillRect(cx - 16, cy + 4, 5, 3);
+        ctx.fillRect(cx + 11, cy - 7, 5, 3);
+        ctx.fillRect(cx + 11, cy + 4, 5, 3);
+        ctx.fillStyle = '#10b981';
+        ctx.beginPath();
+        ctx.arc(cx, cy, 3.5, 0, Math.PI * 2);
+        ctx.fill();
         break;
 
       default:
